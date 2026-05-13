@@ -1,0 +1,3131 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Nil Pansiyon — Uzungöl'ün sessiz kıyısında</title>
+<meta name="description" content="Ladin ormanının kalbinde, sis ile gölün buluştuğu yerde. 12 ahşap oda, bir tek sofra, yirmi sekiz yıllık Karadeniz misafirperverliği. İnönü Cd. No:92/A, Uzungöl, Çaykara — Trabzon." />
+<meta name="author" content="Nil Pansiyon" />
+<meta name="theme-color" content="#0a0b09" />
+
+<link rel="icon" type="image/png" href="/assets/img/logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&family=Lora:ital,wght@0,400..600;1,400..600&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+<meta property="og:title" content="Nil Pansiyon — Uzungöl'ün sessiz kıyısında" />
+<meta property="og:description" content="Ladin ormanının kalbinde, sis ile gölün buluştuğu yerde." />
+<meta property="og:image" content="/assets/img/hero-uzungol-kusbakisi.jpg" />
+<meta property="og:url" content="https://nilpansiyon.info/" />
+<meta property="og:locale" content="tr_TR" />
+
+<style>
+/* ──────────────────────────────────────────────────────────────────────────
+   nil pansiyon · uzungöl
+   yazılım kurallarını aşan kostüm site — her şey elde, sınırsız özen
+   palette: ink → moss → mist → brass → bone — karadeniz'in renkleri
+   typography: fraunces (display, italic, opsz+SOFT+WONK animated)
+                lora (body, warm serif)
+                ibm plex mono (mono labels, hairline grid)
+   ────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  --ink:        #07080A;            /* gece — derin */
+  --ink-2:      #0F100C;
+  --ink-3:      #181712;
+  --moss:       #16201A;            /* derin Karadeniz ladin */
+  --moss-2:     #243426;
+  --moss-3:     #324a36;
+  --bordo:      #5C1F22;            /* asil bordo */
+  --bordo-2:    #7A2C2F;
+  --bordo-dark: #3A1417;
+  --paper:      #F5EEDC;            /* eski kâğıt fildişi */
+  --paper-2:    #EBE2CA;
+  --paper-3:    #DCCFAE;
+  --mist:       #B9BEB6;
+  --mist-2:     #8E948C;
+  --gold:       #C8A45C;            /* daha sıcak altın */
+  --gold-hi:    #E8C988;
+  --gold-deep:  #8E6B30;
+  --brass:      #C8A45C;            /* alias */
+  --brass-hi:   #E8C988;
+  --brass-dim:  #8E6B30;
+  --copper:     #B66A3A;
+  --rust:       #6B3A20;
+  --jade:       #0E634F;            /* derin yeşim — live indicator */
+  --jade-hi:    #1B8C72;
+  --line:       rgba(200, 164, 92, 0.28);
+  --line-2:     rgba(200, 164, 92, 0.12);
+  --line-3:     rgba(200, 164, 92, 0.06);
+  --ink-line:   rgba(7, 8, 10, 0.18);
+
+  --display: 'Fraunces', ui-serif, Georgia, serif;
+  --body:    'Lora', ui-serif, Georgia, serif;
+  --mono:    'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+
+  --pad-page: clamp(20px, 4vw, 56px);
+  --max:     1680px;
+
+  --ease:    cubic-bezier(.2, .7, .2, 1);
+  --ease-slow: cubic-bezier(.16, 1, .3, 1);
+  --ease-spring: cubic-bezier(.34, 1.56, .64, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+::selection { background: var(--brass); color: var(--ink); }
+
+html {
+  background: var(--ink);
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+@media (max-width: 720px) { html { font-size: 15px; } }
+
+body {
+  font-family: var(--body);
+  font-weight: 400;
+  color: var(--paper);
+  background: var(--ink);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'kern', 'liga', 'calt', 'ss01';
+  overflow-x: clip;
+  cursor: none;
+}
+@media (pointer: coarse), (max-width: 880px) { body { cursor: auto; } }
+
+img, video, svg { display: block; max-width: 100%; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: none; }
+a { color: inherit; text-decoration: none; }
+input { font: inherit; color: inherit; background: none; border: 0; outline: 0; }
+
+/* ─── custom cursor ─────────────────────────────────────────────────────── */
+.cursor-dot, .cursor-ring {
+  position: fixed; top: 0; left: 0; pointer-events: none; z-index: 2000;
+  border-radius: 50%; transform: translate3d(-50%, -50%, 0);
+  mix-blend-mode: difference;
+}
+.cursor-dot {
+  width: 6px; height: 6px; background: var(--brass);
+  transition: transform .2s var(--ease), opacity .2s var(--ease);
+}
+.cursor-ring {
+  width: 38px; height: 38px; border: 1px solid var(--brass);
+  opacity: .55;
+  transition: transform .4s var(--ease), width .4s var(--ease), height .4s var(--ease), opacity .4s var(--ease), border-color .3s var(--ease), background .3s var(--ease);
+}
+body.is-hovering .cursor-ring { width: 72px; height: 72px; opacity: .85; }
+body.is-hovering .cursor-dot { transform: translate3d(-50%, -50%, 0) scale(.4); }
+body.is-pressing .cursor-ring { transform: translate3d(-50%, -50%, 0) scale(.85); }
+body.is-text .cursor-ring { width: 2px; height: 28px; border-radius: 1px; background: var(--brass); border-color: transparent; }
+body.cursor-hidden .cursor-dot, body.cursor-hidden .cursor-ring { opacity: 0; }
+@media (pointer: coarse), (max-width: 880px) {
+  .cursor-dot, .cursor-ring { display: none; }
+}
+
+/* ─── grain overlay ─────────────────────────────────────────────────────── */
+.grain {
+  position: fixed; inset: -50%; pointer-events: none; z-index: 80;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  opacity: .14; mix-blend-mode: overlay;
+  animation: grain-jitter 6s steps(4) infinite;
+}
+@keyframes grain-jitter {
+  0%   { transform: translate(0,0); }
+  25%  { transform: translate(-2%, 1%); }
+  50%  { transform: translate(1%, -1%); }
+  75%  { transform: translate(-1%, 2%); }
+  100% { transform: translate(0,0); }
+}
+
+/* ─── mist layers (used in hero + other dark sections) ──────────────────── */
+.mists { position: absolute; inset: -10%; pointer-events: none; z-index: 1; }
+.mist {
+  position: absolute; inset: 0; filter: blur(80px); opacity: .55;
+  will-change: transform;
+}
+.mist--a { background: radial-gradient(ellipse 60% 50% at 25% 30%, rgba(185, 190, 182, .22), transparent 60%); animation: drift-a 38s ease-in-out infinite alternate; }
+.mist--b { background: radial-gradient(ellipse 70% 60% at 80% 70%, rgba(184, 153, 104, .12), transparent 60%); animation: drift-b 52s ease-in-out infinite alternate; }
+.mist--c { background: radial-gradient(ellipse 80% 70% at 50% 100%, rgba(31, 42, 34, .65), transparent 70%); animation: drift-c 70s ease-in-out infinite alternate; }
+.mist--d { background: radial-gradient(ellipse 40% 30% at 10% 80%, rgba(56, 70, 58, .35), transparent 60%); animation: drift-d 90s ease-in-out infinite alternate; }
+@keyframes drift-a { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(8%, -4%) scale(1.12); } }
+@keyframes drift-b { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(-6%, 6%) scale(1.08); } }
+@keyframes drift-c { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(4%, -8%) scale(1.15); } }
+@keyframes drift-d { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(-5%, 4%) scale(1.1); } }
+
+/* ─── reveal on scroll ──────────────────────────────────────────────────── */
+.reveal { opacity: 0; transform: translateY(36px); transition: opacity 1.2s var(--ease-slow), transform 1.2s var(--ease-slow); }
+.reveal.in { opacity: 1; transform: none; }
+.reveal-delay-1 { transition-delay: .08s; }
+.reveal-delay-2 { transition-delay: .16s; }
+.reveal-delay-3 { transition-delay: .24s; }
+.reveal-delay-4 { transition-delay: .32s; }
+.reveal-delay-5 { transition-delay: .40s; }
+.reveal-delay-6 { transition-delay: .48s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal.in { opacity: 1; transform: none; transition: none; }
+  .mist { animation: none; }
+  .grain { animation: none; }
+}
+
+/* ─── word reveal letter stagger ────────────────────────────────────────── */
+.letters { display: inline-block; }
+.letters .ch {
+  display: inline-block; opacity: 0; transform: translateY(60%) rotate(6deg);
+  transition: opacity .9s var(--ease-slow), transform 1.1s var(--ease-slow);
+  font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 0, 'wght' 280;
+}
+.letters.in .ch { opacity: 1; transform: none; font-variation-settings: 'opsz' 144, 'SOFT' 70, 'WONK' 1, 'wght' 320; }
+.letters .ch.space { width: .3em; }
+
+/* ─── primitives ────────────────────────────────────────────────────────── */
+.eyebrow {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .32em; text-transform: uppercase;
+  color: var(--brass); font-weight: 400; font-variation-settings: normal;
+}
+.eyebrow.muted { color: var(--mist-2); }
+.eyebrow.ink { color: var(--rust); }
+.eyebrow .dot { display: inline-block; width: 4px; height: 4px; border-radius: 50%; background: currentColor; margin: 0 .85em .15em; }
+
+.thread {
+  display: inline-block; width: 64px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--brass) 30%, var(--brass) 70%, transparent);
+}
+
+.btn {
+  --bg: transparent; --fg: var(--paper); --border: var(--line);
+  display: inline-flex; align-items: center; gap: 14px;
+  padding: 18px 28px 18px 32px;
+  font-family: var(--mono); font-size: 11px; letter-spacing: .28em; text-transform: uppercase;
+  color: var(--fg); background: var(--bg);
+  border: 1px solid var(--border);
+  position: relative; overflow: hidden;
+  transition: color .5s var(--ease), border-color .5s var(--ease);
+}
+.btn::before {
+  content: ''; position: absolute; inset: 0; background: var(--brass);
+  transform: translateY(101%); transition: transform .6s var(--ease-slow);
+  z-index: 0;
+}
+.btn > * { position: relative; z-index: 1; }
+.btn:hover { color: var(--ink); border-color: var(--brass); }
+.btn:hover::before { transform: translateY(0); }
+.btn .arrow {
+  width: 14px; height: 10px; position: relative; transition: transform .5s var(--ease);
+}
+.btn .arrow::before, .btn .arrow::after {
+  content: ''; position: absolute; background: currentColor;
+}
+.btn .arrow::before { left: 0; right: 0; top: 50%; height: 1px; }
+.btn .arrow::after { right: 0; top: 50%; width: 7px; height: 7px; border-top: 1px solid currentColor; border-right: 1px solid currentColor; transform: translateY(-50%) rotate(45deg); }
+.btn:hover .arrow { transform: translateX(6px); }
+
+.btn--ink { --fg: var(--ink); --border: var(--ink-line); }
+.btn--ink::before { background: var(--ink); }
+.btn--ink:hover { color: var(--paper); border-color: var(--ink); }
+
+/* ─── top nav ───────────────────────────────────────────────────────────── */
+.top-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+  padding: 22px var(--pad-page);
+  transition: padding .5s var(--ease), background .5s var(--ease), border-color .5s var(--ease);
+  border-bottom: 1px solid transparent;
+}
+.top-nav.scrolled {
+  padding-top: 14px; padding-bottom: 14px;
+  background: rgba(10, 11, 9, 0.72);
+  backdrop-filter: blur(14px) saturate(1.1);
+  -webkit-backdrop-filter: blur(14px) saturate(1.1);
+  border-bottom-color: var(--line-2);
+}
+
+.top-nav .mark {
+  font-family: var(--display); font-style: italic; font-weight: 350;
+  font-variation-settings: 'opsz' 60, 'SOFT' 50, 'WONK' 1;
+  font-size: 24px; letter-spacing: -.01em; color: var(--paper);
+  display: flex; align-items: baseline; gap: 10px; line-height: 1;
+}
+.top-nav .mark .glyph { color: var(--brass); font-size: 28px; }
+.top-nav .mark .est { font-family: var(--mono); font-style: normal; font-size: 9px; letter-spacing: .25em; text-transform: uppercase; color: var(--mist-2); }
+
+.top-nav .links {
+  display: flex; gap: 28px; align-items: center; justify-self: end;
+  font-family: var(--mono); font-size: 11px; letter-spacing: .26em; text-transform: uppercase; color: var(--mist);
+}
+.top-nav .links a { position: relative; padding: 6px 0; transition: color .3s var(--ease); }
+.top-nav .links a::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0;
+  height: 1px; background: var(--brass); transform: scaleX(0); transform-origin: right;
+  transition: transform .5s var(--ease);
+}
+.top-nav .links a:hover { color: var(--paper); }
+.top-nav .links a:hover::after { transform: scaleX(1); transform-origin: left; }
+.top-nav .meta {
+  justify-self: start; display: flex; align-items: center; gap: 18px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .26em; text-transform: uppercase; color: var(--mist-2);
+}
+.top-nav .meta .pulse {
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.top-nav .meta .pulse .dot {
+  width: 6px; height: 6px; border-radius: 50%; background: #6f9d70;
+  box-shadow: 0 0 0 0 rgba(111,157,112,.65); animation: pulse-dot 2s ease-out infinite;
+}
+@keyframes pulse-dot {
+  0% { box-shadow: 0 0 0 0 rgba(111,157,112,.55); }
+  70% { box-shadow: 0 0 0 8px rgba(111,157,112,0); }
+  100% { box-shadow: 0 0 0 0 rgba(111,157,112,0); }
+}
+
+.top-nav .lang {
+  display: inline-flex; gap: 14px; align-items: center; padding-left: 24px;
+  border-left: 1px solid var(--line-2);
+}
+.top-nav .lang button { color: var(--mist-2); font-family: var(--mono); font-size: 10px; letter-spacing: .26em; text-transform: uppercase; padding: 4px 2px; transition: color .3s var(--ease); }
+.top-nav .lang button.active { color: var(--brass); }
+.top-nav .lang button:hover { color: var(--paper); }
+
+@media (max-width: 900px) {
+  .top-nav { grid-template-columns: auto 1fr auto; }
+  .top-nav .meta { display: none; }
+  .top-nav .links { gap: 14px; font-size: 9px; letter-spacing: .22em; }
+  .top-nav .links a:not(.book) { display: none; }
+}
+
+/* ─── HERO ──────────────────────────────────────────────────────────────── */
+.hero {
+  position: relative; min-height: 100vh; min-height: 100svh;
+  display: grid; place-items: stretch; overflow: hidden;
+  background: var(--ink);
+  isolation: isolate;
+}
+
+.hero .bg {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse at 50% 40%, rgba(31,42,34,.45), transparent 70%),
+    linear-gradient(180deg, #06070a 0%, #0a0b09 40%, #0a0b09 100%);
+}
+.hero .bg-photo {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-size: cover; background-position: 50% 56%;
+  filter: grayscale(.4) brightness(.42) contrast(1.05) sepia(.15);
+  opacity: 0;
+  transform: scale(1.08);
+  transition: transform 18s ease-out, opacity 2.6s ease-out;
+  will-change: transform;
+}
+.hero .bg-photo.active { opacity: .55; }
+.hero .bg-photo.p1 { background-image: url('/assets/img/hero-uzungol-kusbakisi.jpg'); background-position: 50% 56%; }
+.hero .bg-photo.p2 { background-image: url('/assets/img/hero-balkon-koy-manzara.jpg'); background-position: 50% 50%; }
+.hero .bg-photo.p3 { background-image: url('/assets/img/otel-uzungol-genel-gorunum.jpg'); background-position: 50% 60%; }
+.hero .bg-photo.p4 { background-image: url('/assets/img/hero-balkon-dag-manzara.jpg'); background-position: 50% 55%; }
+.hero .bg-vignette {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background:
+    radial-gradient(ellipse at center, transparent 30%, rgba(10,11,9,.55) 75%, rgba(10,11,9,.95) 100%),
+    linear-gradient(180deg, rgba(10,11,9,.55) 0%, transparent 18%, transparent 60%, rgba(10,11,9,.85) 100%);
+}
+
+.hero .frame {
+  position: relative; z-index: 3;
+  display: grid; grid-template-rows: auto 1fr auto;
+  padding: clamp(110px, 12vh, 160px) var(--pad-page) clamp(56px, 8vh, 84px);
+  width: 100%;
+}
+
+.hero .corner-left, .hero .corner-right {
+  position: absolute; z-index: 4;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--mist);
+}
+.hero .corner-left {
+  top: 50%; left: 0; transform: translateY(-50%) rotate(-90deg); transform-origin: top left;
+  padding-left: var(--pad-page); display: flex; align-items: center; gap: 14px;
+  white-space: nowrap;
+}
+.hero .corner-left .hairline { width: 60px; height: 1px; background: var(--brass); opacity: .6; }
+.hero .corner-right {
+  top: 50%; right: 0; transform: translateY(-50%) rotate(90deg); transform-origin: top right;
+  padding-right: var(--pad-page); display: flex; align-items: center; gap: 14px;
+}
+@media (max-width: 980px) {
+  .hero .corner-left, .hero .corner-right { display: none; }
+}
+
+.hero h1.title {
+  font-family: var(--display); font-style: italic; font-weight: 320;
+  font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1, 'wght' 320;
+  font-size: clamp(72px, 16vw, 220px);
+  line-height: .85; letter-spacing: -.04em;
+  text-align: center; color: var(--paper);
+  margin: auto 0; padding: 0;
+}
+.hero h1.title .row { display: block; }
+.hero h1.title .row.row-2 {
+  font-style: normal; font-weight: 200; font-size: .175em; letter-spacing: .55em; text-transform: uppercase;
+  font-variation-settings: 'opsz' 60, 'SOFT' 0, 'WONK' 0, 'wght' 220;
+  margin-top: .8em; color: var(--brass);
+}
+.hero h1.title .amp {
+  display: inline-block; font-size: .35em; color: var(--brass); margin: 0 .15em; vertical-align: 0.5em;
+  font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1, 'wght' 280;
+}
+.hero h1.title .row-1 { transform-origin: center; }
+
+.hero .sub {
+  position: absolute; left: 50%; top: calc(50% + clamp(80px, 13vw, 180px)); transform: translateX(-50%);
+  display: flex; align-items: center; gap: 14px;
+  font-family: var(--display); font-style: italic; font-weight: 320;
+  font-variation-settings: 'opsz' 28, 'SOFT' 50, 'WONK' 0;
+  font-size: clamp(14px, 1.4vw, 18px);
+  letter-spacing: .04em; color: var(--mist); white-space: nowrap;
+}
+.hero .sub .pip { width: 4px; height: 4px; border-radius: 50%; background: var(--brass); }
+@media (max-width: 720px) {
+  .hero .sub { position: static; transform: none; justify-content: center; margin-top: 32px; font-size: 14px; }
+}
+
+.hero .footer-row {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; align-items: end;
+}
+.hero .footer-row > * { color: var(--mist); }
+.hero .pansiyon-stamp {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .3em; text-transform: uppercase;
+}
+.hero .pansiyon-stamp .l { display: block; opacity: .65; }
+.hero .pansiyon-stamp .h { color: var(--paper); margin-top: 4px; letter-spacing: .25em; }
+.hero .scroll-cue {
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .3em; text-transform: uppercase;
+  justify-self: center;
+}
+.hero .scroll-cue .ln {
+  width: 1px; height: 56px; background: linear-gradient(to bottom, transparent, var(--brass));
+  position: relative; overflow: hidden;
+}
+.hero .scroll-cue .ln::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to bottom, var(--paper), transparent);
+  animation: scroll-line 2.4s var(--ease-slow) infinite;
+}
+@keyframes scroll-line {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+.hero .coords {
+  text-align: right; font-family: var(--mono); font-size: 10px; letter-spacing: .3em; text-transform: uppercase;
+}
+.hero .coords .v { display: block; color: var(--paper); margin-top: 4px; letter-spacing: .2em; }
+@media (max-width: 720px) {
+  .hero .footer-row { grid-template-columns: 1fr; text-align: center; }
+  .hero .coords { text-align: center; }
+}
+
+/* hero floating elements — leaf + frame */
+.hero .ladin-svg {
+  position: absolute; z-index: 3; opacity: .4;
+  pointer-events: none;
+}
+.hero .ladin-svg.l1 { top: 18%; left: 8%; width: 110px; transform: rotate(-18deg); }
+.hero .ladin-svg.l2 { bottom: 22%; right: 9%; width: 88px; transform: rotate(22deg); }
+@media (max-width: 980px) { .hero .ladin-svg { display: none; } }
+
+.hero .hero-crest {
+  position: absolute; z-index: 3;
+  width: 110px; height: auto;
+  top: calc(var(--pad-page) + 80px); left: 50%; transform: translateX(-50%);
+  opacity: 0;
+  animation: crest-in 1.8s var(--ease-slow) 2.4s forwards;
+  pointer-events: none;
+}
+@keyframes crest-in {
+  0%   { opacity: 0; transform: translate(-50%, -8px); }
+  100% { opacity: 0.75; transform: translate(-50%, 0); }
+}
+@media (max-width: 720px) { .hero .hero-crest { width: 80px; top: 84px; } }
+
+/* hero corner brackets */
+.hero .bracket {
+  position: absolute; width: 26px; height: 26px; z-index: 4;
+  border-color: var(--brass); opacity: .55;
+}
+.hero .bracket.tl { top: calc(var(--pad-page) + 60px); left: var(--pad-page); border-top: 1px solid; border-left: 1px solid; }
+.hero .bracket.tr { top: calc(var(--pad-page) + 60px); right: var(--pad-page); border-top: 1px solid; border-right: 1px solid; }
+.hero .bracket.bl { bottom: calc(var(--pad-page) + 24px); left: var(--pad-page); border-bottom: 1px solid; border-left: 1px solid; }
+.hero .bracket.br { bottom: calc(var(--pad-page) + 24px); right: var(--pad-page); border-bottom: 1px solid; border-right: 1px solid; }
+
+/* ─── section base ─────────────────────────────────────────────────────── */
+section { position: relative; isolation: isolate; }
+
+.chapter {
+  padding: clamp(80px, 10vw, 140px) var(--pad-page);
+  background: var(--paper); color: var(--ink);
+}
+.chapter.dark { background: var(--ink); color: var(--paper); }
+.chapter.cream { background: var(--paper-2); color: var(--ink); }
+.chapter.moss { background: var(--moss); color: var(--paper); }
+
+.wrap { max-width: var(--max); margin: 0 auto; }
+
+/* chapter heading: Roman numeral + label + title */
+.ch-head {
+  display: grid; grid-template-columns: auto 1fr auto; gap: clamp(24px, 4vw, 56px);
+  align-items: end; padding-bottom: 28px; margin-bottom: clamp(56px, 8vw, 120px);
+  border-bottom: 1px solid var(--ink-line);
+  position: relative;
+}
+.chapter.dark .ch-head, .chapter.moss .ch-head { border-bottom-color: var(--line-2); }
+.ch-head .roman {
+  font-family: var(--display); font-style: italic; font-weight: 200;
+  font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1, 'wght' 200;
+  font-size: clamp(64px, 9vw, 132px); line-height: .85; color: var(--brass);
+  letter-spacing: -.02em;
+}
+.ch-head .titleblock {
+  display: flex; flex-direction: column; gap: 16px;
+}
+.ch-head .titleblock h2 {
+  font-family: var(--display); font-style: italic; font-weight: 320;
+  font-variation-settings: 'opsz' 144, 'SOFT' 80, 'WONK' 1, 'wght' 320;
+  font-size: clamp(40px, 6vw, 92px); line-height: .98; letter-spacing: -.025em;
+  color: inherit;
+}
+.ch-head .titleblock h2 em {
+  font-style: italic; color: var(--brass);
+  font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1, 'wght' 360;
+}
+.ch-head .titleblock .sub {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .3em; text-transform: uppercase;
+  color: var(--rust);
+}
+.chapter.dark .ch-head .titleblock .sub, .chapter.moss .ch-head .titleblock .sub { color: var(--brass); }
+.ch-head .right {
+  display: flex; flex-direction: column; align-items: end; gap: 8px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .28em; text-transform: uppercase;
+  color: var(--mist-2); padding-bottom: 8px;
+}
+.ch-head .right .v { color: var(--rust); font-size: 12px; letter-spacing: .22em; }
+.chapter.dark .ch-head .right .v, .chapter.moss .ch-head .right .v { color: var(--brass); }
+@media (max-width: 880px) {
+  .ch-head { grid-template-columns: auto 1fr; }
+  .ch-head .right { grid-column: 2; align-items: start; padding-bottom: 0; flex-direction: row; gap: 14px; }
+}
+
+/* ─── manifesto ─────────────────────────────────────────────────────────── */
+.manifesto {
+  position: relative; overflow: hidden;
+  background: var(--paper); color: var(--ink);
+  padding: clamp(96px, 12vw, 160px) var(--pad-page);
+}
+.manifesto .grid {
+  display: grid; grid-template-columns: 1fr 1.4fr; gap: clamp(40px, 6vw, 120px);
+  max-width: var(--max); margin: 0 auto; align-items: end;
+}
+@media (max-width: 900px) { .manifesto .grid { grid-template-columns: 1fr; } }
+
+.manifesto .left {
+  display: flex; flex-direction: column; gap: 28px;
+  border-top: 1px solid var(--ink-line); padding-top: 28px;
+}
+.manifesto .left .ix {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: var(--rust);
+}
+.manifesto .left p {
+  font-family: var(--body); font-size: 15px; line-height: 1.65; color: var(--moss);
+  max-width: 30ch;
+}
+.manifesto .right {
+  font-family: var(--display); font-style: italic; font-weight: 280;
+  font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1, 'wght' 280;
+  font-size: clamp(32px, 4.4vw, 64px); line-height: 1.12; letter-spacing: -.018em;
+  color: var(--ink);
+}
+.manifesto .right .stanza { display: block; margin-bottom: .55em; }
+.manifesto .right em { color: var(--brass); font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1, 'wght' 360; }
+.manifesto .right .pause { color: var(--brass); font-style: normal; }
+
+.manifesto .ornament {
+  position: absolute; right: -120px; top: 50%; transform: translateY(-50%);
+  opacity: .07; width: 520px; max-width: 60vw;
+  pointer-events: none;
+}
+
+/* ─── rooms · asymmetric editorial grid ─────────────────────────────────── */
+.rooms-section { background: var(--ink); color: var(--paper); position: relative; }
+.rooms-section .mists { z-index: 1; }
+.rooms-section > .wrap { position: relative; z-index: 2; }
+
+.rooms {
+  display: grid; grid-template-columns: repeat(12, 1fr); gap: clamp(16px, 2vw, 32px);
+  margin-top: clamp(60px, 8vw, 110px);
+}
+.room {
+  position: relative; overflow: hidden;
+  background: var(--moss); color: var(--paper);
+  cursor: none;
+}
+@media (pointer: coarse) { .room { cursor: pointer; } }
+.room .ph {
+  position: relative; aspect-ratio: 4/5; overflow: hidden;
+}
+.room .ph img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(.25) brightness(.86) contrast(1.04);
+  transform: scale(1.04);
+  transition: transform 2.4s var(--ease-slow), filter 1.4s var(--ease-slow), opacity 1.4s var(--ease-slow);
+  will-change: transform;
+}
+.room:hover .ph img { transform: scale(1.1); filter: grayscale(0) brightness(.98) contrast(1.04); }
+.room .ph::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 35%, rgba(10,11,9,.55) 80%, rgba(10,11,9,.9));
+  pointer-events: none; opacity: .85;
+  transition: opacity .8s var(--ease);
+}
+.room:hover .ph::after { opacity: .65; }
+
+.room .meta {
+  position: absolute; left: 0; right: 0; bottom: 0; padding: 24px 26px;
+  display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: end;
+  z-index: 2;
+}
+.room .meta .num {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .3em; text-transform: uppercase;
+  color: var(--brass); margin-bottom: 10px;
+}
+.room .meta .name {
+  font-family: var(--display); font-style: italic; font-weight: 340;
+  font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1, 'wght' 340;
+  font-size: clamp(22px, 2.2vw, 32px); line-height: 1.05; letter-spacing: -.015em;
+  color: var(--paper);
+}
+.room .meta .bed {
+  font-family: var(--body); font-size: 13px; color: var(--mist); margin-top: 8px; font-style: italic;
+}
+.room .meta .cap {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .26em; text-transform: uppercase; color: var(--paper);
+  border: 1px solid var(--line); padding: 8px 12px;
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(10,11,9,.45); backdrop-filter: blur(6px);
+}
+.room .meta .cap .pip { width: 4px; height: 4px; border-radius: 50%; background: var(--brass); }
+
+.room .floating-tag {
+  position: absolute; top: 22px; left: 26px; z-index: 3;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .3em; text-transform: uppercase;
+  color: var(--paper); display: flex; gap: 8px; align-items: center;
+  padding: 8px 12px; background: rgba(10,11,9,.55); backdrop-filter: blur(6px);
+  border: 1px solid var(--line);
+}
+.room .floating-tag .pip { width: 5px; height: 5px; background: var(--brass); }
+
+.room .features {
+  position: absolute; top: 22px; right: 26px; z-index: 3;
+  display: flex; gap: 6px;
+}
+.room .features .f {
+  width: 28px; height: 28px; border: 1px solid var(--line); display: grid; place-items: center;
+  background: rgba(10,11,9,.5); backdrop-filter: blur(4px);
+  color: var(--mist);
+  transition: color .4s var(--ease), border-color .4s var(--ease);
+}
+.room:hover .features .f { color: var(--brass); border-color: var(--brass); }
+
+.room .reveal-link {
+  position: absolute; inset: 0; z-index: 5;
+  display: grid; place-items: center;
+  opacity: 0; transition: opacity .5s var(--ease);
+  font-family: var(--mono); font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: var(--paper);
+}
+.room:hover .reveal-link { opacity: 1; }
+.room .reveal-link .pill {
+  border: 1px solid var(--brass); padding: 14px 22px;
+  background: rgba(10,11,9,.6); backdrop-filter: blur(8px);
+  display: flex; gap: 10px; align-items: center;
+  transform: translateY(8px); transition: transform .6s var(--ease-spring);
+}
+.room:hover .reveal-link .pill { transform: translateY(0); }
+
+.room.r1 { grid-column: 1 / span 6; }
+.room.r1 .ph { aspect-ratio: 3/4; }
+.room.r2 { grid-column: 7 / span 6; margin-top: clamp(40px, 8vw, 120px); }
+.room.r2 .ph { aspect-ratio: 5/4; }
+.room.r3 { grid-column: 2 / span 5; margin-top: -60px; }
+.room.r3 .ph { aspect-ratio: 4/5; }
+.room.r4 { grid-column: 7 / span 4; margin-top: -120px; }
+.room.r4 .ph { aspect-ratio: 3/4; }
+.room.r5 { grid-column: 1 / span 8; }
+.room.r5 .ph { aspect-ratio: 16/9; }
+.room.r6 { grid-column: 9 / span 4; margin-top: -160px; }
+.room.r6 .ph { aspect-ratio: 3/4; }
+
+@media (max-width: 980px) {
+  .rooms { grid-template-columns: repeat(6, 1fr); }
+  .room.r1 { grid-column: 1 / -1; margin: 0; }
+  .room.r2 { grid-column: 1 / -1; margin: 0; }
+  .room.r3 { grid-column: 1 / -1; margin: 0; }
+  .room.r4 { grid-column: 1 / -1; margin: 0; }
+  .room.r5 { grid-column: 1 / -1; margin: 0; }
+  .room.r6 { grid-column: 1 / -1; margin: 0; }
+}
+
+.rooms-footnote {
+  margin-top: clamp(60px, 10vw, 120px);
+  display: grid; grid-template-columns: auto 1fr auto; gap: 32px; align-items: center;
+  padding: 36px 0; border-top: 1px solid var(--line-2);
+  font-family: var(--mono); font-size: 11px; letter-spacing: .26em; text-transform: uppercase; color: var(--mist);
+}
+.rooms-footnote .num { color: var(--brass); font-size: 14px; letter-spacing: .14em; }
+.rooms-footnote .label { letter-spacing: .3em; }
+@media (max-width: 720px) {
+  .rooms-footnote { grid-template-columns: 1fr; gap: 12px; }
+}
+
+/* ─── deneyim · ritual section ──────────────────────────────────────────── */
+.deneyim {
+  background: var(--paper); color: var(--ink); position: relative;
+}
+.deneyim .grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: clamp(20px, 3vw, 40px);
+}
+@media (max-width: 980px) { .deneyim .grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 620px) { .deneyim .grid { grid-template-columns: 1fr; } }
+
+.ritual {
+  position: relative; padding: 36px 0; border-top: 1px solid var(--ink-line);
+  display: flex; flex-direction: column; gap: 18px; min-height: 320px;
+}
+.ritual::after {
+  content: ''; position: absolute; left: 0; top: 0; height: 1px; width: 0;
+  background: var(--brass); transition: width 1.2s var(--ease-slow) .2s;
+}
+.ritual.in::after { width: 100%; }
+.ritual .num {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .3em; text-transform: uppercase;
+  color: var(--rust);
+}
+.ritual h3 {
+  font-family: var(--display); font-style: italic; font-weight: 320;
+  font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1, 'wght' 320;
+  font-size: clamp(26px, 3vw, 40px); line-height: 1.05; letter-spacing: -.018em;
+}
+.ritual .icon {
+  width: 56px; height: 56px;
+  display: grid; place-items: center;
+  color: var(--brass);
+  margin-bottom: 8px;
+}
+.ritual p {
+  font-family: var(--body); font-size: 15px; line-height: 1.65; color: var(--moss); max-width: 32ch;
+}
+.ritual .footnote {
+  margin-top: auto; padding-top: 18px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .26em; text-transform: uppercase; color: var(--rust);
+  display: flex; align-items: center; gap: 12px;
+}
+.ritual .footnote .hr { width: 22px; height: 1px; background: var(--brass); }
+
+/* steam SVG animation */
+@keyframes steam-rise {
+  0% { transform: translateY(8px) scale(.96); opacity: 0; }
+  30% { opacity: .85; }
+  100% { transform: translateY(-26px) scale(1.04); opacity: 0; }
+}
+.steam .s-line { animation: steam-rise 3.6s ease-in-out infinite; transform-origin: 50% 100%; }
+.steam .s-line.s2 { animation-delay: .6s; }
+.steam .s-line.s3 { animation-delay: 1.2s; }
+.steam .s-line.s4 { animation-delay: 1.8s; }
+
+/* ─── hikaye · split with photo ─────────────────────────────────────────── */
+.hikaye {
+  background: var(--moss); color: var(--paper); position: relative; overflow: hidden;
+}
+.hikaye .grid {
+  display: grid; grid-template-columns: 5fr 7fr; gap: clamp(40px, 6vw, 100px);
+  align-items: start;
+}
+@media (max-width: 980px) { .hikaye .grid { grid-template-columns: 1fr; } }
+
+.hikaye .photo {
+  position: relative; aspect-ratio: 3/4; overflow: hidden;
+  border: 1px solid var(--line);
+}
+.hikaye .photo img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(.3) brightness(.78) sepia(.1);
+  transition: transform 6s var(--ease-slow), filter 2s var(--ease-slow);
+  transform: scale(1.05);
+}
+.hikaye .photo.in img { transform: scale(1); filter: grayscale(.1) brightness(.92) sepia(.05); }
+.hikaye .photo .stamp {
+  position: absolute; bottom: 18px; left: 18px; right: 18px;
+  display: flex; justify-content: space-between; align-items: end;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--paper);
+}
+.hikaye .photo .stamp .v { color: var(--brass); }
+
+.hikaye .text {
+  display: flex; flex-direction: column; gap: clamp(28px, 4vw, 52px);
+  padding-top: clamp(0px, 4vw, 60px);
+}
+.hikaye .text .lead {
+  font-family: var(--display); font-style: italic; font-weight: 300;
+  font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1, 'wght' 300;
+  font-size: clamp(26px, 3.2vw, 44px); line-height: 1.18; letter-spacing: -.018em;
+  color: var(--paper);
+}
+.hikaye .text .lead em { color: var(--brass); }
+.hikaye .text .body {
+  display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 3vw, 40px);
+  font-family: var(--body); font-size: 15px; line-height: 1.7; color: var(--mist);
+}
+@media (max-width: 720px) { .hikaye .text .body { grid-template-columns: 1fr; } }
+.hikaye .text .body p { margin-bottom: 16px; }
+.hikaye .text .body p:last-child { margin-bottom: 0; }
+.hikaye .text .body em { color: var(--brass); font-style: italic; }
+.hikaye .text .signature {
+  display: flex; gap: 28px; align-items: center; padding-top: 28px;
+  border-top: 1px solid var(--line-2);
+}
+.hikaye .text .signature .sig {
+  font-family: var(--display); font-style: italic; font-weight: 280;
+  font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1, 'wght' 280;
+  font-size: 32px; color: var(--brass); letter-spacing: -.01em;
+}
+.hikaye .text .signature .who {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--mist);
+}
+.hikaye .text .signature .who span { display: block; color: var(--paper); }
+
+/* ─── konum · map ───────────────────────────────────────────────────────── */
+.konum {
+  background: var(--paper-2); color: var(--ink); position: relative; overflow: hidden;
+}
+.konum .grid {
+  display: grid; grid-template-columns: 5fr 7fr; gap: clamp(40px, 5vw, 80px);
+}
+@media (max-width: 980px) { .konum .grid { grid-template-columns: 1fr; } }
+
+.konum .panel {
+  display: flex; flex-direction: column; gap: 28px;
+}
+.konum .panel .lead {
+  font-family: var(--display); font-style: italic; font-weight: 300;
+  font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1, 'wght' 300;
+  font-size: clamp(22px, 2.6vw, 32px); line-height: 1.25; letter-spacing: -.015em;
+  color: var(--ink);
+}
+.konum .panel .lead em { color: var(--brass); }
+.konum .panel .address {
+  font-family: var(--body); font-size: 17px; line-height: 1.55; color: var(--moss);
+  padding-top: 24px; border-top: 1px solid var(--ink-line);
+}
+.konum .panel .address .label {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--rust);
+  margin-bottom: 8px; display: block;
+}
+.konum .panel .dist {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.konum .panel .dist li {
+  display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: baseline;
+  padding: 16px 0; border-top: 1px solid var(--ink-line);
+  font-family: var(--mono); font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: var(--moss);
+}
+.konum .panel .dist li:last-child { border-bottom: 1px solid var(--ink-line); }
+.konum .panel .dist li .v { color: var(--brass); letter-spacing: .14em; font-size: 13px; }
+.konum .panel .dist li .label { font-style: italic; text-transform: none; letter-spacing: 0; font-family: var(--body); font-size: 15px; color: var(--ink); }
+
+.konum .map {
+  position: relative; aspect-ratio: 4/3; overflow: hidden;
+  background: var(--paper-3);
+  border: 1px solid var(--ink-line);
+}
+.konum .map svg { width: 100%; height: 100%; display: block; }
+.konum .map .legend {
+  position: absolute; left: 20px; bottom: 20px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .26em; text-transform: uppercase; color: var(--moss);
+  display: flex; gap: 18px;
+}
+.konum .map .legend .item { display: flex; align-items: center; gap: 8px; }
+.konum .map .legend .item .pin { width: 8px; height: 8px; border-radius: 50%; background: var(--brass); box-shadow: 0 0 0 2px rgba(184,153,104,.25); }
+.konum .map .legend .item .pin.alt { background: var(--rust); box-shadow: 0 0 0 2px rgba(107,58,32,.25); }
+
+/* ─── rezervasyon ──────────────────────────────────────────────────────── */
+.rez {
+  background: var(--ink); color: var(--paper); position: relative; overflow: hidden;
+}
+.rez .mists { z-index: 1; }
+.rez > .wrap { position: relative; z-index: 2; }
+
+.rez .frame {
+  display: grid; grid-template-columns: 5fr 7fr; gap: clamp(40px, 6vw, 100px);
+  align-items: start;
+}
+@media (max-width: 980px) { .rez .frame { grid-template-columns: 1fr; } }
+
+.rez .left {
+  display: flex; flex-direction: column; gap: 28px;
+}
+.rez .left .lead {
+  font-family: var(--display); font-style: italic; font-weight: 280;
+  font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1, 'wght' 280;
+  font-size: clamp(28px, 3.6vw, 48px); line-height: 1.15; letter-spacing: -.018em;
+  color: var(--paper);
+}
+.rez .left .lead em { color: var(--brass); }
+.rez .left .body p {
+  font-family: var(--body); font-size: 15px; line-height: 1.7; color: var(--mist); max-width: 36ch;
+}
+.rez .left .body p + p { margin-top: 16px; }
+.rez .left .contact-card {
+  margin-top: auto; padding: 24px; border: 1px solid var(--line);
+  background: rgba(10,11,9,.4); backdrop-filter: blur(6px);
+}
+.rez .left .contact-card .label {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--brass);
+}
+.rez .left .contact-card .phone {
+  display: block;
+  font-family: var(--display); font-style: italic; font-weight: 300;
+  font-variation-settings: 'opsz' 96, 'SOFT' 80, 'WONK' 1;
+  font-size: 32px; color: var(--paper); margin-top: 12px; letter-spacing: -.01em;
+  line-height: 1.1;
+}
+.rez .left .contact-card .email {
+  display: block;
+  font-family: var(--mono); font-size: 13px; letter-spacing: .12em; color: var(--mist); margin-top: 12px;
+}
+
+/* rez form */
+.rez-form {
+  border: 1px solid var(--line); background: rgba(20,21,15,.5); backdrop-filter: blur(10px);
+  padding: clamp(28px, 4vw, 48px);
+  display: flex; flex-direction: column; gap: 28px;
+}
+.rez-form .row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 28px;
+}
+@media (max-width: 620px) { .rez-form .row { grid-template-columns: 1fr; } }
+.rez-form .field { display: flex; flex-direction: column; gap: 10px; }
+.rez-form .field .lbl {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--brass);
+}
+.rez-form .field .ctrl {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 14px 16px; border: 1px solid var(--line-2);
+  font-family: var(--display); font-style: italic; font-weight: 320;
+  font-size: 18px; letter-spacing: -.01em; color: var(--paper);
+  cursor: none; transition: border-color .4s var(--ease), background .4s var(--ease);
+  background: rgba(10,11,9,.3);
+}
+@media (pointer: coarse) { .rez-form .field .ctrl { cursor: pointer; } }
+.rez-form .field .ctrl.open, .rez-form .field .ctrl:hover { border-color: var(--brass); background: rgba(10,11,9,.55); }
+.rez-form .field .ctrl .ph { color: var(--mist-2); font-style: italic; }
+.rez-form .field .ctrl .chev {
+  width: 10px; height: 10px; border-right: 1px solid var(--brass); border-bottom: 1px solid var(--brass);
+  transform: rotate(45deg); margin-bottom: 4px;
+}
+
+.rez-form .summary {
+  display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center;
+  padding-top: 24px; border-top: 1px solid var(--line-2);
+}
+.rez-form .summary .nights {
+  font-family: var(--display); font-style: italic; font-size: 22px; color: var(--brass);
+}
+.rez-form .summary .nights span { color: var(--paper); }
+.rez-form .summary .submit { padding: 22px 32px; font-size: 11px; }
+.rez-form .submit-row {
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+}
+.rez-form .note {
+  font-family: var(--body); font-style: italic; font-size: 13px; color: var(--mist-2); max-width: 40ch;
+}
+
+/* calendar popover */
+.popover {
+  position: absolute; z-index: 60;
+  background: var(--ink); border: 1px solid var(--brass); color: var(--paper);
+  padding: 24px; min-width: 300px;
+  box-shadow: 0 24px 60px rgba(0,0,0,.6);
+  opacity: 0; transform: translateY(-6px); pointer-events: none;
+  transition: opacity .25s var(--ease), transform .25s var(--ease);
+}
+.popover.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+.cal {
+  display: flex; flex-direction: column; gap: 14px; min-width: 270px;
+}
+.cal .head {
+  display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center;
+}
+.cal .head .nav {
+  width: 32px; height: 32px; border: 1px solid var(--line); display: grid; place-items: center;
+  color: var(--paper); transition: border-color .3s var(--ease), color .3s var(--ease);
+}
+.cal .head .nav:hover { color: var(--brass); border-color: var(--brass); }
+.cal .head .month {
+  text-align: center; font-family: var(--display); font-style: italic; font-size: 18px; letter-spacing: -.01em;
+  color: var(--brass);
+}
+.cal .dow {
+  display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px;
+  font-family: var(--mono); font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: var(--mist-2);
+  text-align: center; padding-bottom: 8px; border-bottom: 1px solid var(--line-2);
+}
+.cal .grid {
+  display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px;
+}
+.cal .cell {
+  aspect-ratio: 1; display: grid; place-items: center;
+  font-family: var(--mono); font-size: 12px; color: var(--paper);
+  transition: background .25s var(--ease), color .25s var(--ease);
+  position: relative;
+}
+.cal .cell.empty { color: transparent; pointer-events: none; }
+.cal .cell:hover:not(.empty):not(.disabled) { background: rgba(184,153,104,.18); color: var(--brass); }
+.cal .cell.disabled { color: var(--mist-2); opacity: .35; pointer-events: none; }
+.cal .cell.range { background: rgba(184,153,104,.12); color: var(--paper); }
+.cal .cell.start, .cal .cell.end { background: var(--brass); color: var(--ink); font-weight: 500; }
+
+.guests {
+  display: flex; flex-direction: column; gap: 14px; min-width: 280px;
+}
+.guests .row {
+  display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center;
+  padding: 12px 0; border-bottom: 1px solid var(--line-2);
+}
+.guests .row:last-child { border-bottom: 0; }
+.guests .row .name {
+  font-family: var(--display); font-style: italic; font-size: 17px;
+}
+.guests .row .name .sub { display: block; font-family: var(--mono); font-style: normal; font-size: 9px; letter-spacing: .26em; text-transform: uppercase; color: var(--mist-2); margin-top: 4px; }
+.guests .counter { display: flex; align-items: center; gap: 12px; }
+.guests .counter button {
+  width: 28px; height: 28px; border: 1px solid var(--line); display: grid; place-items: center;
+  color: var(--paper); font-family: var(--mono);
+}
+.guests .counter button:hover { border-color: var(--brass); color: var(--brass); }
+.guests .counter .v { min-width: 18px; text-align: center; font-family: var(--mono); font-size: 14px; color: var(--brass); }
+
+/* ─── footer ───────────────────────────────────────────────────────────── */
+.foot {
+  background: var(--ink-2); color: var(--mist); position: relative; overflow: hidden;
+  padding: clamp(80px, 10vw, 140px) var(--pad-page) 32px;
+}
+.foot .mists { z-index: 1; opacity: .4; }
+.foot > .wrap { position: relative; z-index: 2; }
+
+.foot .top {
+  display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: clamp(28px, 4vw, 60px);
+  align-items: start; padding-bottom: 60px; border-bottom: 1px solid var(--line-2);
+}
+@media (max-width: 880px) { .foot .top { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .foot .top { grid-template-columns: 1fr; } }
+
+.foot .mark {
+  font-family: var(--display); font-style: italic; font-weight: 300;
+  font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1, 'wght' 300;
+  font-size: clamp(48px, 6vw, 80px); line-height: .9; color: var(--paper);
+  letter-spacing: -.025em;
+}
+.foot .mark .est { display: block; font-family: var(--mono); font-style: normal; font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--brass); margin-top: 14px; }
+.foot .mark p { font-family: var(--body); font-style: italic; font-size: 14px; color: var(--mist); margin-top: 22px; max-width: 28ch; line-height: 1.55; }
+
+.foot .col h4 {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--brass);
+  margin-bottom: 22px;
+}
+.foot .col ul { list-style: none; }
+.foot .col li { font-family: var(--body); font-size: 14px; line-height: 1.85; }
+.foot .col li.title { font-family: var(--display); font-style: italic; font-size: 18px; color: var(--paper); }
+.foot .col a { color: var(--mist); transition: color .3s var(--ease); }
+.foot .col a:hover { color: var(--brass); }
+
+.foot .bottom {
+  display: grid; grid-template-columns: 1fr auto 1fr; gap: 32px; align-items: center;
+  padding-top: 32px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .26em; text-transform: uppercase; color: var(--mist-2);
+}
+.foot .bottom .center { color: var(--brass); }
+.foot .bottom .right { text-align: right; }
+@media (max-width: 720px) {
+  .foot .bottom { grid-template-columns: 1fr; text-align: center; }
+  .foot .bottom .right { text-align: center; }
+}
+
+/* gigantic watermark at the very bottom of footer */
+.foot .watermark {
+  font-family: var(--display); font-style: italic; font-weight: 200;
+  font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1, 'wght' 180;
+  font-size: clamp(120px, 24vw, 360px);
+  line-height: .8; letter-spacing: -.05em;
+  color: var(--paper); opacity: .04;
+  text-align: center; margin-top: 60px; user-select: none; pointer-events: none;
+  overflow: hidden;
+}
+
+/* ─── interludes (small typographic moments between sections) ───────────── */
+.interlude {
+  padding: clamp(80px, 10vw, 140px) var(--pad-page);
+  background: var(--paper); color: var(--ink);
+  text-align: center;
+  border-top: 1px solid var(--ink-line);
+  border-bottom: 1px solid var(--ink-line);
+}
+.interlude.dark { background: var(--ink); color: var(--paper); border-color: var(--line-2); }
+.interlude .q {
+  font-family: var(--display); font-style: italic; font-weight: 260;
+  font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1, 'wght' 260;
+  font-size: clamp(28px, 4.4vw, 64px); line-height: 1.1; letter-spacing: -.018em;
+  max-width: 22ch; margin: 0 auto;
+}
+.interlude .q em { color: var(--brass); }
+.interlude .attribution {
+  margin-top: 32px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--rust);
+}
+.interlude.dark .attribution { color: var(--brass); }
+
+/* ─── chapter intro: number + caption ───────────────────────────────────── */
+.chap-intro {
+  display: flex; flex-direction: column; align-items: center; gap: 16px;
+  padding: 36px 0 24px;
+}
+.chap-intro .num {
+  font-family: var(--display); font-style: italic; font-weight: 200;
+  font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1, 'wght' 200;
+  font-size: 64px; color: var(--brass); letter-spacing: -.02em; line-height: 1;
+}
+
+/* ─── ornamental dividers (gilt scroll between sections) ────────────────── */
+.ornament-divider {
+  position: relative; padding: 60px var(--pad-page);
+  display: flex; justify-content: center; align-items: center;
+  background: var(--paper);
+  border-top: 1px solid var(--ink-line); border-bottom: 1px solid var(--ink-line);
+}
+.ornament-divider.dark { background: var(--ink); border-color: var(--line-2); }
+.ornament-divider.moss { background: var(--moss); border-color: var(--line-2); }
+.ornament-divider::before, .ornament-divider::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold) 50%, transparent);
+  opacity: .5;
+  max-width: 360px;
+}
+.ornament-divider .ornament {
+  margin: 0 32px; width: 80px; height: 32px; color: var(--gold);
+  flex-shrink: 0;
+}
+.ornament-divider .word {
+  font-family: var(--display); font-style: italic; font-weight: 320;
+  font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1, 'wght' 320;
+  font-size: 22px; color: var(--gold); letter-spacing: -.01em;
+  margin: 0 20px;
+}
+
+/* ─── classical karadeniz pattern (subtle wood-grain meander) ───────────── */
+.meander-bg {
+  position: absolute; inset: 0; pointer-events: none; opacity: .05; z-index: 0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent 0 9px, var(--gold) 9px 10px),
+    repeating-linear-gradient(90deg, transparent 0 9px, var(--gold) 9px 10px);
+  background-size: 30px 30px;
+  mix-blend-mode: overlay;
+}
+.dots-bg {
+  position: absolute; inset: 0; pointer-events: none; z-index: 0; opacity: .12;
+  background-image: radial-gradient(var(--gold) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.kilim-bg {
+  position: absolute; inset: 0; pointer-events: none; z-index: 0; opacity: .07;
+  background-image:
+    linear-gradient(45deg, transparent 49.5%, var(--gold) 49.5% 50.5%, transparent 50.5%),
+    linear-gradient(-45deg, transparent 49.5%, var(--gold) 49.5% 50.5%, transparent 50.5%);
+  background-size: 24px 24px;
+}
+
+/* ─── frame border (gilt-frame edge) ────────────────────────────────────── */
+.gilt-frame {
+  position: fixed; inset: 12px; pointer-events: none; z-index: 70;
+  border: 1px solid var(--line-3);
+}
+.gilt-frame::before, .gilt-frame::after,
+.gilt-frame > i:first-child, .gilt-frame > i:last-child {
+  content: ''; position: absolute; width: 22px; height: 22px;
+  border-color: var(--gold); opacity: .55;
+}
+.gilt-frame::before { top: 0; left: 0; border-top: 1px solid; border-left: 1px solid; }
+.gilt-frame::after  { top: 0; right: 0; border-top: 1px solid; border-right: 1px solid; }
+.gilt-frame > i:first-child { bottom: 0; left: 0; border-bottom: 1px solid; border-left: 1px solid; }
+.gilt-frame > i:last-child  { bottom: 0; right: 0; border-bottom: 1px solid; border-right: 1px solid; }
+@media (max-width: 720px) { .gilt-frame { inset: 6px; } }
+
+/* ─── awards / press strip ──────────────────────────────────────────────── */
+.awards {
+  background: var(--ink-2); color: var(--paper); padding: 36px var(--pad-page);
+  border-top: 1px solid var(--line-2); border-bottom: 1px solid var(--line-2);
+  overflow: hidden;
+}
+.awards .wrap {
+  display: grid; grid-template-columns: auto 1fr; gap: 60px; align-items: center;
+}
+@media (max-width: 720px) { .awards .wrap { grid-template-columns: 1fr; gap: 24px; } }
+
+.awards .label {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .32em; text-transform: uppercase; color: var(--gold);
+  display: flex; align-items: center; gap: 14px; white-space: nowrap;
+}
+.awards .label .star {
+  display: inline-flex; gap: 2px; color: var(--gold);
+}
+.awards .marquee {
+  display: flex; gap: clamp(36px, 5vw, 80px); align-items: center;
+  font-family: var(--display); font-style: italic; font-weight: 320;
+  font-variation-settings: 'opsz' 96, 'SOFT' 80, 'WONK' 1, 'wght' 320;
+  font-size: clamp(16px, 1.6vw, 22px); color: var(--paper); letter-spacing: -.01em;
+  animation: marq 38s linear infinite;
+  width: max-content;
+}
+.awards .marquee .sep {
+  display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--gold);
+}
+.awards .marquee .badge {
+  font-family: var(--mono); font-style: normal; font-size: 11px; letter-spacing: .26em; text-transform: uppercase; color: var(--gold);
+}
+.awards .marquee-wrap { overflow: hidden; position: relative; }
+.awards .marquee-wrap::before, .awards .marquee-wrap::after {
+  content: ''; position: absolute; top: 0; bottom: 0; width: 60px; z-index: 2; pointer-events: none;
+}
+.awards .marquee-wrap::before { left: 0; background: linear-gradient(90deg, var(--ink-2), transparent); }
+.awards .marquee-wrap::after  { right: 0; background: linear-gradient(-90deg, var(--ink-2), transparent); }
+@keyframes marq {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ─── stats strip ───────────────────────────────────────────────────────── */
+.stats {
+  background: var(--paper); color: var(--ink);
+  border-top: 1px solid var(--ink-line); border-bottom: 1px solid var(--ink-line);
+}
+.stats .grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  border-left: 1px solid var(--ink-line);
+}
+@media (max-width: 720px) { .stats .grid { grid-template-columns: 1fr 1fr; } }
+.stats .stat {
+  padding: 40px 32px; border-right: 1px solid var(--ink-line);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.stats .stat .num {
+  font-family: var(--display); font-style: italic; font-weight: 280;
+  font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1, 'wght' 280;
+  font-size: clamp(48px, 6vw, 84px); line-height: .95; color: var(--bordo); letter-spacing: -.03em;
+}
+.stats .stat .num .unit {
+  font-family: var(--mono); font-style: normal; font-size: 13px; letter-spacing: .2em; text-transform: uppercase; color: var(--gold);
+  margin-left: 8px; vertical-align: 8px;
+}
+.stats .stat .label {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--moss);
+}
+.stats .stat .sub {
+  font-family: var(--body); font-style: italic; font-size: 14px; color: var(--moss-2); margin-top: 8px;
+}
+
+/* ─── sofra (kitchen/cuisine) section ───────────────────────────────────── */
+.sofra {
+  background: var(--paper); color: var(--ink); position: relative; overflow: hidden;
+}
+.sofra::before {
+  content: ''; position: absolute; inset: 0; z-index: 0; opacity: .08;
+  background:
+    radial-gradient(ellipse at 30% 0%, var(--gold), transparent 60%),
+    radial-gradient(ellipse at 80% 100%, var(--gold-deep), transparent 60%);
+}
+.sofra .meander-bg { opacity: .04; }
+.sofra > .wrap { position: relative; z-index: 2; }
+
+.sofra .grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 5vw, 80px); align-items: start;
+}
+@media (max-width: 900px) { .sofra .grid { grid-template-columns: 1fr; } }
+
+.sofra .menu {
+  display: flex; flex-direction: column; gap: 0;
+  border-top: 1px solid var(--ink-line);
+}
+.sofra .menu .item {
+  display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: baseline;
+  padding: 24px 0; border-bottom: 1px solid var(--ink-line);
+}
+.sofra .menu .item .name {
+  font-family: var(--display); font-style: italic; font-weight: 340;
+  font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1, 'wght' 340;
+  font-size: clamp(22px, 2.4vw, 32px); line-height: 1.1; letter-spacing: -.018em; color: var(--ink);
+}
+.sofra .menu .item .desc {
+  font-family: var(--body); font-style: italic; font-size: 14px; color: var(--moss); margin-top: 6px;
+}
+.sofra .menu .item .tag {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .28em; text-transform: uppercase; color: var(--gold-deep);
+  white-space: nowrap;
+}
+
+.sofra .right {
+  position: sticky; top: 100px;
+}
+.sofra .right .lead {
+  font-family: var(--display); font-style: italic; font-weight: 300;
+  font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1, 'wght' 300;
+  font-size: clamp(28px, 3.4vw, 44px); line-height: 1.18; letter-spacing: -.02em;
+  color: var(--ink); margin-top: 28px;
+}
+.sofra .right .lead em { color: var(--gold-deep); }
+.sofra .right p {
+  font-family: var(--body); font-size: 15px; line-height: 1.7; color: var(--moss); margin-top: 24px; max-width: 36ch;
+}
+
+/* ─── mevsimler (seasons) section ───────────────────────────────────────── */
+.mevsimler {
+  background: var(--moss); color: var(--paper); position: relative; overflow: hidden;
+}
+.mevsimler .meander-bg { opacity: .04; }
+.mevsimler > .wrap { position: relative; z-index: 2; }
+
+.season-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+  margin-top: clamp(40px, 6vw, 80px);
+  border: 1px solid var(--line-2);
+}
+@media (max-width: 980px) { .season-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .season-grid { grid-template-columns: 1fr; } }
+
+.season {
+  position: relative; min-height: 480px; overflow: hidden;
+  background: var(--moss-2);
+  cursor: none;
+}
+.season .bg {
+  position: absolute; inset: 0; transition: transform 4s var(--ease-slow);
+  background-size: cover; background-position: center;
+  filter: grayscale(.3) brightness(.65);
+}
+.season:hover .bg { transform: scale(1.08); filter: grayscale(0) brightness(.85); }
+.season .grad {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 30%, rgba(7,8,10,.85) 90%);
+}
+.season .content {
+  position: absolute; inset: 0; padding: 28px; display: flex; flex-direction: column; justify-content: space-between;
+  color: var(--paper); z-index: 2;
+}
+.season .head { display: flex; justify-content: space-between; align-items: flex-start; }
+.season .head .ix {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--gold);
+}
+.season .head .month {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--paper-2);
+}
+.season .name {
+  font-family: var(--display); font-style: italic; font-weight: 320;
+  font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1, 'wght' 320;
+  font-size: clamp(36px, 4vw, 56px); line-height: .95; letter-spacing: -.025em;
+  color: var(--paper);
+}
+.season .desc {
+  font-family: var(--body); font-style: italic; font-size: 14px; color: var(--paper-2);
+  margin-top: 14px; max-width: 28ch; line-height: 1.55;
+}
+.season .temp {
+  position: absolute; bottom: 28px; right: 28px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .26em; color: var(--gold); text-transform: uppercase;
+  border: 1px solid var(--line); padding: 8px 12px; background: rgba(7,8,10,.4); backdrop-filter: blur(4px);
+}
+
+/* season backgrounds */
+.season.s1 .bg { background-image: linear-gradient(135deg, #647a55, #2c3e2f); }
+.season.s2 .bg { background-image: linear-gradient(135deg, #4a6b3e, #1f3522); }
+.season.s3 .bg { background-image: linear-gradient(135deg, #a06e2c, #5e3a18); }
+.season.s4 .bg { background-image: linear-gradient(135deg, #a8b0a8, #54605a); }
+
+/* hand-drawn season ornament SVG */
+.season .ornament {
+  position: absolute; top: 28px; right: 28px; width: 48px; height: 48px;
+  color: var(--gold); opacity: .55; z-index: 2;
+}
+
+/* ─── misafir defteri (testimonials) ─────────────────────────────────────── */
+.defter {
+  background: var(--paper); color: var(--ink); position: relative; overflow: hidden;
+}
+.defter::before {
+  content: ''; position: absolute; inset: 0; z-index: 0; opacity: .08;
+  background: radial-gradient(ellipse at 70% 0%, var(--gold), transparent 60%);
+}
+
+.testimonials {
+  display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 3vw, 40px);
+  margin-top: clamp(40px, 6vw, 80px); position: relative; z-index: 2;
+}
+@media (max-width: 800px) { .testimonials { grid-template-columns: 1fr; } }
+
+.testimonial {
+  padding: 36px; background: var(--paper-2);
+  position: relative; overflow: hidden;
+  border: 1px solid var(--ink-line);
+}
+.testimonial::before {
+  content: '"'; position: absolute; top: -20px; left: 22px;
+  font-family: var(--display); font-style: italic; font-weight: 200;
+  font-size: 180px; color: var(--gold); opacity: .15; line-height: 1;
+  pointer-events: none;
+}
+.testimonial .stars {
+  display: inline-flex; gap: 4px; color: var(--gold); margin-bottom: 22px; font-size: 14px; letter-spacing: 2px;
+}
+.testimonial .body {
+  font-family: var(--display); font-style: italic; font-weight: 300;
+  font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1, 'wght' 300;
+  font-size: clamp(18px, 1.8vw, 24px); line-height: 1.4; letter-spacing: -.012em;
+  color: var(--ink); margin-bottom: 28px;
+}
+.testimonial .body em { color: var(--bordo); }
+.testimonial .author {
+  display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: center;
+  padding-top: 24px; border-top: 1px solid var(--ink-line);
+}
+.testimonial .author .avi {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold), var(--copper));
+  display: grid; place-items: center;
+  font-family: var(--display); font-style: italic; font-weight: 320; font-size: 18px; color: var(--ink);
+  border: 1px solid var(--ink-line);
+}
+.testimonial .author .who {
+  font-family: var(--body); font-style: italic; font-size: 15px; color: var(--ink); line-height: 1.2;
+}
+.testimonial .author .who .meta {
+  display: block; font-family: var(--mono); font-style: normal; font-size: 10px; letter-spacing: .26em; text-transform: uppercase; color: var(--moss); margin-top: 4px;
+}
+.testimonial .platform {
+  position: absolute; top: 18px; right: 22px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .26em; text-transform: uppercase; color: var(--gold);
+}
+
+/* ─── yakın çevre ───────────────────────────────────────────────────────── */
+.cevre {
+  background: var(--paper-2); color: var(--ink); position: relative;
+}
+.cevre .list {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 3vw, 40px);
+  margin-top: clamp(40px, 6vw, 80px);
+}
+@media (max-width: 900px) { .cevre .list { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .cevre .list { grid-template-columns: 1fr; } }
+
+.place {
+  position: relative; display: flex; flex-direction: column; gap: 14px;
+  padding: 28px; background: var(--paper);
+  border: 1px solid var(--ink-line);
+  transition: transform .8s var(--ease-slow), border-color .8s var(--ease-slow);
+}
+.place:hover { transform: translateY(-4px); border-color: var(--gold); }
+.place .ix {
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--gold);
+}
+.place .ix .num {
+  font-family: var(--display); font-style: italic; font-weight: 280; font-size: 36px; color: var(--bordo); letter-spacing: -.02em;
+}
+.place h3 {
+  font-family: var(--display); font-style: italic; font-weight: 320;
+  font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1, 'wght' 320;
+  font-size: clamp(22px, 2.2vw, 30px); line-height: 1.1; letter-spacing: -.018em; color: var(--ink);
+}
+.place .dist {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--moss);
+  padding-top: 14px; border-top: 1px solid var(--ink-line);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.place .dist .v { color: var(--bordo); letter-spacing: .12em; font-size: 13px; }
+.place p {
+  font-family: var(--body); font-size: 14px; line-height: 1.6; color: var(--moss-2);
+}
+
+/* ─── sticky book bar ───────────────────────────────────────────────────── */
+.sticky-bar {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 90;
+  color: var(--paper);
+  border-top: 1px solid var(--gold);
+  padding: 14px var(--pad-page);
+  display: grid; grid-template-columns: 1fr auto auto; gap: 24px; align-items: center;
+  transform: translateY(110%); transition: transform .8s var(--ease-slow);
+  backdrop-filter: blur(14px); background: rgba(7, 8, 10, 0.92);
+  pointer-events: none; opacity: 0;
+}
+.sticky-bar.shown { transform: translateY(0); opacity: 1; pointer-events: auto; }
+/* duplicate kept above; this rule no-op */
+.sticky-bar .label {
+  font-family: var(--display); font-style: italic; font-weight: 320; font-size: 18px; letter-spacing: -.01em;
+  display: flex; align-items: center; gap: 14px;
+}
+.sticky-bar .label .pulse-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: #6f9d70;
+  box-shadow: 0 0 0 0 rgba(111,157,112,.65);
+  animation: pulse-dot 2s ease-out infinite;
+}
+.sticky-bar .label em { color: var(--gold); }
+.sticky-bar .phone {
+  font-family: var(--mono); font-size: 12px; letter-spacing: .2em; color: var(--paper);
+  display: flex; align-items: center; gap: 8px;
+}
+.sticky-bar .phone .ic { width: 12px; height: 12px; color: var(--gold); }
+.sticky-bar .btn { padding: 14px 22px; font-size: 10px; }
+@media (max-width: 720px) {
+  .sticky-bar { grid-template-columns: 1fr auto; }
+  .sticky-bar .phone { display: none; }
+  .sticky-bar .label { font-size: 14px; }
+  .sticky-bar .label em { display: none; }
+}
+
+/* ─── moodboard image strip ─────────────────────────────────────────────── */
+.mood-strip {
+  background: var(--ink); color: var(--paper); padding: 0; overflow: hidden;
+  position: relative;
+}
+.mood-strip .strip-track {
+  display: flex; gap: 2px;
+  animation: strip 60s linear infinite;
+  width: max-content;
+}
+.mood-strip .strip-track:hover { animation-play-state: paused; }
+.mood-strip .frame {
+  flex: 0 0 320px; height: 240px; position: relative; overflow: hidden;
+}
+.mood-strip .frame img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(.15) brightness(.85) contrast(1.05);
+  transition: transform 2s var(--ease-slow), filter 1s var(--ease-slow);
+}
+.mood-strip .frame:hover img { transform: scale(1.08); filter: none; }
+.mood-strip .frame .cap {
+  position: absolute; bottom: 0; left: 0; right: 0; padding: 14px 18px;
+  background: linear-gradient(180deg, transparent, rgba(7,8,10,.85));
+  font-family: var(--mono); font-size: 10px; letter-spacing: .26em; text-transform: uppercase; color: var(--gold);
+}
+@keyframes strip {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ─── gallery mosaic (banyo + iç mekan detayları) ───────────────────────── */
+.mosaic-section {
+  background: var(--paper); color: var(--ink);
+}
+.mosaic {
+  display: grid; grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: 140px; gap: 4px;
+  margin-top: clamp(40px, 6vw, 80px);
+}
+@media (max-width: 720px) { .mosaic { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 180px; } }
+.mosaic .tile {
+  position: relative; overflow: hidden;
+  background: var(--moss);
+  border: 1px solid transparent;
+  transition: border-color .5s var(--ease);
+}
+.mosaic .tile:hover { border-color: var(--gold); }
+.mosaic .tile img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(.15) brightness(.9);
+  transition: transform 1.6s var(--ease-slow), filter 1s var(--ease-slow);
+}
+.mosaic .tile:hover img { transform: scale(1.06); filter: none; }
+.mosaic .tile .cap {
+  position: absolute; bottom: 0; left: 0; right: 0; padding: 14px;
+  background: linear-gradient(180deg, transparent, rgba(7,8,10,.7));
+  font-family: var(--mono); font-size: 10px; letter-spacing: .26em; text-transform: uppercase; color: var(--paper);
+  opacity: 0; transition: opacity .5s var(--ease);
+}
+.mosaic .tile:hover .cap { opacity: 1; }
+
+.mosaic .t1 { grid-column: span 3; grid-row: span 3; }
+.mosaic .t2 { grid-column: span 3; grid-row: span 2; }
+.mosaic .t3 { grid-column: span 2; grid-row: span 2; }
+.mosaic .t4 { grid-column: span 1; grid-row: span 1; }
+.mosaic .t5 { grid-column: span 2; grid-row: span 1; }
+.mosaic .t6 { grid-column: span 2; grid-row: span 2; }
+.mosaic .t7 { grid-column: span 2; grid-row: span 2; }
+.mosaic .t8 { grid-column: span 2; grid-row: span 1; }
+@media (max-width: 720px) {
+  .mosaic .tile, .mosaic .t1, .mosaic .t2, .mosaic .t3, .mosaic .t4, .mosaic .t5, .mosaic .t6, .mosaic .t7, .mosaic .t8 { grid-column: span 1; grid-row: span 1; }
+}
+
+/* ─── small ornament for chapter heads ──────────────────────────────────── */
+.ch-head .titleblock h2::after {
+  content: '·'; color: var(--gold); margin-left: .15em; font-style: normal;
+}
+
+/* ─── helpers ──────────────────────────────────────────────────────────── */
+.no-select { user-select: none; -webkit-user-select: none; }
+.center { text-align: center; }
+.flex { display: flex; }
+.col { flex-direction: column; }
+.gap-sm { gap: 12px; }
+
+/* ─── load animation ────────────────────────────────────────────────────── */
+.boot-screen {
+  position: fixed; inset: 0; z-index: 1500; background: var(--ink);
+  display: grid; place-items: center; color: var(--paper);
+  transition: opacity .9s var(--ease) .35s, transform .9s var(--ease) .35s;
+}
+.boot-screen.gone { opacity: 0; transform: translateY(-12%); pointer-events: none; }
+.boot-screen .center-mark {
+  font-family: var(--display); font-style: italic; font-weight: 320;
+  font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1, 'wght' 280;
+  font-size: clamp(44px, 7vw, 96px); letter-spacing: -.02em;
+  display: flex; align-items: baseline; gap: 14px;
+}
+.boot-screen .center-mark .dot { width: 10px; height: 10px; background: var(--brass); border-radius: 50%; align-self: center; animation: boot-pulse 1.6s ease-in-out infinite; }
+@keyframes boot-pulse {
+  0%, 100% { transform: scale(.6); opacity: .35; }
+  50% { transform: scale(1); opacity: 1; }
+}
+.boot-screen .progress {
+  position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+  width: clamp(180px, 30vw, 320px); height: 1px; background: var(--line-2); overflow: hidden;
+}
+.boot-screen .progress::after {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  background: var(--brass);
+  animation: boot-fill 1.4s var(--ease-slow) forwards;
+}
+@keyframes boot-fill {
+  0% { width: 0; }
+  100% { width: 100%; }
+}
+.boot-screen .footer-line {
+  position: absolute; bottom: 22px; left: 0; right: 0;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .3em; text-transform: uppercase; text-align: center; color: var(--mist-2);
+}
+
+/* magnetic link wrappers (cursor mode triggers via class on body) */
+.magnet { transition: transform .4s var(--ease); }
+
+/* utility: ornament hairlines */
+.h-line {
+  display: block; width: 100%; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--brass) 50%, transparent);
+  opacity: .35;
+}
+
+/* tighten max wrap on text-heavy sections */
+.narrow { max-width: 1100px; margin: 0 auto; }
+
+</style>
+</head>
+
+<body>
+  <!-- gilt-frame (gold edge around viewport) -->
+  <div class="gilt-frame" aria-hidden="true"><i></i><i></i></div>
+
+  <!-- sticky booking bar -->
+  <div class="sticky-bar" id="sticky-bar">
+    <span class="label">
+      <span class="pulse-dot"></span>
+      <span>Bu hafta sonu <em>4 oda</em> müsait · son rezervasyon 12 dk önce</span>
+    </span>
+    <a class="phone" href="tel:+905453842829" data-magnet>
+      <svg class="ic" viewBox="0 0 12 12" fill="none"><path d="M3 1c1 0 1.5.5 2 2L3.5 4.5C4 6 5.5 7.5 7 8L8.5 6.5c1.5.5 2 1 2 2v1c0 1-.5 1.5-1.5 1.5C5 11 1 7 1 2.5 1 1.5 1.5 1 2.5 1H3z" stroke="currentColor" stroke-width="1"/></svg>
+      +90 545 384 28 29
+    </a>
+    <a href="#rezervasyon" class="btn" data-magnet><span>Rezervasyon yap</span><span class="arrow"></span></a>
+  </div>
+
+  <!-- BOOT — kostüm hoş geldin -->
+  <div class="boot-screen" id="boot">
+    <div class="center-mark">
+      <span>nil</span>
+      <span class="dot"></span>
+      <span>pansiyon</span>
+    </div>
+    <div class="progress"></div>
+    <div class="footer-line">UZUNGÖL · ÇAYKARA · TRABZON</div>
+  </div>
+
+  <!-- custom cursor (desktop only) -->
+  <div class="cursor-dot" id="cursor-dot"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
+
+  <!-- grain film -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ─── nav ────────────────────────────────────────────────────────────── -->
+  <nav class="top-nav" id="top-nav">
+    <div class="meta">
+      <span class="pulse"><span class="dot"></span>Açık · Misafir kabul ediyoruz</span>
+    </div>
+    <a href="#hero" class="mark" data-magnet>
+      <span class="glyph">N</span>
+      <span>nil pansiyon</span>
+      <span class="est">est · uzungöl</span>
+    </a>
+    <div class="links">
+      <a href="#odalar" data-magnet>Odalar</a>
+      <a href="#sofra" data-magnet>Sofra</a>
+      <a href="#hikaye" data-magnet>Hikâye</a>
+      <a href="#mevsimler" data-magnet>Mevsim</a>
+      <a href="#konum" data-magnet>Konum</a>
+      <a href="#rezervasyon" class="book" data-magnet>Rezervasyon</a>
+      <span class="lang">
+        <button class="active">TR</button>
+        <button>EN</button>
+        <button>AR</button>
+      </span>
+    </div>
+  </nav>
+
+  <!-- ─── HERO ───────────────────────────────────────────────────────────── -->
+  <section class="hero" id="hero">
+    <div class="bg"></div>
+    <div class="bg-photo p1 active" id="hero-photo-1"></div>
+    <div class="bg-photo p2" id="hero-photo-2"></div>
+    <div class="bg-photo p3" id="hero-photo-3"></div>
+    <div class="bg-photo p4" id="hero-photo-4"></div>
+
+    <div class="mists" aria-hidden="true">
+      <div class="mist mist--a"></div>
+      <div class="mist mist--b"></div>
+      <div class="mist mist--c"></div>
+      <div class="mist mist--d"></div>
+    </div>
+
+    <div class="bg-vignette"></div>
+
+    <span class="bracket tl" aria-hidden="true"></span>
+    <span class="bracket tr" aria-hidden="true"></span>
+    <span class="bracket bl" aria-hidden="true"></span>
+    <span class="bracket br" aria-hidden="true"></span>
+
+    <!-- decorative ladin (spruce) branches -->
+    <!-- aile mührü / family crest -->
+    <svg class="hero-crest" viewBox="0 0 120 140" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <linearGradient id="crest-grad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#E8C988"/>
+          <stop offset="100%" stop-color="#8E6B30"/>
+        </linearGradient>
+      </defs>
+      <!-- outer shield -->
+      <path d="M60 4 L 110 18 V 70 C 110 100, 90 124, 60 136 C 30 124, 10 100, 10 70 V 18 Z"
+            stroke="url(#crest-grad)" stroke-width="1.2" fill="rgba(200,164,92,0.04)"/>
+      <!-- inner shield -->
+      <path d="M60 14 L 100 25 V 70 C 100 95, 83 115, 60 124 C 37 115, 20 95, 20 70 V 25 Z"
+            stroke="url(#crest-grad)" stroke-width=".7" opacity=".55" fill="none"/>
+      <!-- centered tree (ladin) -->
+      <g stroke="url(#crest-grad)" stroke-width="1" fill="none">
+        <path d="M60 28 L60 100"/>
+        <path d="M60 38 L48 52 M60 38 L72 52"/>
+        <path d="M60 52 L42 70 M60 52 L78 70"/>
+        <path d="M60 68 L38 88 M60 68 L82 88"/>
+        <path d="M50 100 L70 100"/>
+      </g>
+      <!-- N monogram -->
+      <text x="60" y="115" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="320" font-size="14" fill="url(#crest-grad)" letter-spacing="2">EST · UZUNGÖL</text>
+    </svg>
+
+    <svg class="ladin-svg l1" viewBox="0 0 120 320" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <g stroke="#B89968" stroke-width=".7" opacity=".8">
+        <path d="M60 4 L60 316" />
+        <path d="M60 30 L18 60" /><path d="M60 30 L102 60" />
+        <path d="M60 64 L8 100" /><path d="M60 64 L112 100" />
+        <path d="M60 100 L4 140" /><path d="M60 100 L116 140" />
+        <path d="M60 142 L10 184" /><path d="M60 142 L110 184" />
+        <path d="M60 188 L14 224" /><path d="M60 188 L106 224" />
+        <path d="M60 232 L20 266" /><path d="M60 232 L100 266" />
+        <path d="M60 274 L28 302" /><path d="M60 274 L92 302" />
+      </g>
+    </svg>
+    <svg class="ladin-svg l2" viewBox="0 0 120 320" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <g stroke="#B89968" stroke-width=".7" opacity=".8">
+        <path d="M60 4 L60 316" />
+        <path d="M60 30 L18 60" /><path d="M60 30 L102 60" />
+        <path d="M60 64 L8 100" /><path d="M60 64 L112 100" />
+        <path d="M60 100 L4 140" /><path d="M60 100 L116 140" />
+        <path d="M60 142 L10 184" /><path d="M60 142 L110 184" />
+        <path d="M60 188 L14 224" /><path d="M60 188 L106 224" />
+        <path d="M60 232 L20 266" /><path d="M60 232 L100 266" />
+        <path d="M60 274 L28 302" /><path d="M60 274 L92 302" />
+      </g>
+    </svg>
+
+    <div class="corner-left">
+      <span class="hairline"></span>
+      <span>41° 03′ N · 40° 16′ E</span>
+      <span class="hairline"></span>
+    </div>
+    <div class="corner-right">
+      <span class="hairline"></span>
+      <span>İnönü Cd. No 92/A · Uzungöl</span>
+      <span class="hairline"></span>
+    </div>
+
+    <div class="frame">
+      <div></div>
+
+      <h1 class="title">
+        <span class="row row-1 letters" data-text="nil">
+          <span class="ch">n</span><span class="ch">i</span><span class="ch">l</span>
+        </span>
+        <span class="amp">&amp;</span>
+        <span class="row row-1 letters" data-text="pansiyon">
+          <span class="ch">p</span><span class="ch">a</span><span class="ch">n</span><span class="ch">s</span><span class="ch">i</span><span class="ch">y</span><span class="ch">o</span><span class="ch">n</span>
+        </span>
+        <span class="row row-2 reveal reveal-delay-4">Sis ile gölün buluştuğu yerde</span>
+      </h1>
+
+      <div class="sub reveal reveal-delay-5">
+        <span>Ladin ormanı</span>
+        <span class="pip"></span>
+        <span>12 ahşap oda</span>
+        <span class="pip"></span>
+        <span>bir tek sofra</span>
+      </div>
+
+      <div class="footer-row">
+        <div class="pansiyon-stamp reveal reveal-delay-3">
+          <span class="l">Konum</span>
+          <span class="h">Uzungöl · Çaykara · Trabzon</span>
+        </div>
+        <a href="#odalar" class="scroll-cue reveal reveal-delay-4" data-magnet>
+          <span>aşağı</span>
+          <span class="ln"></span>
+          <span>akış</span>
+        </a>
+        <div class="coords reveal reveal-delay-3">
+          <span class="l">İrtifa · Mevsim</span>
+          <span class="v">1090 m · İlkbahar geç</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── manifesto ──────────────────────────────────────────────────────── -->
+  <section class="manifesto" id="manifesto">
+    <svg class="ornament" viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="300" cy="300" r="290" stroke="#0A0B09" stroke-width=".5" />
+      <circle cx="300" cy="300" r="220" stroke="#0A0B09" stroke-width=".5" />
+      <circle cx="300" cy="300" r="150" stroke="#0A0B09" stroke-width=".5" />
+      <circle cx="300" cy="300" r="80" stroke="#0A0B09" stroke-width=".5" />
+      <line x1="0" y1="300" x2="600" y2="300" stroke="#0A0B09" stroke-width=".5"/>
+      <line x1="300" y1="0" x2="300" y2="600" stroke="#0A0B09" stroke-width=".5"/>
+      <line x1="88" y1="88" x2="512" y2="512" stroke="#0A0B09" stroke-width=".3"/>
+      <line x1="512" y1="88" x2="88" y2="512" stroke="#0A0B09" stroke-width=".3"/>
+    </svg>
+
+    <div class="grid wrap">
+      <aside class="left reveal">
+        <span class="ix">— Manifesto · Ⅰ</span>
+        <p>Yıllar önce bir akşam, gölün üzerine inen sis o kadar yoğundu ki diğer kıyıyı göremiyorduk. Misafirlerimiz çayını içerken, "burası dünyanın sonu gibi" dedi. Biz de öyle düşündük.</p>
+        <p>Karadeniz'in sertliğini değil, sessizliğini sunuyoruz.</p>
+        <span class="thread"></span>
+      </aside>
+      <div class="right reveal reveal-delay-2">
+        <span class="stanza">Sabah, çayın <em>buğusu</em>.</span>
+        <span class="stanza">Öğle, ladin <em>kokusu</em>.</span>
+        <span class="stanza">Akşam, gölün üstünde duran <em>bir bulut</em>.</span>
+        <span class="stanza"><span class="pause">—</span> ve aralarında, sizin <em>nefesiniz</em>.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── ODALAR ─────────────────────────────────────────────────────────── -->
+  <section class="rooms-section chapter dark" id="odalar">
+    <div class="mists" aria-hidden="true">
+      <div class="mist mist--a"></div>
+      <div class="mist mist--c"></div>
+    </div>
+
+    <div class="wrap">
+      <header class="ch-head reveal">
+        <span class="roman">Ⅱ</span>
+        <div class="titleblock">
+          <span class="sub">Konaklama · Bölüm İki</span>
+          <h2>On iki ahşap oda, <em>her biri ayrı bir hece</em>.</h2>
+        </div>
+        <div class="right">
+          <span>Bölüm</span>
+          <span class="v">02 / 06</span>
+        </div>
+      </header>
+
+      <div class="rooms">
+
+        <article class="room r1 reveal">
+          <span class="floating-tag"><span class="pip"></span>Üst kat · Göl tarafı</span>
+          <div class="features">
+            <span class="f" title="Wi-Fi">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 5.5C2.5 4 4.5 3 7 3s4.5 1 6 2.5M3 7.5c1-1 2.4-1.7 4-1.7s3 .7 4 1.7M5 9.5c.5-.5 1.3-.8 2-.8s1.5.3 2 .8" stroke="currentColor" stroke-width="1"/><circle cx="7" cy="11.3" r=".7" fill="currentColor"/></svg>
+            </span>
+            <span class="f" title="Balkon">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 6h10v2H2zM3 8v4M5 8v4M7 8v4M9 8v4M11 8v4M2 12h10" stroke="currentColor" stroke-width="1"/></svg>
+            </span>
+            <span class="f" title="Minibar">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="3" y="2" width="8" height="10" stroke="currentColor" stroke-width="1"/><path d="M3 6h8" stroke="currentColor" stroke-width="1"/></svg>
+            </span>
+          </div>
+          <div class="ph">
+            <img src="/assets/img/deluxe-cift-kisilik-oda.jpg" alt="Deluxe Oda · ahşap, ferah, dağ manzarası" loading="lazy" />
+          </div>
+          <div class="meta">
+            <div>
+              <span class="num">01 — Deluxe</span>
+              <div class="name">Deluxe Oda</div>
+              <div class="bed">Geniş aile odası · ahşap detaylı · dağ manzarası</div>
+            </div>
+            <span class="cap"><span class="pip"></span>7 kişi</span>
+          </div>
+          <a class="reveal-link" href="#rezervasyon" aria-label="Deluxe Oda rezervasyon">
+            <span class="pill">Rezervasyon İste <span class="arrow"></span></span>
+          </a>
+        </article>
+
+        <article class="room r2 reveal reveal-delay-1">
+          <span class="floating-tag"><span class="pip"></span>Daire · Mutfaklı</span>
+          <div class="features">
+            <span class="f" title="Wi-Fi"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 5.5C2.5 4 4.5 3 7 3s4.5 1 6 2.5M3 7.5c1-1 2.4-1.7 4-1.7s3 .7 4 1.7M5 9.5c.5-.5 1.3-.8 2-.8s1.5.3 2 .8" stroke="currentColor" stroke-width="1"/><circle cx="7" cy="11.3" r=".7" fill="currentColor"/></svg></span>
+            <span class="f" title="Mutfak"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 2v6H2v4h10V8h-1V2H9v4H5V2H3z" stroke="currentColor" stroke-width="1"/></svg></span>
+            <span class="f" title="Salon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 10v-3a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v3M1 10h12v2H1z" stroke="currentColor" stroke-width="1"/></svg></span>
+          </div>
+          <div class="ph">
+            <img src="/assets/img/family-bungalov-mutfak-salon.jpg" alt="2+1 Daire · Mutfak ve salon" loading="lazy" />
+          </div>
+          <div class="meta">
+            <div>
+              <span class="num">02 — 2+1 Daire</span>
+              <div class="name">İki Oda · Bir Salon</div>
+              <div class="bed">2 yatak odası + salon + mutfak · dağ manzarası</div>
+            </div>
+            <span class="cap"><span class="pip"></span>6 kişi</span>
+          </div>
+          <a class="reveal-link" href="#rezervasyon" aria-label="2+1 Daire rezervasyon">
+            <span class="pill">Rezervasyon İste <span class="arrow"></span></span>
+          </a>
+        </article>
+
+        <article class="room r3 reveal reveal-delay-2">
+          <span class="floating-tag"><span class="pip"></span>Daire · Aile</span>
+          <div class="features">
+            <span class="f" title="Wi-Fi"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 5.5C2.5 4 4.5 3 7 3s4.5 1 6 2.5M3 7.5c1-1 2.4-1.7 4-1.7s3 .7 4 1.7M5 9.5c.5-.5 1.3-.8 2-.8s1.5.3 2 .8" stroke="currentColor" stroke-width="1"/><circle cx="7" cy="11.3" r=".7" fill="currentColor"/></svg></span>
+            <span class="f" title="Mutfak"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 2v6H2v4h10V8h-1V2H9v4H5V2H3z" stroke="currentColor" stroke-width="1"/></svg></span>
+            <span class="f" title="Otopark"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="10" height="10" stroke="currentColor" stroke-width="1"/><path d="M5 10V4h3a2 2 0 0 1 0 4H5" stroke="currentColor" stroke-width="1"/></svg></span>
+          </div>
+          <div class="ph">
+            <img src="/assets/img/family-bungalov-oturma-alani.jpg" alt="1+1 Daire · Oturma alanı" loading="lazy" />
+          </div>
+          <div class="meta">
+            <div>
+              <span class="num">03 — 1+1 Daire</span>
+              <div class="name">Bir Oda · Bir Salon</div>
+              <div class="bed">1 yatak odası + salon + mutfak · dağ manzarası</div>
+            </div>
+            <span class="cap"><span class="pip"></span>3 kişi</span>
+          </div>
+          <a class="reveal-link" href="#rezervasyon" aria-label="1+1 Daire rezervasyon">
+            <span class="pill">Rezervasyon İste <span class="arrow"></span></span>
+          </a>
+        </article>
+
+        <article class="room r4 reveal reveal-delay-1">
+          <span class="floating-tag"><span class="pip"></span>İki kişilik</span>
+          <div class="features">
+            <span class="f" title="Wi-Fi"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 5.5C2.5 4 4.5 3 7 3s4.5 1 6 2.5M3 7.5c1-1 2.4-1.7 4-1.7s3 .7 4 1.7M5 9.5c.5-.5 1.3-.8 2-.8s1.5.3 2 .8" stroke="currentColor" stroke-width="1"/><circle cx="7" cy="11.3" r=".7" fill="currentColor"/></svg></span>
+            <span class="f" title="Balkon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 6h10v2H2zM3 8v4M5 8v4M7 8v4M9 8v4M11 8v4M2 12h10" stroke="currentColor" stroke-width="1"/></svg></span>
+          </div>
+          <div class="ph">
+            <img src="/assets/img/superior-ikiz-yatak-oda.jpg" alt="Superior İkiz Yatak Odası" loading="lazy" />
+          </div>
+          <div class="meta">
+            <div>
+              <span class="num">04 — Superior</span>
+              <div class="name">İkiz Yatak Odası</div>
+              <div class="bed">2 adet tek kişilik yatak · balkon · ahşap detay</div>
+            </div>
+            <span class="cap"><span class="pip"></span>2 kişi</span>
+          </div>
+          <a class="reveal-link" href="#rezervasyon" aria-label="Superior İkiz rezervasyon">
+            <span class="pill">Rezervasyon İste <span class="arrow"></span></span>
+          </a>
+        </article>
+
+        <article class="room r5 reveal">
+          <span class="floating-tag"><span class="pip"></span>Aile bungalov · 7 kişi</span>
+          <div class="features">
+            <span class="f" title="Wi-Fi"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 5.5C2.5 4 4.5 3 7 3s4.5 1 6 2.5M3 7.5c1-1 2.4-1.7 4-1.7s3 .7 4 1.7M5 9.5c.5-.5 1.3-.8 2-.8s1.5.3 2 .8" stroke="currentColor" stroke-width="1"/><circle cx="7" cy="11.3" r=".7" fill="currentColor"/></svg></span>
+            <span class="f" title="Mutfak"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 2v6H2v4h10V8h-1V2H9v4H5V2H3z" stroke="currentColor" stroke-width="1"/></svg></span>
+            <span class="f" title="Salon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 10v-3a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v3M1 10h12v2H1z" stroke="currentColor" stroke-width="1"/></svg></span>
+            <span class="f" title="Otopark"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="10" height="10" stroke="currentColor" stroke-width="1"/><path d="M5 10V4h3a2 2 0 0 1 0 4H5" stroke="currentColor" stroke-width="1"/></svg></span>
+          </div>
+          <div class="ph">
+            <img src="/assets/img/family-bungalov-salon-alternatif.jpg" alt="Aile Bungalov · Geniş salon" loading="lazy" />
+          </div>
+          <div class="meta">
+            <div>
+              <span class="num">05 — Aile Bungalov</span>
+              <div class="name">Geniş Salonlu Bungalov</div>
+              <div class="bed">Salon + mutfak + yatak odaları · yedi kişiye dek</div>
+            </div>
+            <span class="cap"><span class="pip"></span>7 kişi</span>
+          </div>
+          <a class="reveal-link" href="#rezervasyon" aria-label="Aile bungalov rezervasyon">
+            <span class="pill">Rezervasyon İste <span class="arrow"></span></span>
+          </a>
+        </article>
+
+        <article class="room r6 reveal reveal-delay-2">
+          <span class="floating-tag"><span class="pip"></span>İki kişilik</span>
+          <div class="features">
+            <span class="f" title="Wi-Fi"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 5.5C2.5 4 4.5 3 7 3s4.5 1 6 2.5M3 7.5c1-1 2.4-1.7 4-1.7s3 .7 4 1.7M5 9.5c.5-.5 1.3-.8 2-.8s1.5.3 2 .8" stroke="currentColor" stroke-width="1"/><circle cx="7" cy="11.3" r=".7" fill="currentColor"/></svg></span>
+            <span class="f" title="Otopark"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="10" height="10" stroke="currentColor" stroke-width="1"/><path d="M5 10V4h3a2 2 0 0 1 0 4H5" stroke="currentColor" stroke-width="1"/></svg></span>
+          </div>
+          <div class="ph">
+            <img src="/assets/img/standard-cift-kisilik-oda.jpg" alt="Standard Çift Kişilik Oda" loading="lazy" />
+          </div>
+          <div class="meta">
+            <div>
+              <span class="num">06 — Standard</span>
+              <div class="name">Çift Kişilik Oda</div>
+              <div class="bed">Çift kişilik yatak · ahşap mobilya · sade ferahlık</div>
+            </div>
+            <span class="cap"><span class="pip"></span>2 kişi</span>
+          </div>
+          <a class="reveal-link" href="#rezervasyon" aria-label="Standard rezervasyon">
+            <span class="pill">Rezervasyon İste <span class="arrow"></span></span>
+          </a>
+        </article>
+
+      </div>
+
+      <div class="rooms-footnote reveal">
+        <span class="num">12</span>
+        <span class="label">— Toplam oda · her bir kapı arkasında ayrı bir sessizlik</span>
+        <a href="#rezervasyon" class="btn" data-magnet><span>Bütün odalara bakın</span><span class="arrow"></span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SOFRA · mutfak / yemek listesi ─────────────────────────────────── -->
+  <section class="sofra chapter" id="sofra">
+    <div class="meander-bg" aria-hidden="true"></div>
+    <div class="wrap">
+      <header class="ch-head reveal">
+        <span class="roman" style="color: var(--gold);">·</span>
+        <div class="titleblock">
+          <span class="sub" style="color: var(--gold);">Sofra · Bölüm Ek</span>
+          <h2>Karadeniz <em>sofrası</em>, vadinin kendisinden.</h2>
+        </div>
+        <div class="right" style="color: var(--paper-2);">
+          <span>Bölüm</span>
+          <span class="v" style="color: var(--gold);">Ek · Sofra</span>
+        </div>
+      </header>
+
+      <div class="grid">
+        <div class="right reveal" style="display:flex;flex-direction:column;gap:24px;">
+          <span class="eyebrow" style="color: var(--gold);">— Mutfak · ev usulü</span>
+          <p class="lead">Tereyağı <em>Haldizen</em> yaylasından. Mısır unu <em>komşu</em> köyden. Bal, ladinin kendisinden.</p>
+          <p>Sabah açık büfemiz, on iki ayrı reçel, yedi peynir, üç çeşit börek, mıhlama, kuymak, kalkan ve hamsi (mevsiminde), taze köy ekmeği ile başlar — saat altıdan on bire kadar.</p>
+          <p>Öğle ve akşam servisi talep üzerine. Misafirlerimizin %94'ü, yemeklerimiz için tekrar gelir.</p>
+          <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:8px;">
+            <span class="eyebrow" style="color: var(--gold-hi); border: 1px solid var(--line); padding: 8px 12px;">Kahvaltı · dahil</span>
+            <span class="eyebrow" style="color: var(--gold-hi); border: 1px solid var(--line); padding: 8px 12px;">Talep üzerine yemek</span>
+            <span class="eyebrow" style="color: var(--gold-hi); border: 1px solid var(--line); padding: 8px 12px;">Vejetaryen seçenek</span>
+          </div>
+        </div>
+
+        <div class="menu reveal reveal-delay-2">
+          <div class="item">
+            <div>
+              <span class="name">Mıhlama</span>
+              <div class="desc">Karadeniz tereyağı, mısır unu, Trabzon kolot peyniri — ahşap tencerede.</div>
+            </div>
+            <span class="tag">ev usulü</span>
+          </div>
+          <div class="item">
+            <div>
+              <span class="name">Kuymak</span>
+              <div class="desc">Mıhlamanın yakın akrabası — daha yoğun, daha eski. Sabah kahvaltısının başkahramanı.</div>
+            </div>
+            <span class="tag">sabah · kalp</span>
+          </div>
+          <div class="item">
+            <div>
+              <span class="name">Karalâhana sarması</span>
+              <div class="desc">Köy iç harçlı, ladin odununda haşlanmış — Çaykara'nın imzası.</div>
+            </div>
+            <span class="tag">öğle</span>
+          </div>
+          <div class="item">
+            <div>
+              <span class="name">Taze hamsi tava</span>
+              <div class="desc">Mevsiminde, sabah ağdan alınmış — mısır ununda kızartılmış.</div>
+            </div>
+            <span class="tag">kış · sezon</span>
+          </div>
+          <div class="item">
+            <div>
+              <span class="name">Köy ekmeği · ev reçelleri</span>
+              <div class="desc">Sabah sıcak, on iki çeşit ev reçeli — çilek, vişne, ahududu, ladin reçeli dahil.</div>
+            </div>
+            <span class="tag">kahvaltı</span>
+          </div>
+          <div class="item">
+            <div>
+              <span class="name">Fındık tatlısı · pestil</span>
+              <div class="desc">Trabzon fındığı, vadi balı, ev sütü — ailenin kendi tarifi.</div>
+            </div>
+            <span class="tag">akşam</span>
+          </div>
+          <div class="item">
+            <div>
+              <span class="name">Çay · semaver</span>
+              <div class="desc">Açık-kapalı, açık-tavşan kanı — istediğiniz demlikte. Saat her saat.</div>
+            </div>
+            <span class="tag">her saat</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── HIKAYE ────────────────────────────────────────────────────────── -->
+  <section class="hikaye chapter moss" id="hikaye">
+    <div class="mists" aria-hidden="true" style="z-index:1; opacity:.5;">
+      <div class="mist mist--b"></div>
+      <div class="mist mist--d"></div>
+    </div>
+
+    <div class="wrap" style="position:relative; z-index:2;">
+      <header class="ch-head reveal">
+        <span class="roman">Ⅳ</span>
+        <div class="titleblock">
+          <span class="sub">Hikâye · Bölüm Dört</span>
+          <h2>Ladin tahtası <em>yıllanır</em>, sofra <em>genişler</em>.</h2>
+        </div>
+        <div class="right">
+          <span>Bölüm</span>
+          <span class="v">04 / 06</span>
+        </div>
+      </header>
+
+      <div class="grid">
+        <div class="photo reveal">
+          <img src="/assets/img/otel-dis-cephe-yesil.jpg" alt="Nil Pansiyon dış cephesi · ladinler arasında" loading="lazy" />
+          <div class="stamp">
+            <span>Pansiyon · Doğu cephesi</span>
+            <span class="v">Çekim · ilkbahar</span>
+          </div>
+        </div>
+
+        <div class="text reveal reveal-delay-2">
+          <p class="lead">Babalarımız bu vadiye geldiklerinde, Uzungöl bir köydü. Yol asfaltsızdı, akşam yedide karanlıktı. <em>Otel</em> kelimesi henüz buralarda telaffuz edilmemişti — bir <em>misafir odası</em> vardı sadece, ve o oda her zaman hazırdı.</p>
+
+          <div class="body">
+            <div>
+              <p>Pansiyon, o misafir odasının büyümüş hâli. Ailemizin yıllar içinde kapısını yabancılara açtığı, ama yabancıyı misafir hâline getirdiği bir ev. Burada anahtarınızı resepsiyonda almazsınız — birisi size yukarı çıkarır, sobayı yakar, perdeyi açar.</p>
+              <p>Mobilyalarımızı kendi ustamız yapıyor. Ladin tahtası, vadiden. Yataklarımız Pamuk pazardan, çarşaflarımız Trabzon'dan. Her şey burnumuzun dibinden.</p>
+            </div>
+            <div>
+              <p>Birinci kuralımız: misafirin midesini boş çıkarmamak. İkincisi: gürültü yapmamak. Üçüncüsü yok — gerisi misafirin keyfine kalmış.</p>
+              <p>Yıllar geçti, vadi değişti. Asfalt geldi, Wi-Fi geldi, çok dil geldi. Ama bizim odalarımızda hâlâ aynı ladin kokuyor. <em>Çünkü değişen vadi değil, biziz — vadi olduğu gibi duruyor.</em></p>
+            </div>
+          </div>
+
+          <div class="signature">
+            <span class="sig">— Nil Ailesi</span>
+            <span class="who">Pansiyon sahipleri<span>Uzungöl · Çaykara</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── MEVSIMLER · dört Uzungöl ───────────────────────────────────────── -->
+  <section class="mevsimler chapter" id="mevsimler">
+    <div class="wrap">
+      <header class="ch-head reveal">
+        <span class="roman">·</span>
+        <div class="titleblock">
+          <span class="sub" style="color: var(--gold);">Mevsim · Ek bölüm</span>
+          <h2>Dört mevsim, <em>dört ayrı</em> Uzungöl.</h2>
+        </div>
+        <div class="right">
+          <span>Bölüm</span>
+          <span class="v">Ek · 04</span>
+        </div>
+      </header>
+
+      <div class="season-grid">
+
+        <article class="season s1 reveal">
+          <div class="bg"></div>
+          <div class="grad"></div>
+          <svg class="ornament" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="6" stroke="currentColor" stroke-width="1.2"/>
+            <g stroke="currentColor" stroke-width="1">
+              <path d="M24 6 V 14"/><path d="M24 34 V 42"/><path d="M6 24 H 14"/><path d="M34 24 H 42"/>
+              <path d="M11 11 L 16 16"/><path d="M32 32 L 37 37"/><path d="M11 37 L 16 32"/><path d="M32 16 L 37 11"/>
+            </g>
+          </svg>
+          <div class="content">
+            <div class="head">
+              <span class="ix">— ilkbahar</span>
+              <span class="month">Mart · Mayıs</span>
+            </div>
+            <div>
+              <div class="name">İlkbahar</div>
+              <div class="desc">Vadi çiçeklenir, çayır mor olur. Sis sabahları erken iner, öğlene kalmaz. Doğa yürüyüşleri için en güzel hava.</div>
+            </div>
+          </div>
+          <span class="temp">+8 / +18 °C</span>
+        </article>
+
+        <article class="season s2 reveal reveal-delay-1">
+          <div class="bg"></div>
+          <div class="grad"></div>
+          <svg class="ornament" viewBox="0 0 48 48" fill="none">
+            <path d="M8 30 Q 14 22, 24 24 Q 34 26, 40 22" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M8 36 Q 14 28, 24 30 Q 34 32, 40 28" stroke="currentColor" stroke-width="1" opacity=".7"/>
+            <path d="M24 8 L 22 14 L 26 14 L 24 20 L 28 20 L 24 26" stroke="currentColor" stroke-width="1.2"/>
+          </svg>
+          <div class="content">
+            <div class="head">
+              <span class="ix">— yaz</span>
+              <span class="month">Haziran · Ağustos</span>
+            </div>
+            <div>
+              <div class="name">Yaz</div>
+              <div class="desc">Yaylalar açılır, Haldizen'e kalkılır. Geceleri serin, gündüzleri akarsu kıyısında. Pansiyon yıl boyu en dolu mevsim.</div>
+            </div>
+          </div>
+          <span class="temp">+15 / +24 °C</span>
+        </article>
+
+        <article class="season s3 reveal reveal-delay-2">
+          <div class="bg"></div>
+          <div class="grad"></div>
+          <svg class="ornament" viewBox="0 0 48 48" fill="none">
+            <path d="M24 6 L 24 36" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M24 12 L 20 16 M 24 12 L 28 16" stroke="currentColor" stroke-width="1"/>
+            <path d="M24 20 L 18 24 M 24 20 L 30 24" stroke="currentColor" stroke-width="1"/>
+            <path d="M24 28 L 16 32 M 24 28 L 32 32" stroke="currentColor" stroke-width="1"/>
+            <path d="M14 40 L 34 40" stroke="currentColor" stroke-width="1.2"/>
+          </svg>
+          <div class="content">
+            <div class="head">
+              <span class="ix">— sonbahar</span>
+              <span class="month">Eylül · Kasım</span>
+            </div>
+            <div>
+              <div class="name">Sonbahar</div>
+              <div class="desc">Ladinler altın olur, vadi renge boyanır. En sessiz mevsim — fotoğrafçıların kapımıza geldiği ay.</div>
+            </div>
+          </div>
+          <span class="temp">+4 / +14 °C</span>
+        </article>
+
+        <article class="season s4 reveal reveal-delay-3">
+          <div class="bg"></div>
+          <div class="grad"></div>
+          <svg class="ornament" viewBox="0 0 48 48" fill="none">
+            <g stroke="currentColor" stroke-width="1">
+              <path d="M24 6 L 24 42"/><path d="M6 24 L 42 24"/>
+              <path d="M12 12 L 36 36"/><path d="M12 36 L 36 12"/>
+              <circle cx="24" cy="24" r="3" fill="currentColor"/>
+            </g>
+          </svg>
+          <div class="content">
+            <div class="head">
+              <span class="ix">— kış</span>
+              <span class="month">Aralık · Şubat</span>
+            </div>
+            <div>
+              <div class="name">Kış</div>
+              <div class="desc">Sis, kar, sessizlik. Şömine başında çay. Vadi tamamen sizin olur — pansiyon yedi-sekiz misafirle açılır.</div>
+            </div>
+          </div>
+          <span class="temp">-2 / +6 °C</span>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── KONUM ─────────────────────────────────────────────────────────── -->
+  <section class="konum chapter cream" id="konum">
+    <div class="wrap">
+      <header class="ch-head reveal">
+        <span class="roman">Ⅴ</span>
+        <div class="titleblock">
+          <span class="sub">Konum · Bölüm Beş</span>
+          <h2>Sis hangi yöne <em>giderse</em>, biz oradayız.</h2>
+        </div>
+        <div class="right">
+          <span>Bölüm</span>
+          <span class="v">05 / 06</span>
+        </div>
+      </header>
+
+      <div class="grid">
+        <aside class="panel reveal">
+          <p class="lead">Pansiyonumuz, gölün <em>otuz metre</em> kuzeyinde, İnönü Caddesi üzerindeki ladinlerin arasında. Camdan başını uzatırsanız, suyun yüzeyini görürsünüz; pencereyi açarsanız, kuş seslerinden başkasını duymazsınız.</p>
+
+          <div class="address">
+            <span class="label">Adres</span>
+            İnönü Cd. No: 92/A · Uzungöl<br/>
+            61940 Çaykara / Trabzon
+          </div>
+
+          <ul class="dist">
+            <li><span class="label">Uzungöl merkez</span><span class="v">30 m</span></li>
+            <li><span class="label">Gölün kuzey kıyısı</span><span class="v">90 m</span></li>
+            <li><span class="label">Doğa yürüyüş patikası</span><span class="v">50 m</span></li>
+            <li><span class="label">Şelaleli ladin yolu girişi</span><span class="v">0.4 km</span></li>
+            <li><span class="label">Haldizen yaylası</span><span class="v">17 km</span></li>
+            <li><span class="label">Çaykara merkez</span><span class="v">19 km</span></li>
+            <li><span class="label">Trabzon Havalimanı</span><span class="v">100 km · 1 sa 30 dk</span></li>
+          </ul>
+
+          <a href="https://maps.google.com/?q=Nil+Pansiyon+Uzungöl" target="_blank" rel="noopener" class="btn btn--ink" data-magnet><span>Google Maps'te aç</span><span class="arrow"></span></a>
+        </aside>
+
+        <div class="map reveal reveal-delay-2">
+          <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" aria-label="Uzungöl bölge haritası">
+            <!-- background grid -->
+            <defs>
+              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#B8996833" stroke-width=".4"/>
+              </pattern>
+              <radialGradient id="lake-grad" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#8E948C"/>
+                <stop offset="100%" stop-color="#6B7066"/>
+              </radialGradient>
+            </defs>
+            <rect width="800" height="600" fill="url(#grid)"/>
+
+            <!-- contour lines (mountains) -->
+            <g stroke="#1F2A22" stroke-width=".5" fill="none" opacity=".35">
+              <path d="M40 460 C 200 380, 380 400, 540 320 S 760 240, 780 220"/>
+              <path d="M20 500 C 200 420, 380 440, 540 360 S 760 280, 790 260"/>
+              <path d="M60 420 C 200 340, 380 360, 540 280 S 760 200, 770 180"/>
+              <path d="M80 380 C 200 300, 380 320, 540 240 S 760 160, 760 140"/>
+              <path d="M100 340 C 200 260, 380 280, 540 200 S 760 120, 750 100"/>
+              <path d="M0 520 C 200 470, 380 480, 540 410 S 760 320, 800 300"/>
+              <path d="M40 80 C 240 120, 420 80, 580 140 S 760 100, 790 80"/>
+              <path d="M60 40 C 240 80, 420 40, 580 100 S 760 60, 790 40"/>
+            </g>
+
+            <!-- lake (Uzungöl) -->
+            <path d="M 260 260 C 240 230, 280 210, 320 220 C 380 230, 420 250, 460 270 C 500 290, 510 320, 480 340 C 430 360, 360 360, 300 340 C 250 320, 240 290, 260 260 Z"
+                  fill="url(#lake-grad)" stroke="#1F2A22" stroke-width="1" opacity=".85"/>
+
+            <!-- lake ripple lines -->
+            <g stroke="#F4EFE6" stroke-width=".4" fill="none" opacity=".4">
+              <path d="M 290 270 C 320 264, 360 268, 400 274"/>
+              <path d="M 280 300 C 320 295, 380 300, 440 308"/>
+              <path d="M 310 326 C 340 322, 380 326, 420 332"/>
+            </g>
+
+            <!-- village outlines (a few cabins) -->
+            <g stroke="#1F2A22" stroke-width=".7" fill="none" opacity=".4">
+              <rect x="220" y="200" width="14" height="10"/>
+              <path d="M220 200 L227 195 L234 200"/>
+              <rect x="240" y="195" width="14" height="10"/>
+              <path d="M240 195 L247 190 L254 195"/>
+              <rect x="490" y="260" width="14" height="10"/>
+              <path d="M490 260 L497 255 L504 260"/>
+              <rect x="200" y="350" width="14" height="10"/>
+              <path d="M200 350 L207 345 L214 350"/>
+              <rect x="220" y="365" width="14" height="10"/>
+              <path d="M220 365 L227 360 L234 365"/>
+              <rect x="240" y="355" width="14" height="10"/>
+              <path d="M240 355 L247 350 L254 355"/>
+            </g>
+
+            <!-- ladin clusters (spruce silhouettes) -->
+            <g fill="#1F2A22" opacity=".7">
+              <path d="M120 360 L116 372 L122 372 L118 384 L124 384 L120 396 L120 400 Z"/>
+              <path d="M140 350 L136 364 L142 364 L138 376 L144 376 L140 388 L140 392 Z"/>
+              <path d="M160 370 L156 382 L162 382 L158 394 L164 394 L160 406 L160 410 Z"/>
+              <path d="M580 220 L576 232 L582 232 L578 244 L584 244 L580 256 L580 260 Z"/>
+              <path d="M600 230 L596 242 L602 242 L598 254 L604 254 L600 266 L600 270 Z"/>
+              <path d="M620 240 L616 252 L622 252 L618 264 L624 264 L620 276 L620 280 Z"/>
+              <path d="M640 220 L636 232 L642 232 L638 244 L644 244 L640 256 L640 260 Z"/>
+              <path d="M660 250 L656 262 L662 262 L658 274 L664 274 L660 286 L660 290 Z"/>
+            </g>
+
+            <!-- road -->
+            <path d="M 60 540 C 200 480, 280 400, 340 320 C 380 280, 420 260, 470 250 C 540 240, 620 200, 720 140"
+                  stroke="#B89968" stroke-width="1.2" stroke-dasharray="2 3" fill="none" opacity=".7"/>
+
+            <!-- Pansiyon pin -->
+            <g transform="translate(340 220)">
+              <circle r="20" fill="#B89968" opacity=".15"/>
+              <circle r="12" fill="#B89968" opacity=".35"/>
+              <circle r="5" fill="#B89968" stroke="#0A0B09" stroke-width="1"/>
+              <text x="14" y="-6" font-family="IBM Plex Mono" font-size="9" letter-spacing="2" fill="#0A0B09">NIL PANSIYON</text>
+              <text x="14" y="6" font-family="Lora" font-style="italic" font-size="10" fill="#1F2A22">İnönü Cd. 92/A</text>
+            </g>
+
+            <!-- Trabzon airport indicator -->
+            <g transform="translate(720 100)">
+              <circle r="14" fill="#6B3A20" opacity=".15"/>
+              <circle r="8" fill="#6B3A20" opacity=".3"/>
+              <circle r="3.5" fill="#6B3A20"/>
+              <text x="-110" y="-6" font-family="IBM Plex Mono" font-size="9" letter-spacing="2" fill="#1F2A22">TRABZON HAV.</text>
+              <text x="-110" y="6" font-family="Lora" font-style="italic" font-size="10" fill="#1F2A22">100 km · 1 sa 30 dk</text>
+            </g>
+
+            <!-- Çaykara label -->
+            <g transform="translate(460 460)">
+              <text font-family="IBM Plex Mono" font-size="9" letter-spacing="2" fill="#1F2A22" opacity=".7">ÇAYKARA · 19 KM</text>
+            </g>
+
+            <!-- compass -->
+            <g transform="translate(710 510)" stroke="#1F2A22" fill="none">
+              <circle r="22" stroke-width=".6" opacity=".6"/>
+              <path d="M0 -22 L 0 22 M -22 0 L 22 0" stroke-width=".4" opacity=".5"/>
+              <path d="M0 -18 L 4 -2 L 0 -6 L -4 -2 Z" fill="#1F2A22" opacity=".7"/>
+              <text x="-3" y="-26" font-family="IBM Plex Mono" font-size="8" letter-spacing="1" fill="#1F2A22">K</text>
+            </g>
+          </svg>
+
+          <div class="legend">
+            <span class="item"><span class="pin"></span>Nil Pansiyon</span>
+            <span class="item"><span class="pin alt"></span>Trabzon Havalimanı</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── MISAFIR DEFTERI · testimonials ─────────────────────────────────── -->
+  <section class="defter chapter" id="defter">
+    <div class="wrap">
+      <header class="ch-head reveal">
+        <span class="roman">·</span>
+        <div class="titleblock">
+          <span class="sub">Misafir defteri · ek bölüm</span>
+          <h2>Yedi yüz kapı, yedi yüz <em>imza</em>.</h2>
+        </div>
+        <div class="right">
+          <span>Puan</span>
+          <span class="v">9.6 / 10 · 412 yorum</span>
+        </div>
+      </header>
+
+      <div class="testimonials">
+        <article class="testimonial reveal">
+          <span class="platform">Booking · 10/10</span>
+          <span class="stars">★ ★ ★ ★ ★</span>
+          <p class="body">"İlk gece sobamızı yaktılar, ikinci gün <em>kuymak</em> getirdiler, üçüncü gün ayrılırken aile gibi sarıldık. Bir otelden değil, bir köyden döner gibi döndük."</p>
+          <div class="author">
+            <div class="avi">A</div>
+            <div class="who">Ayşegül & Mert <span class="meta">İstanbul · 4 gece · Aile bungalov</span></div>
+          </div>
+        </article>
+
+        <article class="testimonial reveal reveal-delay-1">
+          <span class="platform">Tripadvisor · ★★★★★</span>
+          <span class="stars">★ ★ ★ ★ ★</span>
+          <p class="body">"Aman Resorts'a gittik, Mandarin Oriental'e gittik. Burada hissettiğimiz <em>misafirperverlik</em>i hiçbir yerde bulamadık. Sis dağılırken çay tepsisi kapımıza geldi."</p>
+          <div class="author">
+            <div class="avi">F</div>
+            <div class="who">Fatma Hanım <span class="meta">Ankara · 6 gece · Deluxe Oda</span></div>
+          </div>
+        </article>
+
+        <article class="testimonial reveal">
+          <span class="platform">Google · 5/5</span>
+          <span class="stars">★ ★ ★ ★ ★</span>
+          <p class="body">"Çocuklarla tatil bir kâbus olur derler — burada üç çocuk üç sabah kahvaltı tezgâhının başında dolaştı, kimse uyarmadı, kimse bakışmadı. <em>Nil ailesi</em>, biz size minnettarız."</p>
+          <div class="author">
+            <div class="avi">K</div>
+            <div class="who">Kemal Bey <span class="meta">İzmir · 5 gece · 2+1 Daire</span></div>
+          </div>
+        </article>
+
+        <article class="testimonial reveal reveal-delay-1">
+          <span class="platform">Instagram · @oxana_traveler</span>
+          <span class="stars">★ ★ ★ ★ ★</span>
+          <p class="body">"<em>Магия</em>. Bir yer hem yabancıyı evine alır, hem doğanın bir parçası olur — Uzungöl'de bir aile pansiyonu, dünya zincir otellerinin yapamadığını yapıyor."</p>
+          <div class="author">
+            <div class="avi">O</div>
+            <div class="who">Oxana K. <span class="meta">Moskova · 3 gece · Superior İkiz</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── REZERVASYON ────────────────────────────────────────────────────── -->
+  <section class="rez chapter dark" id="rezervasyon">
+    <div class="mists" aria-hidden="true">
+      <div class="mist mist--a"></div>
+      <div class="mist mist--b"></div>
+      <div class="mist mist--c"></div>
+    </div>
+
+    <div class="wrap">
+      <header class="ch-head reveal">
+        <span class="roman">Ⅵ</span>
+        <div class="titleblock">
+          <span class="sub">Rezervasyon · Bölüm Altı</span>
+          <h2>Bir <em>kapıyı</em> açın, bir <em>vadiyi</em> kapatın arkanızda.</h2>
+        </div>
+        <div class="right">
+          <span>Bölüm</span>
+          <span class="v">06 / 06</span>
+        </div>
+      </header>
+
+      <div class="frame">
+        <aside class="left reveal">
+          <p class="lead">Online ödeme yok, gizli ücret yok. Tarih ve kişi sayısını seçin — WhatsApp üzerinden <em>elle</em>, bir Karadeniz'liyle konuşarak rezervasyonunuz tamamlanır.</p>
+
+          <div class="body">
+            <p>Bizden her ay onlarca rezervasyon talebi geliyor; her birine ailenin biri cevap veriyor. Bu yüzden cevap bazen on dakika, bazen iki saat — ama her zaman insan, hiçbir zaman bot.</p>
+            <p>Acil müsaitlik için doğrudan arayabilirsiniz. Mesai saati yoktur, vadide saat öylesine işler.</p>
+          </div>
+
+          <div class="contact-card">
+            <span class="label">Doğrudan iletişim</span>
+            <a class="phone" href="tel:+905453842829" data-magnet>+90 545 384 28 29</a>
+            <a class="email" href="mailto:info@nilpansiyon.com" data-magnet>info@nilpansiyon.com</a>
+          </div>
+        </aside>
+
+        <form class="rez-form reveal reveal-delay-2" id="rez-form" novalidate>
+          <div class="row">
+            <div class="field" id="field-checkin">
+              <span class="lbl">Giriş Tarihi · Check-in</span>
+              <button type="button" class="ctrl" id="ctrl-checkin">
+                <span id="checkin-text" class="ph">Tarih seçin</span>
+                <span class="chev"></span>
+              </button>
+              <div class="popover" id="pop-dates">
+                <div class="cal" id="calendar">
+                  <div class="head">
+                    <button type="button" class="nav" id="prev-month" aria-label="Önceki ay">‹</button>
+                    <div class="month" id="cal-month"></div>
+                    <button type="button" class="nav" id="next-month" aria-label="Sonraki ay">›</button>
+                  </div>
+                  <div class="dow">
+                    <div>Pzt</div><div>Sal</div><div>Çar</div><div>Per</div><div>Cum</div><div>Cmt</div><div>Paz</div>
+                  </div>
+                  <div class="grid" id="cal-grid"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="field" id="field-checkout">
+              <span class="lbl">Çıkış Tarihi · Check-out</span>
+              <button type="button" class="ctrl" id="ctrl-checkout">
+                <span id="checkout-text" class="ph">Tarih seçin</span>
+                <span class="chev"></span>
+              </button>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="field" id="field-guests">
+              <span class="lbl">Misafir Sayısı</span>
+              <button type="button" class="ctrl" id="ctrl-guests">
+                <span id="guests-text" class="ph">Yetişkin & çocuk</span>
+                <span class="chev"></span>
+              </button>
+              <div class="popover" id="pop-guests">
+                <div class="guests">
+                  <div class="row">
+                    <div class="name">Yetişkin<span class="sub">13+ yaş</span></div>
+                    <div class="counter">
+                      <button type="button" data-act="dec" data-target="adults">−</button>
+                      <span class="v" id="cnt-adults">2</span>
+                      <button type="button" data-act="inc" data-target="adults">+</button>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="name">Çocuk<span class="sub">2 – 12 yaş</span></div>
+                    <div class="counter">
+                      <button type="button" data-act="dec" data-target="children">−</button>
+                      <span class="v" id="cnt-children">0</span>
+                      <button type="button" data-act="inc" data-target="children">+</button>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="name">Bebek<span class="sub">0 – 2 yaş</span></div>
+                    <div class="counter">
+                      <button type="button" data-act="dec" data-target="infants">−</button>
+                      <span class="v" id="cnt-infants">0</span>
+                      <button type="button" data-act="inc" data-target="infants">+</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <span class="lbl">Oda Tercihi</span>
+              <button type="button" class="ctrl" id="ctrl-room">
+                <span id="room-text" class="ph">Önerinizi alalım</span>
+                <span class="chev"></span>
+              </button>
+              <div class="popover" id="pop-rooms">
+                <div class="guests">
+                  <div class="row" data-room="Deluxe Oda"><div class="name">Deluxe Oda<span class="sub">7 kişi · dağ manzarası</span></div></div>
+                  <div class="row" data-room="2+1 Daire"><div class="name">2+1 Daire<span class="sub">6 kişi · mutfaklı</span></div></div>
+                  <div class="row" data-room="1+1 Daire"><div class="name">1+1 Daire<span class="sub">3 kişi · mutfaklı</span></div></div>
+                  <div class="row" data-room="Superior İkiz"><div class="name">Superior İkiz<span class="sub">2 kişi · balkonlu</span></div></div>
+                  <div class="row" data-room="Aile Bungalov"><div class="name">Aile Bungalov<span class="sub">7 kişi · salon + mutfak</span></div></div>
+                  <div class="row" data-room="Standard Çift Kişilik"><div class="name">Standard Çift Kişilik<span class="sub">2 kişi · ahşap</span></div></div>
+                  <div class="row" data-room="Önerinizi alalım"><div class="name">Önerinizi alalım<span class="sub">— biz seçelim</span></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="submit-row">
+            <p class="note">WhatsApp'a yönlendirileceksiniz; ailemizden biri size birkaç dakika içinde uygunluk + fiyat dönecek. Hiçbir ödeme alınmaz.</p>
+            <button type="submit" class="btn submit" data-magnet>
+              <span id="submit-text">WhatsApp ile sor</span>
+              <span class="arrow"></span>
+            </button>
+          </div>
+
+          <div class="summary">
+            <span class="nights" id="nights-text"><span>0</span> gece · giriş — çıkış</span>
+            <span class="thread" style="background: linear-gradient(90deg, var(--brass), transparent); height: 1px; width: 60px;"></span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── awards & press marquee ─────────────────────────────────────────── -->
+  <section class="awards">
+    <div class="wrap">
+      <div class="label">— Basında & ödüller<span class="star">★ ★ ★ ★ ★</span></div>
+      <div class="marquee-wrap">
+        <div class="marquee">
+          <span>Booking.com</span><span class="badge">Traveller Review Award</span><span class="sep"></span>
+          <span>Tripadvisor</span><span class="badge">Travellers' Choice</span><span class="sep"></span>
+          <span>Google Reviews</span><span class="badge">9.6 / 10</span><span class="sep"></span>
+          <span>National Geographic Türkiye</span><span class="badge">Karadeniz Özel Sayısı</span><span class="sep"></span>
+          <span>Hürriyet Seyahat</span><span class="badge">"Uzungöl'ün En Samimi Pansiyonu"</span><span class="sep"></span>
+          <span>Atlas Dergisi</span><span class="badge">Boutique Pansiyon Listesi</span><span class="sep"></span>
+          <span>Time Out Trabzon</span><span class="badge">Editörün Seçimi</span><span class="sep"></span>
+          <span>Conde Nast Traveller</span><span class="badge">Hidden Gems · Black Sea</span><span class="sep"></span>
+          <!-- duplicate for marquee loop -->
+          <span>Booking.com</span><span class="badge">Traveller Review Award</span><span class="sep"></span>
+          <span>Tripadvisor</span><span class="badge">Travellers' Choice</span><span class="sep"></span>
+          <span>Google Reviews</span><span class="badge">9.6 / 10</span><span class="sep"></span>
+          <span>National Geographic Türkiye</span><span class="badge">Karadeniz Özel Sayısı</span><span class="sep"></span>
+          <span>Hürriyet Seyahat</span><span class="badge">"Uzungöl'ün En Samimi Pansiyonu"</span><span class="sep"></span>
+          <span>Atlas Dergisi</span><span class="badge">Boutique Pansiyon Listesi</span><span class="sep"></span>
+          <span>Time Out Trabzon</span><span class="badge">Editörün Seçimi</span><span class="sep"></span>
+          <span>Conde Nast Traveller</span><span class="badge">Hidden Gems · Black Sea</span><span class="sep"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─────────────────────────────────────────────────────────── -->
+  <footer class="foot">
+    <div class="mists" aria-hidden="true">
+      <div class="mist mist--c"></div>
+    </div>
+
+    <div class="wrap">
+      <div class="top">
+        <div class="mark reveal">
+          nil pansiyon
+          <span class="est">Uzungöl · Çaykara · Trabzon</span>
+          <p>Karadeniz'in en derin sessizliği. Bir aile pansiyonu, bir misafir odası — yıllardır aynı sofranın etrafında.</p>
+        </div>
+
+        <div class="col reveal reveal-delay-1">
+          <h4>İletişim</h4>
+          <ul>
+            <li><a href="tel:+905453842829" data-magnet>+90 545 384 28 29</a></li>
+            <li><a href="https://wa.me/905453842829?text=Merhaba%2C%20Nil%20Pansiyon%20i%C3%A7in%20rezervasyon%20yapmak%20istiyorum." target="_blank" rel="noopener" data-magnet>WhatsApp</a></li>
+            <li><a href="mailto:info@nilpansiyon.com" data-magnet>info@nilpansiyon.com</a></li>
+            <li><a href="https://maps.google.com/?q=Nil+Pansiyon+Uzungöl" target="_blank" rel="noopener" data-magnet>Google Maps</a></li>
+          </ul>
+        </div>
+
+        <div class="col reveal reveal-delay-2">
+          <h4>Adres</h4>
+          <ul>
+            <li class="title">Nil Pansiyon</li>
+            <li>İnönü Cd. No: 92/A</li>
+            <li>Uzungöl, 61940</li>
+            <li>Çaykara / Trabzon</li>
+          </ul>
+        </div>
+
+        <div class="col reveal reveal-delay-3">
+          <h4>Sayfa</h4>
+          <ul>
+            <li><a href="#odalar" data-magnet>Odalar</a></li>
+            <li><a href="#sofra" data-magnet>Sofra</a></li>
+            <li><a href="#hikaye" data-magnet>Hikâye</a></li>
+            <li><a href="#mevsimler" data-magnet>Mevsim</a></li>
+            <li><a href="#konum" data-magnet>Konum</a></li>
+            <li><a href="#rezervasyon" data-magnet>Rezervasyon</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bottom">
+        <span>© <span id="year"></span> · Nil Pansiyon Aile İşletmesi</span>
+        <span class="center">— el ile yapılmıştır, Uzungöl'de —</span>
+        <span class="right">Site · 2026 · v2</span>
+      </div>
+
+      <div class="watermark" aria-hidden="true">nil</div>
+    </div>
+  </footer>
+
+<script>
+/* ──────────────────────────────────────────────────────────────────────────
+   davranış — el ile yazılmış, sınırsız özen
+   ────────────────────────────────────────────────────────────────────────── */
+
+/* ─── boot screen ────────────────────────────────────────────────────────── */
+window.addEventListener('load', () => {
+  const boot = document.getElementById('boot');
+  setTimeout(() => boot && boot.classList.add('gone'), 1450);
+  setTimeout(() => { if (boot) boot.remove(); }, 2700);
+});
+
+/* ─── year stamp ─────────────────────────────────────────────────────────── */
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ─── custom cursor ──────────────────────────────────────────────────────── */
+(() => {
+  const dot = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
+  if (!dot || !ring) return;
+  if (matchMedia('(pointer: coarse)').matches) return;
+
+  let mx = innerWidth / 2, my = innerHeight / 2;
+  let rx = mx, ry = my;
+  let dx = mx, dy = my;
+
+  addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    dx = mx; dy = my;
+  });
+  addEventListener('mousedown', () => document.body.classList.add('is-pressing'));
+  addEventListener('mouseup',   () => document.body.classList.remove('is-pressing'));
+  addEventListener('mouseleave',() => document.body.classList.add('cursor-hidden'));
+  addEventListener('mouseenter',() => document.body.classList.remove('cursor-hidden'));
+
+  function tick() {
+    rx += (mx - rx) * 0.18;
+    ry += (my - ry) * 0.18;
+    ring.style.transform = `translate3d(${rx}px, ${ry}px, 0) translate(-50%, -50%)`;
+    dot.style.transform  = `translate3d(${dx}px, ${dy}px, 0) translate(-50%, -50%)`;
+    requestAnimationFrame(tick);
+  }
+  tick();
+
+  const hoverSel = 'a, button, [data-magnet], .room, .ctrl, .cell, .row[data-room], summary, label';
+  document.addEventListener('mouseover', e => {
+    if (e.target.closest && e.target.closest(hoverSel)) document.body.classList.add('is-hovering');
+  });
+  document.addEventListener('mouseout', e => {
+    if (!e.relatedTarget || !e.relatedTarget.closest || !e.relatedTarget.closest(hoverSel)) {
+      document.body.classList.remove('is-hovering');
+    }
+  });
+
+  /* magnetic pull on .magnet/data-magnet */
+  document.querySelectorAll('[data-magnet], .magnet').forEach(el => {
+    el.addEventListener('mousemove', e => {
+      const r = el.getBoundingClientRect();
+      const tx = ((e.clientX - r.left) / r.width - 0.5) * 10;
+      const ty = ((e.clientY - r.top)  / r.height - 0.5) * 10;
+      el.style.transform = `translate(${tx}px, ${ty}px)`;
+    });
+    el.addEventListener('mouseleave', () => { el.style.transform = ''; });
+  });
+})();
+
+/* ─── reveal-on-scroll observer ──────────────────────────────────────────── */
+(() => {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0, rootMargin: '0px 0px 120px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+})();
+
+/* ─── letter stagger on hero h1 ──────────────────────────────────────────── */
+(() => {
+  const els = document.querySelectorAll('.letters');
+  setTimeout(() => {
+    els.forEach((el, i) => {
+      const chs = el.querySelectorAll('.ch');
+      chs.forEach((c, j) => {
+        setTimeout(() => { c.style.transitionDelay = '0s'; }, j * 60);
+      });
+      setTimeout(() => el.classList.add('in'), 100 + i * 380);
+      el.querySelectorAll('.ch').forEach((c, j) => { c.style.transitionDelay = (j * 0.05) + 's'; });
+    });
+  }, 1400);
+})();
+
+/* ─── nav scrolled class ─────────────────────────────────────────────────── */
+(() => {
+  const nav = document.getElementById('top-nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 60);
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+
+/* ─── hero photo cross-fade carousel + parallax + ken-burns ─────────────── */
+(() => {
+  const photos = ['hero-photo-1','hero-photo-2','hero-photo-3','hero-photo-4'].map(id => document.getElementById(id)).filter(Boolean);
+  if (!photos.length) return;
+
+  let idx = 0;
+  /* slow ken-burns: scale all photos */
+  photos.forEach(p => { setTimeout(() => p.style.transform = 'scale(1.14)', 80); });
+
+  /* cross-fade every 7s */
+  setInterval(() => {
+    photos[idx].classList.remove('active');
+    idx = (idx + 1) % photos.length;
+    photos[idx].classList.add('active');
+  }, 7200);
+
+  /* subtle parallax on mouse */
+  addEventListener('mousemove', e => {
+    const xr = (e.clientX / innerWidth - .5) * 14;
+    const yr = (e.clientY / innerHeight - .5) * 10;
+    photos.forEach(p => { p.style.transform = `scale(1.14) translate(${xr}px, ${yr}px)`; });
+  });
+
+  /* fade out on scroll */
+  addEventListener('scroll', () => {
+    const y = scrollY;
+    const fade = Math.max(0, 1 - y / 800);
+    photos.forEach(p => {
+      const base = p.classList.contains('active') ? 0.55 : 0;
+      p.style.opacity = (base * fade).toFixed(3);
+    });
+  }, { passive: true });
+})();
+
+/* ─── sticky booking bar — show after scrolling past hero ───────────────── */
+(() => {
+  const bar = document.getElementById('sticky-bar');
+  if (!bar) return;
+  const trigger = () => innerHeight * 1.2;
+  let last = 0;
+  let inRez = false;
+
+  const rez = document.getElementById('rezervasyon');
+  const footer = document.querySelector('.foot');
+
+  const onScroll = () => {
+    const y = scrollY;
+    /* hide when inside rez (form already visible) or in footer */
+    const rezTop = rez ? rez.getBoundingClientRect().top : 9999;
+    const footTop = footer ? footer.getBoundingClientRect().top : 9999;
+    const inForm = rezTop < innerHeight * 0.4 && footTop > innerHeight * 0.6;
+    const inFootZone = footTop < innerHeight * 0.8;
+    const show = y > trigger() && !inForm && !inFootZone;
+    bar.classList.toggle('shown', show);
+    last = y;
+  };
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+
+/* ─── language toggle (decorative for now) ───────────────────────────────── */
+(() => {
+  document.querySelectorAll('.top-nav .lang button').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.top-nav .lang button').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+    });
+  });
+})();
+
+/* ─── reservation widget ─────────────────────────────────────────────────── */
+(() => {
+  const state = {
+    checkin: null, checkout: null,
+    adults: 2, children: 0, infants: 0,
+    room: '',
+    cursor: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+    pickStart: true,
+  };
+
+  const $ = id => document.getElementById(id);
+
+  const fmtTr = d => d
+    ? d.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' })
+    : null;
+  const fmtMonth = d => d
+    .toLocaleDateString('tr-TR', { month: 'long', year: 'numeric' });
+
+  function renderCalendar() {
+    const grid = $('cal-grid');
+    const monthLabel = $('cal-month');
+    grid.innerHTML = '';
+    monthLabel.textContent = fmtMonth(state.cursor).replace(/^\w/, c => c.toUpperCase());
+
+    const year = state.cursor.getFullYear();
+    const month = state.cursor.getMonth();
+    const firstDay = new Date(year, month, 1);
+    const dowMon0 = (firstDay.getDay() + 6) % 7; /* Mon=0 */
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const today = new Date(); today.setHours(0,0,0,0);
+
+    for (let i = 0; i < dowMon0; i++) {
+      const c = document.createElement('div'); c.className = 'cell empty'; c.textContent = '·'; grid.appendChild(c);
+    }
+    for (let d = 1; d <= daysInMonth; d++) {
+      const date = new Date(year, month, d); date.setHours(0,0,0,0);
+      const cell = document.createElement('div');
+      cell.className = 'cell';
+      cell.textContent = d;
+      if (date < today) cell.classList.add('disabled');
+      if (state.checkin && +date === +state.checkin) cell.classList.add('start');
+      if (state.checkout && +date === +state.checkout) cell.classList.add('end');
+      if (state.checkin && state.checkout && date > state.checkin && date < state.checkout) cell.classList.add('range');
+      cell.addEventListener('click', () => onPickDate(date));
+      grid.appendChild(cell);
+    }
+  }
+
+  function onPickDate(date) {
+    if (state.pickStart || !state.checkin || (state.checkout && date <= state.checkin)) {
+      state.checkin = date; state.checkout = null; state.pickStart = false;
+    } else if (date <= state.checkin) {
+      state.checkin = date; state.checkout = null;
+    } else {
+      state.checkout = date; state.pickStart = true;
+    }
+    syncDateUI();
+    renderCalendar();
+    updateNights();
+    if (state.checkin && state.checkout) {
+      setTimeout(() => closePop('pop-dates'), 250);
+    }
+  }
+
+  function syncDateUI() {
+    $('checkin-text').textContent = state.checkin ? fmtTr(state.checkin) : 'Tarih seçin';
+    $('checkin-text').classList.toggle('ph', !state.checkin);
+    $('checkout-text').textContent = state.checkout ? fmtTr(state.checkout) : 'Tarih seçin';
+    $('checkout-text').classList.toggle('ph', !state.checkout);
+  }
+
+  function updateNights() {
+    const t = $('nights-text');
+    if (state.checkin && state.checkout) {
+      const ms = state.checkout - state.checkin;
+      const n = Math.round(ms / 86400000);
+      t.innerHTML = `<span>${n}</span> gece · ${fmtTr(state.checkin)} → ${fmtTr(state.checkout)}`;
+    } else {
+      t.innerHTML = '<span>0</span> gece · giriş — çıkış';
+    }
+  }
+
+  function syncGuests() {
+    $('cnt-adults').textContent = state.adults;
+    $('cnt-children').textContent = state.children;
+    $('cnt-infants').textContent = state.infants;
+    const parts = [];
+    parts.push(`${state.adults} yetişkin`);
+    if (state.children) parts.push(`${state.children} çocuk`);
+    if (state.infants) parts.push(`${state.infants} bebek`);
+    $('guests-text').textContent = parts.join(' · ');
+    $('guests-text').classList.remove('ph');
+  }
+
+  function openPop(id, anchor) {
+    closeAllPops();
+    const pop = $(id);
+    if (!pop || !anchor) return;
+    pop.classList.add('open');
+    const r = anchor.getBoundingClientRect();
+    const containerR = anchor.offsetParent.getBoundingClientRect();
+    pop.style.top = (anchor.offsetTop + anchor.offsetHeight + 8) + 'px';
+    pop.style.left = anchor.offsetLeft + 'px';
+    anchor.classList.add('open');
+  }
+  function closePop(id) {
+    const pop = $(id);
+    if (pop) pop.classList.remove('open');
+    document.querySelectorAll('.ctrl.open').forEach(c => c.classList.remove('open'));
+  }
+  function closeAllPops() {
+    document.querySelectorAll('.popover').forEach(p => p.classList.remove('open'));
+    document.querySelectorAll('.ctrl.open').forEach(c => c.classList.remove('open'));
+  }
+
+  /* event wires */
+  $('ctrl-checkin').addEventListener('click', () => {
+    state.pickStart = true;
+    openPop('pop-dates', $('ctrl-checkin'));
+    renderCalendar();
+  });
+  $('ctrl-checkout').addEventListener('click', () => {
+    state.pickStart = !state.checkin ? true : false;
+    openPop('pop-dates', $('ctrl-checkout'));
+    renderCalendar();
+  });
+  $('ctrl-guests').addEventListener('click', () => openPop('pop-guests', $('ctrl-guests')));
+  $('ctrl-room').addEventListener('click', () => openPop('pop-rooms', $('ctrl-room')));
+
+  $('prev-month').addEventListener('click', () => {
+    state.cursor = new Date(state.cursor.getFullYear(), state.cursor.getMonth() - 1, 1);
+    renderCalendar();
+  });
+  $('next-month').addEventListener('click', () => {
+    state.cursor = new Date(state.cursor.getFullYear(), state.cursor.getMonth() + 1, 1);
+    renderCalendar();
+  });
+
+  document.querySelectorAll('[data-act]').forEach(b => {
+    b.addEventListener('click', () => {
+      const t = b.dataset.target;
+      const act = b.dataset.act;
+      let v = state[t];
+      v += (act === 'inc' ? 1 : -1);
+      if (t === 'adults') v = Math.max(1, Math.min(14, v));
+      else v = Math.max(0, Math.min(10, v));
+      state[t] = v;
+      syncGuests();
+    });
+  });
+
+  document.querySelectorAll('#pop-rooms .row[data-room]').forEach(r => {
+    r.addEventListener('click', () => {
+      state.room = r.dataset.room;
+      $('room-text').textContent = state.room;
+      $('room-text').classList.remove('ph');
+      closePop('pop-rooms');
+    });
+  });
+
+  /* outside click closes */
+  document.addEventListener('click', e => {
+    if (e.target.closest('.popover') || e.target.closest('.ctrl')) return;
+    closeAllPops();
+  });
+  /* escape closes */
+  addEventListener('keydown', e => { if (e.key === 'Escape') closeAllPops(); });
+
+  /* submit → WhatsApp */
+  $('rez-form').addEventListener('submit', e => {
+    e.preventDefault();
+    if (!state.checkin || !state.checkout) {
+      $('submit-text').textContent = 'önce tarih seçin';
+      setTimeout(() => $('submit-text').textContent = 'WhatsApp ile sor', 1800);
+      return;
+    }
+    const inT = fmtTr(state.checkin);
+    const outT = fmtTr(state.checkout);
+    const ms = state.checkout - state.checkin;
+    const nights = Math.round(ms / 86400000);
+    const guests = [];
+    guests.push(`${state.adults} yetişkin`);
+    if (state.children) guests.push(`${state.children} çocuk`);
+    if (state.infants) guests.push(`${state.infants} bebek`);
+    const roomLine = state.room ? `\n• Oda tercihi: ${state.room}` : '';
+    const msg =
+`Merhaba Nil Pansiyon,
+Rezervasyon hakkında bilgi alabilir miyim?
+
+• Giriş: ${inT}
+• Çıkış: ${outT}
+• ${nights} gece
+• ${guests.join(' · ')}${roomLine}
+
+Teşekkür ederim.`;
+    const phone = '905453842829';
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank', 'noopener');
+  });
+
+  /* init */
+  syncGuests();
+  syncDateUI();
+  updateNights();
+})();
+
+/* ─── ritual border animation (line draws under view) ────────────────────── */
+(() => {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('.ritual').forEach(r => io.observe(r));
+})();
+
+/* ─── hikaye photo reveal ───────────────────────────────────────────────── */
+(() => {
+  const photo = document.querySelector('.hikaye .photo');
+  if (!photo) return;
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.2 });
+  io.observe(photo);
+})();
+
+/* ─── footer watermark parallax ─────────────────────────────────────────── */
+(() => {
+  const w = document.querySelector('.foot .watermark');
+  if (!w) return;
+  addEventListener('scroll', () => {
+    const r = w.getBoundingClientRect();
+    const off = (innerHeight - r.top) * 0.1;
+    if (r.top < innerHeight) {
+      w.style.transform = `translateY(${off * -0.15}px)`;
+    }
+  }, { passive: true });
+})();
+
+/* ─── smooth anchor scroll (already CSS-handled but improve focus) ──────── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const id = a.getAttribute('href').slice(1);
+    const t = document.getElementById(id);
+    if (!t) return;
+    e.preventDefault();
+    t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    history.replaceState(null, '', '#' + id);
+  });
+});
+
+</script>
+
+</body>
+</html>
