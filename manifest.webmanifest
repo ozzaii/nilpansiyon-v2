@@ -1,0 +1,21 @@
+{
+  "name": "Nil Pansiyon · Uzungöl",
+  "short_name": "Nil Pansiyon",
+  "description": "Ladin ormanının kalbinde, sis ile gölün buluştuğu yerde. 12 ahşap oda, bir tek sofra.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#07080A",
+  "theme_color": "#07080A",
+  "orientation": "portrait",
+  "lang": "tr",
+  "categories": ["travel", "hotel", "lifestyle"],
+  "icons": [
+    {
+      "src": "/assets/img/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
