@@ -2513,6 +2513,69 @@ section { position: relative; isolation: isolate; }
   font-family: var(--body); font-style: italic; font-size: 13px; color: var(--mist-2); max-width: 40ch;
 }
 
+/* ─── FAQ · premium accordion ────────────────────────────────────────── */
+.faq { padding: clamp(80px, 11vw, 140px) 0; }
+.faq .faq-list { list-style: none; padding: 0; margin: clamp(48px, 6vw, 80px) 0 0; max-width: 920px; }
+.faq .faq-item { border-top: 1px solid var(--ink-line); position: relative; }
+.faq .faq-item:last-child { border-bottom: 1px solid var(--ink-line); }
+.faq .faq-q {
+  width: 100%; display: grid; grid-template-columns: auto 1fr auto;
+  align-items: baseline; gap: clamp(14px, 1.8vw, 28px);
+  padding: clamp(22px, 2.6vw, 32px) 4px;
+  background: none; border: 0; cursor: pointer; text-align: left;
+  font-family: var(--display); font-style: italic; font-weight: 320;
+  font-variation-settings: 'opsz' 60, 'SOFT' 80, 'WONK' 0, 'wght' 380;
+  font-size: clamp(20px, 2.2vw, 28px); letter-spacing: -.01em; color: var(--ink);
+  -webkit-appearance: none; appearance: none;
+}
+.faq .faq-q:focus-visible { outline: 1.5px solid var(--gold); outline-offset: 6px; }
+.faq .faq-q .faq-num {
+  font-family: var(--mono); font-style: normal; font-size: 11px; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--gold-deep); opacity: .7;
+  font-feature-settings: "tnum" 1;
+}
+.faq .faq-q .faq-text { color: var(--ink); transition: color .45s var(--ease-slow); }
+.faq .faq-q:hover .faq-text { color: var(--gold-deep); }
+.faq .faq-q .faq-chev {
+  display: inline-block; width: 14px; height: 14px;
+  border-right: 1.2px solid var(--gold-deep);
+  border-bottom: 1.2px solid var(--gold-deep);
+  transform: rotate(45deg) translate(-2px, -2px);
+  transition: transform .55s var(--ease-slow), border-color .45s var(--ease);
+}
+.faq .faq-item.open .faq-q .faq-chev { transform: rotate(-135deg) translate(-2px, -2px); border-color: var(--gold-deep); }
+.faq .faq-a {
+  display: grid; grid-template-rows: 0fr;
+  transition: grid-template-rows .55s var(--ease-slow);
+}
+.faq .faq-item.open .faq-a { grid-template-rows: 1fr; }
+.faq .faq-a-inner {
+  overflow: hidden;
+  padding: 0 4px;
+}
+.faq .faq-item.open .faq-a-inner { padding: 0 4px clamp(22px, 2.6vw, 32px); }
+.faq .faq-a-inner p {
+  font-family: var(--body); font-size: clamp(15px, 1.4vw, 17px); line-height: 1.65;
+  color: var(--moss); max-width: 56ch;
+  margin-left: clamp(28px, 4vw, 56px); /* align with question text past the roman numeral */
+  opacity: 0; transform: translateY(8px);
+  transition: opacity .5s var(--ease-slow) .12s, transform .55s var(--ease-slow) .12s;
+}
+.faq .faq-item.open .faq-a-inner p { opacity: 1; transform: none; }
+.faq .faq-foot {
+  margin-top: clamp(40px, 5vw, 64px); max-width: 920px;
+  font-family: var(--body); font-style: italic; font-size: 15px; color: var(--moss);
+}
+.faq .faq-foot a {
+  color: var(--gold-deep); border-bottom: 1px solid var(--gold-deep);
+  font-style: italic; padding-bottom: 1px;
+  transition: color .35s var(--ease), border-color .35s var(--ease);
+}
+.faq .faq-foot a:hover { color: var(--ink); border-color: var(--ink); }
+@media (prefers-reduced-motion: reduce) {
+  .faq .faq-a, .faq .faq-a-inner p, .faq .faq-q .faq-chev { transition: none; }
+}
+
 /* ─── inline validation — luxury, never red-stoplight ─── */
 .rez-form .field-msg {
   display: block; margin-top: 6px; min-height: 1.2em;
@@ -2588,6 +2651,29 @@ section { position: relative; isolation: isolate; }
 .cal .cell.disabled { color: var(--mist-2); opacity: .35; pointer-events: none; }
 .cal .cell.range { background: rgba(184,153,104,.12); color: var(--paper); }
 .cal .cell.start, .cal .cell.end { background: var(--brass); color: var(--ink); font-weight: 500; }
+.cal .cell.kb-focus { outline: 1.5px solid var(--gold-hi); outline-offset: -2px; }
+.cal-actions {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding-top: 16px; margin-top: 4px;
+  border-top: 1px solid rgba(200,164,92,.18);
+}
+.cal-actions .cal-clear {
+  background: none; border: 1px solid rgba(200,164,92,.42); color: var(--paper);
+  padding: 8px 14px; font-family: var(--mono); font-size: 10px; letter-spacing: .22em;
+  text-transform: uppercase; cursor: pointer;
+  transition: background .35s var(--ease), border-color .35s var(--ease), color .35s var(--ease);
+}
+.cal-actions .cal-clear:hover, .cal-actions .cal-clear:focus-visible {
+  background: var(--brass); color: var(--ink); border-color: var(--brass); outline: none;
+}
+.cal-actions .cal-hint {
+  font-family: var(--body); font-style: italic; font-size: 11px; color: var(--mist-2);
+  white-space: nowrap;
+}
+@media (max-width: 540px) {
+  .cal-actions { flex-direction: column; align-items: stretch; gap: 8px; }
+  .cal-actions .cal-hint { text-align: center; font-size: 10px; }
+}
 
 .guests {
   display: flex; flex-direction: column; gap: 14px; min-width: 280px;
@@ -3946,6 +4032,7 @@ section { position: relative; isolation: isolate; }
       <a href="#hikaye"      data-magnet data-i18n="nav.story">Hikâye</a>
       <a href="#mevsimler"   data-magnet data-i18n="nav.seasons">Mevsim</a>
       <a href="#konum"       data-magnet data-i18n="nav.location">Konum</a>
+      <a href="#sss"         data-magnet data-i18n="nav.faq">Sorular</a>
       <a href="#rezervasyon" class="book" data-magnet data-i18n="nav.book">Rezervasyon</a>
       <span class="lang" id="lang-switcher">
         <button class="lang-trigger" aria-haspopup="listbox" aria-expanded="false">
@@ -4876,16 +4963,20 @@ section { position: relative; isolation: isolate; }
               </button>
               <span class="field-msg" id="msg-checkin" data-i18n="form.err.checkin">Giriş tarihi gerekli</span>
               <div class="popover" id="pop-dates">
-                <div class="cal" id="calendar">
+                <div class="cal" id="calendar" role="grid" tabindex="-1" aria-label="Takvim · Calendar">
                   <div class="head">
                     <button type="button" class="nav" id="prev-month" aria-label="Önceki ay">‹</button>
                     <div class="month" id="cal-month"></div>
                     <button type="button" class="nav" id="next-month" aria-label="Sonraki ay">›</button>
                   </div>
-                  <div class="dow">
+                  <div class="dow" aria-hidden="true">
                     <div>Pzt</div><div>Sal</div><div>Çar</div><div>Per</div><div>Cum</div><div>Cmt</div><div>Paz</div>
                   </div>
                   <div class="grid" id="cal-grid"></div>
+                  <div class="cal-actions">
+                    <button type="button" class="cal-clear" id="cal-clear" data-i18n="form.clearDates">Tarihleri temizle</button>
+                    <span class="cal-hint" aria-hidden="true" data-i18n="form.kbdHint">↑ ↓ ← → ile gez · Enter seç · Esc kapat</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -4972,6 +5063,103 @@ section { position: relative; isolation: isolate; }
           </div>
         </form>
       </div>
+    </div>
+  </section>
+
+  <!-- ─── FAQ · sıkça sorulan ─────────────────────────────────────────── -->
+  <section class="faq chapter paper-grain" id="sss" aria-labelledby="faq-heading">
+    <div class="wrap">
+      <header class="ch-head reveal">
+        <span class="roman">·</span>
+        <div class="titleblock">
+          <span class="sub" data-i18n="faq.sub">Sıkça sorulan · Ek bölüm</span>
+          <h2 id="faq-heading" data-i18n="faq.h2">Cevaplar, <em>ailenin ağzından</em>.</h2>
+        </div>
+        <div class="right">
+          <span data-i18n="faq.kicker.l">Soru</span>
+          <span class="v">06 <span data-i18n="faq.kicker.of">soru</span></span>
+        </div>
+      </header>
+
+      <ul class="faq-list reveal reveal-delay-1" role="list">
+        <li class="faq-item">
+          <button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-a-1">
+            <span class="faq-num" aria-hidden="true">i.</span>
+            <span class="faq-text" data-i18n="faq.q1">Ödeme nasıl alınır?</span>
+            <span class="faq-chev" aria-hidden="true"></span>
+          </button>
+          <div class="faq-a" id="faq-a-1" role="region">
+            <div class="faq-a-inner">
+              <p data-i18n="faq.a1">Hiçbir ödeme alınmaz. Geldiğinizde, ayrılırken nakit ya da kart ile elden ödersiniz. Online güvenlik gerekçesiyle hiç kimseden kart bilgisi istemiyoruz.</p>
+            </div>
+          </div>
+        </li>
+        <li class="faq-item">
+          <button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-a-2">
+            <span class="faq-num" aria-hidden="true">ii.</span>
+            <span class="faq-text" data-i18n="faq.q2">İptal politikası nedir?</span>
+            <span class="faq-chev" aria-hidden="true"></span>
+          </button>
+          <div class="faq-a" id="faq-a-2" role="region">
+            <div class="faq-a-inner">
+              <p data-i18n="faq.a2">48 saat öncesine kadar ücretsiz iptal. 48 saatin altında bir gece ücreti alıyoruz; doğal afet, hastalık ya da yas gibi durumlarda her zaman aile takdiri devreye girer.</p>
+            </div>
+          </div>
+        </li>
+        <li class="faq-item">
+          <button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-a-3">
+            <span class="faq-num" aria-hidden="true">iii.</span>
+            <span class="faq-text" data-i18n="faq.q3">Kahvaltı dahil mi?</span>
+            <span class="faq-chev" aria-hidden="true"></span>
+          </button>
+          <div class="faq-a" id="faq-a-3" role="region">
+            <div class="faq-a-inner">
+              <p data-i18n="faq.a3">Evet. Karadeniz sofrası — yerel peynir, kuymak, sahanda yumurta, mevsim balı, kendi ekmeğimiz. Yedide başlar, onbire kadar uzayabilir.</p>
+            </div>
+          </div>
+        </li>
+        <li class="faq-item">
+          <button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-a-4">
+            <span class="faq-num" aria-hidden="true">iv.</span>
+            <span class="faq-text" data-i18n="faq.q4">Çocuk veya evcil hayvan kabul ediliyor mu?</span>
+            <span class="faq-chev" aria-hidden="true"></span>
+          </button>
+          <div class="faq-a" id="faq-a-4" role="region">
+            <div class="faq-a-inner">
+              <p data-i18n="faq.a4">Çocuklara ailemizden biri özen gösterir; oda fiyatına dahil bebek beşiği vardır. Evcil hayvan için önceden haber verin — büyük köpekler bahçe katındaki odalarda kabul edilir.</p>
+            </div>
+          </div>
+        </li>
+        <li class="faq-item">
+          <button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-a-5">
+            <span class="faq-num" aria-hidden="true">v.</span>
+            <span class="faq-text" data-i18n="faq.q5">Otopark var mı?</span>
+            <span class="faq-chev" aria-hidden="true"></span>
+          </button>
+          <div class="faq-a" id="faq-a-5" role="region">
+            <div class="faq-a-inner">
+              <p data-i18n="faq.a5">Kapalı otoparkımız 8 araç alır, misafirlere ücretsizdir. Aracınızı bizimkilerden biri karşılar, anahtarınız hep yanınızdadır.</p>
+            </div>
+          </div>
+        </li>
+        <li class="faq-item">
+          <button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-a-6">
+            <span class="faq-num" aria-hidden="true">vi.</span>
+            <span class="faq-text" data-i18n="faq.q6">En yakın havalimanı nerede?</span>
+            <span class="faq-chev" aria-hidden="true"></span>
+          </button>
+          <div class="faq-a" id="faq-a-6" role="region">
+            <div class="faq-a-inner">
+              <p data-i18n="faq.a6">Trabzon Havalimanı — 95 km, yaklaşık 2 saat. Talep edilirse vadiden bir araç sizi karşılar; ücreti misafirimize hesaplı tutulur.</p>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <p class="faq-foot reveal reveal-delay-2">
+        <span data-i18n="faq.foot.a">Cevabını burada bulamadığınız bir soru için</span>
+        <a href="https://wa.me/905453842829?text=Merhaba%20Nil%20Pansiyon%2C%20bir%20sorum%20var." target="_blank" rel="noopener" data-magnet data-i18n="faq.foot.cta">aileyle doğrudan konuşun</a><span data-i18n="faq.foot.b">.</span>
+      </p>
     </div>
   </section>
 
@@ -5925,8 +6113,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
   const i18n = {
     tr: {
       'nav.rooms': 'Odalar',  'nav.kitchen': 'Sofra', 'nav.story': 'Hikâye',
-      'nav.seasons': 'Mevsim','nav.location': 'Konum','nav.book': 'Rezervasyon',
-      'hero.eyebrow':   'est · 1987 · uzungöl',
+      'nav.seasons': 'Mevsim','nav.location': 'Konum','nav.faq': 'Sorular','nav.book': 'Rezervasyon',
       'hero.tagline':   'Sis ile gölün buluştuğu yerde',
       'hero.sub.a':     'Ladin ormanı',
       'hero.sub.b':     '12 ahşap oda',
@@ -5940,24 +6127,65 @@ document.getElementById('year').textContent = new Date().getFullYear();
       'sticky.wa':      'WhatsApp',
       'room.tour':         'Oda turu',
       'room.tour.caption': 'Oda turu',
+      'form.clearDates':'Tarihleri temizle',
+      'form.kbdHint':   '↑ ↓ ← → ile gez · Enter seç · Esc kapat',
+      'faq.sub':        'Sıkça sorulan · Ek bölüm',
+      'faq.h2':         'Cevaplar, ailenin ağzından.',
+      'faq.kicker.l':   'Soru',
+      'faq.kicker.of':  'soru',
+      'faq.q1':'Ödeme nasıl alınır?',
+      'faq.a1':'Hiçbir ödeme alınmaz. Geldiğinizde, ayrılırken nakit ya da kart ile elden ödersiniz. Online güvenlik gerekçesiyle hiç kimseden kart bilgisi istemiyoruz.',
+      'faq.q2':'İptal politikası nedir?',
+      'faq.a2':'48 saat öncesine kadar ücretsiz iptal. 48 saatin altında bir gece ücreti alıyoruz; doğal afet, hastalık ya da yas gibi durumlarda her zaman aile takdiri devreye girer.',
+      'faq.q3':'Kahvaltı dahil mi?',
+      'faq.a3':'Evet. Karadeniz sofrası — yerel peynir, kuymak, sahanda yumurta, mevsim balı, kendi ekmeğimiz. Yedide başlar, onbire kadar uzayabilir.',
+      'faq.q4':'Çocuk veya evcil hayvan kabul ediliyor mu?',
+      'faq.a4':'Çocuklara ailemizden biri özen gösterir; oda fiyatına dahil bebek beşiği vardır. Evcil hayvan için önceden haber verin — büyük köpekler bahçe katındaki odalarda kabul edilir.',
+      'faq.q5':'Otopark var mı?',
+      'faq.a5':'Kapalı otoparkımız 8 araç alır, misafirlere ücretsizdir. Aracınızı bizimkilerden biri karşılar, anahtarınız hep yanınızdadır.',
+      'faq.q6':'En yakın havalimanı nerede?',
+      'faq.a6':'Trabzon Havalimanı — 95 km, yaklaşık 2 saat. Talep edilirse vadiden bir araç sizi karşılar; ücreti misafirimize hesaplı tutulur.',
+      'faq.foot.a':'Cevabını burada bulamadığınız bir soru için ',
+      'faq.foot.cta':'aileyle doğrudan konuşun',
+      'faq.foot.b':'.',
     },
     en: {
       'nav.rooms': 'Rooms',   'nav.kitchen': 'Kitchen','nav.story': 'Story',
-      'nav.seasons':'Seasons','nav.location':'Location','nav.book': 'Reservation',
-      'hero.eyebrow':   'est · 1987 · uzungöl',
-      'hero.tagline':   'Where the mist meets the lake',
+      'nav.seasons':'Seasons','nav.location':'Location','nav.faq': 'Questions','nav.book': 'Reservation',
+      'hero.tagline':   'Where mist meets the lake',
       'hero.sub.a':     'Spruce forest',
-      'hero.sub.b':     '12 wooden rooms',
-      'hero.sub.c':     'one shared table',
+      'hero.sub.b':     'Twelve wooden rooms',
+      'hero.sub.c':     'One shared table',
       'hero.altitude.l':'Altitude',
       'hero.location.l':'Location',
-      'hero.scroll.a':  'scroll',
-      'hero.scroll.b':  'down',
-      'meta.open':      'Open · accepting guests',
-      'sticky.book':    'Reserve a room',
+      'hero.scroll.a':  'down',
+      'hero.scroll.b':  'with the flow',
+      'meta.open':      'Open · welcoming guests',
+      'sticky.book':    'Request a room',
       'sticky.wa':      'WhatsApp',
       'room.tour':         'Room tour',
       'room.tour.caption': 'Room tour',
+      'form.clearDates':'Clear dates',
+      'form.kbdHint':   '↑ ↓ ← → to move · Enter to pick · Esc to close',
+      'faq.sub':        'Frequently asked · addendum',
+      'faq.h2':         'Answers, in the family’s own voice.',
+      'faq.kicker.l':   'Question',
+      'faq.kicker.of':  'questions',
+      'faq.q1':'How do I pay?',
+      'faq.a1':'No online payment. You settle by cash or card, in person, when you check out. For your security we never ask for card details before arrival.',
+      'faq.q2':'What is the cancellation policy?',
+      'faq.a2':'Free cancellation up to 48 hours before arrival. Within 48 hours, one night is held; the family always makes room for exceptions — illness, weather, loss.',
+      'faq.q3':'Is breakfast included?',
+      'faq.a3':'Yes. A Black Sea table — local cheeses, kuymak, eggs in butter, seasonal honey, our own bread. Begins at seven; lingers until eleven.',
+      'faq.q4':'Are children and pets welcome?',
+      'faq.a4':'Children are looked after by one of our own; cribs are included. Please tell us about pets in advance — large dogs are welcomed in our ground-floor garden rooms.',
+      'faq.q5':'Is there parking?',
+      'faq.a5':'Our covered garage holds eight cars, free for guests. Someone meets you at the gate; the keys stay with you.',
+      'faq.q6':'Where is the nearest airport?',
+      'faq.a6':'Trabzon Airport — 95 km, about two hours. On request a car from the valley will meet you; we keep the fare friendly for guests.',
+      'faq.foot.a':'For a question you couldn’t find here, ',
+      'faq.foot.cta':'speak to the family directly',
+      'faq.foot.b':'.',
     },
     /* Arabic — Modern Standard, hospitality-register, written to read with
        warmth (not airport-formal). Direction handled via body.rtl. */
@@ -6054,6 +6282,29 @@ document.getElementById('year').textContent = new Date().getFullYear();
   let saved = 'tr';
   try { saved = localStorage.getItem('nil-lang') || 'tr'; } catch (_) {}
   if (saved !== 'tr') apply(saved); else apply('tr');
+})();
+
+/* ─── FAQ accordion — single-open, keyboard accessible ─────────────────── */
+(() => {
+  const items = document.querySelectorAll('.faq-item');
+  if (!items.length) return;
+  items.forEach(item => {
+    const btn = item.querySelector('.faq-q');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      const wasOpen = item.classList.contains('open');
+      /* single-open mode: close siblings */
+      items.forEach(o => {
+        o.classList.remove('open');
+        const ob = o.querySelector('.faq-q');
+        if (ob) ob.setAttribute('aria-expanded', 'false');
+      });
+      if (!wasOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
 })();
 
 /* ─── reservation widget ─────────────────────────────────────────────────── */
@@ -6291,6 +6542,59 @@ document.getElementById('year').textContent = new Date().getFullYear();
   $('next-month').addEventListener('click', () => {
     state.cursor = new Date(state.cursor.getFullYear(), state.cursor.getMonth() + 1, 1);
     renderCalendar();
+  });
+
+  /* clear dates affordance — restores empty state */
+  const clearBtn = document.getElementById('cal-clear');
+  if (clearBtn) clearBtn.addEventListener('click', () => {
+    state.checkin = null; state.checkout = null; state.pickStart = true;
+    syncDateUI(); renderCalendar(); updateNights(); validateAll();
+  });
+
+  /* keyboard navigation for the calendar grid (Arrow keys, Enter, PageUp/Down, Esc) */
+  let kbFocus = null;
+  function findCells() { return Array.from(document.querySelectorAll('#cal-grid .cell')); }
+  function focusKb(idx) {
+    const cells = findCells();
+    if (!cells.length) return;
+    idx = Math.max(0, Math.min(cells.length - 1, idx));
+    cells.forEach(c => c.classList.remove('kb-focus'));
+    cells[idx].classList.add('kb-focus');
+    kbFocus = idx;
+    cells[idx].scrollIntoView({ block: 'nearest' });
+  }
+  document.addEventListener('keydown', (e) => {
+    const popOpen = document.getElementById('pop-dates')?.classList.contains('open');
+    if (!popOpen) return;
+    if (e.key === 'Escape') { closePop('pop-dates'); e.preventDefault(); return; }
+    const cells = findCells();
+    const usableIdx = i => cells[i] && !cells[i].classList.contains('empty') && !cells[i].classList.contains('disabled');
+    if (kbFocus == null) {
+      const first = cells.findIndex(c => !c.classList.contains('empty') && !c.classList.contains('disabled'));
+      if (first >= 0) focusKb(first);
+    }
+    const move = (delta) => {
+      let next = kbFocus + delta;
+      let guard = 0;
+      while (cells[next] && (cells[next].classList.contains('empty') || cells[next].classList.contains('disabled')) && guard++ < 50) {
+        next += delta;
+      }
+      if (cells[next]) focusKb(next);
+    };
+    if (e.key === 'ArrowLeft')  { move(-1); e.preventDefault(); }
+    if (e.key === 'ArrowRight') { move(+1); e.preventDefault(); }
+    if (e.key === 'ArrowUp')    { move(-7); e.preventDefault(); }
+    if (e.key === 'ArrowDown')  { move(+7); e.preventDefault(); }
+    if (e.key === 'PageUp')   { $('prev-month').click(); kbFocus = null; e.preventDefault(); }
+    if (e.key === 'PageDown') { $('next-month').click(); kbFocus = null; e.preventDefault(); }
+    if ((e.key === 'Enter' || e.key === ' ') && kbFocus != null && cells[kbFocus]) {
+      cells[kbFocus].click(); kbFocus = null; e.preventDefault();
+    }
+  });
+  /* reset kb focus when popover closes / re-renders */
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('.popover') || e.target.closest('.ctrl')) return;
+    kbFocus = null;
   });
 
   document.querySelectorAll('[data-act]').forEach(b => {
