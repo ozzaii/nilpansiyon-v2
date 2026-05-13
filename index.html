@@ -2945,7 +2945,10 @@ section { position: relative; isolation: isolate; }
 }
 .season .grad {
   position: absolute; inset: 0;
-  background: linear-gradient(180deg, transparent 30%, rgba(7,8,10,.85) 90%);
+  /* heavier gradient so name + desc + tags always read on top of the photo */
+  background:
+    linear-gradient(180deg, rgba(7,8,10,.35) 0%, transparent 28%, transparent 45%, rgba(7,8,10,.78) 88%, rgba(7,8,10,.92) 100%),
+    linear-gradient(180deg, transparent 65%, rgba(7,8,10,.55) 100%);
 }
 .season .content {
   position: absolute; inset: 0; padding: 28px; display: flex; flex-direction: column; justify-content: space-between;
@@ -2956,7 +2959,8 @@ section { position: relative; isolation: isolate; }
   font-family: var(--mono); font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--gold);
 }
 .season .head .month {
-  font-family: var(--mono); font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--paper-2);
+  font-family: var(--mono); font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--paper);
+  text-shadow: 0 1px 6px rgba(7,8,10,.6);
 }
 .season .name {
   font-family: var(--display); font-style: italic; font-weight: 320;
@@ -2965,8 +2969,10 @@ section { position: relative; isolation: isolate; }
   color: var(--paper);
 }
 .season .desc {
-  font-family: var(--body); font-style: italic; font-size: 14px; color: var(--paper-2);
+  font-family: var(--body); font-style: italic; font-size: 14px;
+  color: var(--paper); /* lift contrast against photo */
   margin-top: 14px; max-width: 28ch; line-height: 1.55;
+  text-shadow: 0 1px 8px rgba(7,8,10,.5);
 }
 .season .temp {
   position: absolute; bottom: 28px; right: 28px;
@@ -5277,6 +5283,21 @@ document.getElementById('year').textContent = new Date().getFullYear();
   /* every .reveal element observes (existing contract) */
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
+  /* Eager pass: anything already on screen at load time gets .in immediately,
+     so the user never sees pre-animation state above-the-fold (especially when
+     someone deep-links to a section via #id). Browser quirks sometimes delay
+     the first IO tick; this closes that gap. */
+  const eager = (sel) => {
+    document.querySelectorAll(sel).forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.top < innerHeight && r.bottom > 0) el.classList.add('in');
+    });
+  };
+  requestAnimationFrame(() => {
+    eager('.reveal');
+    eager('.rooms, .rooms-section, .testimonials, .season-grid, .rez-form, .foot, .ch-head');
+  });
+
   /* additional reveal triggers for compound sections — apply .in to a
      designated container when it enters the viewport. Lets us cascade rooms,
      mevsim cards, testimonials, form fields, footer signature, etc. */
@@ -5351,6 +5372,15 @@ document.getElementById('year').textContent = new Date().getFullYear();
     });
   }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
   document.querySelectorAll('.ch-head').forEach(h => headerObs.observe(h));
+  /* fallback: anything already on screen at boot fires immediately */
+  requestAnimationFrame(() => {
+    document.querySelectorAll('.ch-head').forEach(h => {
+      const r = h.getBoundingClientRect();
+      if (r.top < innerHeight && r.bottom > 0) {
+        h.querySelectorAll('.h2-em').forEach(em => em.classList.add('in'));
+      }
+    });
+  });
 
   /* generic letters fade-in via IO for any other [data-letters] */
   const io = new IntersectionObserver(entries => {
