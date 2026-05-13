@@ -500,7 +500,7 @@ html { scrollbar-color: var(--gold) var(--ink-2); scrollbar-width: thin; }
 .wa-fab {
   position: fixed; bottom: 24px; right: 24px; z-index: 85;
   width: 56px; height: 56px; border-radius: 50%;
-  background: var(--brass); color: #fff;
+  background: var(--brass); color: var(--ink);
   display: grid; place-items: center; cursor: none;
   border: 0; padding: 0;
   box-shadow: 0 8px 24px rgba(7,8,10,.45), 0 0 0 0 rgba(200,164,92,.55);
@@ -615,7 +615,7 @@ html { scrollbar-color: var(--gold) var(--ink-2); scrollbar-width: thin; }
 .video-lightbox .vl-stage {
   position: relative; width: 100%; max-width: 1320px;
   aspect-ratio: 16 / 9; max-height: 84dvh;
-  background: #06070a;
+  background: var(--ink);
   border: 1px solid rgba(200, 164, 92, 0.24);
   box-shadow: 0 60px 140px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(200,164,92,0.06) inset;
   transform: scale(.94) translateY(28px); opacity: .4;
@@ -626,7 +626,7 @@ html { scrollbar-color: var(--gold) var(--ink-2); scrollbar-width: thin; }
 .video-lightbox.open .vl-stage { transform: none; opacity: 1; }
 
 .video-lightbox .vl-stage video {
-  width: 100%; height: 100%; display: block; background: #000;
+  width: 100%; height: 100%; display: block; background: var(--ink);
   object-fit: contain;
   opacity: 0; transition: opacity .55s var(--ease-slow);
 }
@@ -1805,9 +1805,19 @@ section { position: relative; isolation: isolate; }
 .chapter.paper-grain .ch-head .titleblock h2 em {
   color: var(--gold-deep);
 }
+/* Section sub-kicker — demoted from mono+tracked-caps to italic display.
+   Kills the 7-instance "Bölüm İki/Üç/Dört..." identical-label pattern
+   while preserving the chapter-system voice. */
 .ch-head .titleblock .sub {
-  font-family: var(--mono); font-size: 11px; letter-spacing: .3em; text-transform: uppercase;
+  font-family: var(--display); font-style: italic; font-weight: 320;
+  font-variation-settings: 'opsz' 60, 'SOFT' 80, 'WONK' 0, 'wght' 360;
+  font-size: clamp(15px, 1.4vw, 20px); letter-spacing: .005em; text-transform: none;
   color: var(--rust);
+  display: inline-flex; align-items: center; gap: 10px;
+}
+.ch-head .titleblock .sub::before {
+  content: ""; width: 26px; height: 1px; background: linear-gradient(90deg, var(--gold-deep), transparent);
+  display: inline-block; vertical-align: middle;
 }
 .chapter.dark .ch-head .titleblock .sub, .chapter.moss .ch-head .titleblock .sub { color: var(--brass); }
 .ch-head .right {
@@ -4031,12 +4041,6 @@ section { position: relative; isolation: isolate; }
 
     <div class="frame">
       <div class="hero-stack">
-        <span class="eyebrow-pill reveal">
-          <span class="line"></span>
-          <span class="word" data-i18n="hero.eyebrow">est · 1987 · uzungöl</span>
-          <span class="line"></span>
-        </span>
-
         <h1 class="title">
           <span class="word letters" data-letters="nil pansiyon" aria-label="Nil Pansiyon"></span>
           <span class="rule" data-rule></span>
