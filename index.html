@@ -714,34 +714,6 @@ body.modal-open .wa-fab,
 body.modal-open .top-nav,
 body.modal-open .sticky-bar { opacity: 0; pointer-events: none; transition: opacity .3s var(--ease); }
 
-/* ─── falling spruce needles (hero) ─────────────────────────────────────── */
-.hero .needles {
-  position: absolute; inset: 0; pointer-events: none; z-index: 3; overflow: hidden;
-}
-.hero .needles .needle {
-  position: absolute; top: -8%;
-  width: 1px; height: 16px;
-  background: linear-gradient(to bottom, transparent, var(--brass) 30%, var(--brass-deep) 70%, transparent);
-  opacity: 0; border-radius: 2px;
-  filter: blur(.3px);
-  will-change: transform, opacity;
-}
-.hero .needles .needle:nth-child(1) { left:  6%; animation: needle-drift 22s linear infinite;       animation-delay: 0s;   --sx: 28px;  --sr: -6deg; }
-.hero .needles .needle:nth-child(2) { left: 19%; animation: needle-drift 26s linear infinite;       animation-delay: -4s;  --sx: -22px; --sr: 8deg;  }
-.hero .needles .needle:nth-child(3) { left: 33%; animation: needle-drift 24s linear infinite;       animation-delay: -10s; --sx: 36px;  --sr: -10deg;}
-.hero .needles .needle:nth-child(4) { left: 49%; animation: needle-drift 28s linear infinite;       animation-delay: -14s; --sx: -30px; --sr: 12deg; }
-.hero .needles .needle:nth-child(5) { left: 65%; animation: needle-drift 23s linear infinite;       animation-delay: -18s; --sx: 24px;  --sr: -8deg; }
-.hero .needles .needle:nth-child(6) { left: 79%; animation: needle-drift 27s linear infinite;       animation-delay: -7s;  --sx: -38px; --sr: 14deg; }
-.hero .needles .needle:nth-child(7) { left: 91%; animation: needle-drift 25s linear infinite;       animation-delay: -12s; --sx: 18px;  --sr: -4deg; }
-@keyframes needle-drift {
-  0%   { transform: translateY(-20vh) translateX(0)        rotate(0deg);                          opacity: 0; }
-  6%   { opacity: .32; }
-  50%  { transform: translateY(50vh)  translateX(calc(var(--sx) * .6)) rotate(calc(var(--sr) * 5)); opacity: .42; }
-  92%  { opacity: .25; }
-  100% { transform: translateY(115vh) translateX(var(--sx)) rotate(calc(var(--sr) * 11));         opacity: 0; }
-}
-@media (max-width: 880px) { .hero .needles { display: none; } }
-
 /* ─── weather strip — real Uzungöl atmosphere ──────────────────────────── */
 .weather-strip {
   position: fixed; top: 0; left: 0; right: 0; z-index: 95;
@@ -923,8 +895,9 @@ body.modal-open .sticky-bar { opacity: 0; pointer-events: none; transition: opac
 .rez-form.in .field, .rez-form.in .row > * { opacity: 1; transform: none; transition-delay: calc(var(--fi, 0) * 70ms); }
 
 /* ─── footer: signature path draws ──────────────────────────────────────── */
-.foot .signature path { stroke-dasharray: 1400; stroke-dashoffset: 1400; transition: stroke-dashoffset 2.6s var(--ease-slow); }
-.foot.in .signature path { stroke-dashoffset: 0; transition-delay: .4s; }
+/* signature path animation is JS-driven (per-path stroke-dasharray) — see
+   the footer signature IIFE; static rule below is a no-op fallback */
+.foot .signature path { stroke-linecap: round; }
 
 /* ─── chapter sub-roman number style boost ──────────────────────────────── */
 .ch-head .roman { transition: opacity 1.2s var(--ease-slow), transform 1.2s var(--ease-slow), font-variation-settings 2s var(--ease-slow); font-variation-settings: 'opsz' 144, 'SOFT' 0, 'WONK' 0, 'wght' 320; }
@@ -1306,28 +1279,6 @@ body.modal-open .sticky-bar { opacity: 0; pointer-events: none; transition: opac
 }
 .hero .eyebrow-pill .line + .line { background: linear-gradient(90deg, var(--brass), transparent); }
 
-/* Hero side labels — demoted from mono+caps to italic display to break
-   "every label looks the same" pattern called out by the critique. */
-.hero .corner-left, .hero .corner-right {
-  position: absolute; z-index: 4;
-  font-family: var(--display); font-style: italic; font-weight: 320;
-  font-variation-settings: 'opsz' 60, 'SOFT' 60, 'WONK' 0, 'wght' 360;
-  font-size: 13px; letter-spacing: .01em; text-transform: none; color: var(--mist);
-}
-.hero .corner-left {
-  top: 50%; left: 0; transform: translateY(-50%) rotate(-90deg); transform-origin: top left;
-  padding-left: var(--pad-page); display: flex; align-items: center; gap: 14px;
-  white-space: nowrap;
-}
-.hero .corner-left .hairline { width: 60px; height: 1px; background: var(--brass); opacity: .6; }
-.hero .corner-right {
-  top: 50%; right: 0; transform: translateY(-50%) rotate(90deg); transform-origin: top right;
-  padding-right: var(--pad-page); display: flex; align-items: center; gap: 14px;
-}
-@media (max-width: 980px) {
-  .hero .corner-left, .hero .corner-right { display: none; }
-}
-
 .hero h1.title {
   font-family: var(--display); font-style: italic; font-weight: 320;
   font-variation-settings: 'opsz' 144, 'SOFT' 80, 'WONK' 1, 'wght' 320;
@@ -1384,24 +1335,18 @@ body.modal-open .sticky-bar { opacity: 0; pointer-events: none; transition: opac
   font-family: var(--mono); font-size: 10px; letter-spacing: .28em; text-transform: uppercase;
   color: var(--mist); white-space: nowrap; margin-top: 12px;
 }
+/* center pip pulls the unexpected accent — bordo against brass, the moat */
 .hero .sub .pip { width: 4px; height: 4px; border-radius: 50%; background: var(--brass); }
+.hero .sub .pip:nth-of-type(2n) { background: var(--bordo-2); }
 @media (max-width: 600px) {
   .hero .sub { flex-wrap: wrap; gap: 8px; font-size: 9px; }
 }
 
-.hero .footer-row {
-  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; align-items: end;
-}
-.hero .footer-row > * { color: var(--mist); }
-.hero .pansiyon-stamp {
-  font-family: var(--mono); font-size: 10px; letter-spacing: .3em; text-transform: uppercase;
-}
-.hero .pansiyon-stamp .l { display: block; opacity: .65; }
-.hero .pansiyon-stamp .h { color: var(--paper); margin-top: 4px; letter-spacing: .25em; }
 .hero .scroll-cue {
   display: flex; flex-direction: column; align-items: center; gap: 14px;
   font-family: var(--mono); font-size: 10px; letter-spacing: .3em; text-transform: uppercase;
-  justify-self: center;
+  justify-self: center; color: var(--mist);
+  margin-top: clamp(40px, 8vh, 80px);
 }
 .hero .scroll-cue .ln {
   width: 1px; height: 56px; background: linear-gradient(to bottom, transparent, var(--brass));
@@ -1416,14 +1361,7 @@ body.modal-open .sticky-bar { opacity: 0; pointer-events: none; transition: opac
   0% { transform: translateY(-100%); }
   100% { transform: translateY(100%); }
 }
-.hero .coords {
-  text-align: right; font-family: var(--mono); font-size: 10px; letter-spacing: .3em; text-transform: uppercase;
-}
-.hero .coords .v { display: block; color: var(--paper); margin-top: 4px; letter-spacing: .2em; }
 @media (max-width: 720px) {
-  .hero .footer-row { grid-template-columns: 1fr; text-align: center; gap: 14px; }
-  .hero .coords { text-align: center; }
-  .hero .pansiyon-stamp { text-align: center; }
   .hero h1.title { font-size: clamp(48px, 14vw, 80px); gap: 14px; }
   .hero h1.title .tagline { font-size: clamp(14px, 3.4vw, 18px); }
   .hero .frame { padding: clamp(80px, 14vh, 110px) clamp(16px, 5vw, 32px) clamp(28px, 4vh, 48px); }
@@ -1606,11 +1544,13 @@ section { position: relative; isolation: isolate; }
 .chapter.cream { background: var(--paper-2); color: var(--ink); }
 .chapter.moss { background: var(--moss); color: var(--paper); }
 
-/* ── ink-wash dividers — organic SVG fractal edge at the top of each chapter ── */
+/* ── ink-wash dividers — organic SVG fractal edge at the top of each chapter
+   Bumped from clamp(48-96) to clamp(120-240) so the deckle tear actually
+   reads as a transition rather than a thin haircut. */
 .chapter[data-wash]::before {
   content: '';
   position: absolute; inset: 0 0 auto 0;
-  height: clamp(48px, 7vw, 96px);
+  height: clamp(120px, 18vw, 240px);
   pointer-events: none; z-index: 2;
   background-repeat: no-repeat; background-size: 100% 100%; background-position: top center;
 }
@@ -1641,7 +1581,7 @@ section { position: relative; isolation: isolate; }
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 120' preserveAspectRatio='none'><defs><filter id='r' x='-2%25' y='-50%25' width='104%25' height='200%25'><feTurbulence type='fractalNoise' baseFrequency='0.012 0.055' numOctaves='2' seed='29'/><feDisplacementMap in='SourceGraphic' scale='38'/></filter></defs><path d='M0,0 L1600,0 L1600,44 C1300,86 1080,12 800,58 C540,98 260,24 0,70 Z' fill='%2307080A' filter='url(%23r)'/></svg>");
 }
 @media (max-width: 720px) {
-  .chapter[data-wash]::before { height: clamp(36px, 9vw, 56px); }
+  .chapter[data-wash]::before { height: clamp(70px, 18vw, 130px); }
 }
 @media (prefers-reduced-motion: no-preference) {
   .chapter[data-wash]::before { transition: transform .6s var(--ease-slow); }
@@ -1998,14 +1938,25 @@ section { position: relative; isolation: isolate; }
 .room.r6 { grid-column: 9 / span 4; margin-top: -160px; }
 .room.r6 .ph { aspect-ratio: 3/4; }
 
+/* Mobile: keep an asymmetric stagger — alternate full-bleed + indented 84%
+   so the grid doesn't collapse to a vanilla bootstrap stack. Negative top
+   margins land in the gap between cards so the next one feels stamped on
+   top of the previous, magazine-style. */
 @media (max-width: 980px) {
   .rooms { grid-template-columns: repeat(6, 1fr); }
-  .room.r1 { grid-column: 1 / -1; margin: 0; }
-  .room.r2 { grid-column: 1 / -1; margin: 0; }
-  .room.r3 { grid-column: 1 / -1; margin: 0; }
-  .room.r4 { grid-column: 1 / -1; margin: 0; }
-  .room.r5 { grid-column: 1 / -1; margin: 0; }
-  .room.r6 { grid-column: 1 / -1; margin: 0; }
+  .room.r1 { grid-column: 1 / -1; margin: 0 0 0 0; }
+  .room.r2 { grid-column: 2 / -1; margin: -4vh 0 0 0; }
+  .room.r3 { grid-column: 1 / span 5; margin: -2vh 0 0 0; }
+  .room.r4 { grid-column: 2 / -1; margin: -3vh 0 0 0; }
+  .room.r5 { grid-column: 1 / -1; margin: -1vh 0 0 0; }
+  .room.r6 { grid-column: 1 / span 5; margin: -3vh 0 0 0; }
+}
+@media (max-width: 540px) {
+  .rooms { grid-template-columns: repeat(6, 1fr); gap: 14vh; }
+  .room.r1, .room.r5 { grid-column: 1 / -1; }
+  .room.r2, .room.r4 { grid-column: 2 / -1; }
+  .room.r3, .room.r6 { grid-column: 1 / span 5; }
+  .room { margin: -4vh 0 0 0; }
 }
 
 .rooms-footnote {
@@ -2202,17 +2153,43 @@ section { position: relative; isolation: isolate; }
 }
 .hikaye .text .signature .who span { display: block; color: var(--ink); }
 
-/* ─── konum · map ───────────────────────────────────────────────────────── */
+/* ─── konum · map ───────────────────────────────────────────────────────────
+   The hand-built Uzungöl SVG was the highest-craft moment in the file but
+   tucked in a side panel. Promote it: full-bleed under the panel, the panel
+   floats as a glass card. Map IS the section now. */
 .konum {
   background: var(--paper-2); color: var(--ink); position: relative; overflow: hidden;
+  min-height: clamp(620px, 80vh, 920px);
+}
+.konum .map.full-bleed {
+  position: absolute; inset: 0;
+  background: var(--paper-3);
+}
+.konum .map.full-bleed svg { width: 100%; height: 100%; display: block; }
+.konum .map.full-bleed::after {
+  /* radial vignette so the panel reads on the busy map */
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse at 22% 55%, rgba(245,238,220,.92) 0%, rgba(245,238,220,.55) 35%, transparent 65%);
 }
 .konum .grid {
-  display: grid; grid-template-columns: 5fr 7fr; gap: clamp(40px, 5vw, 80px);
+  position: relative; z-index: 2;
+  display: grid; grid-template-columns: minmax(280px, 480px); gap: clamp(40px, 5vw, 80px);
 }
-@media (max-width: 980px) { .konum .grid { grid-template-columns: 1fr; } }
+@media (max-width: 980px) {
+  .konum .grid { grid-template-columns: 1fr; }
+  .konum .map.full-bleed::after {
+    background: radial-gradient(ellipse at 50% 100%, rgba(245,238,220,.96) 0%, rgba(245,238,220,.4) 40%, transparent 65%);
+  }
+}
 
 .konum .panel {
   display: flex; flex-direction: column; gap: 28px;
+  /* glass panel resting over the map */
+  background: rgba(245,238,220,.78);
+  backdrop-filter: blur(14px) saturate(110%);
+  -webkit-backdrop-filter: blur(14px) saturate(110%);
+  padding: clamp(28px, 4vw, 48px);
+  border: 1px solid var(--line-2);
 }
 .konum .panel .lead {
   font-family: var(--display); font-style: italic; font-weight: 300;
@@ -2243,12 +2220,13 @@ section { position: relative; isolation: isolate; }
 .konum .panel .dist li .v { color: var(--brass-deep); letter-spacing: .14em; font-size: 13px; }
 .konum .panel .dist li .label { font-style: italic; text-transform: none; letter-spacing: 0; font-family: var(--body); font-size: 15px; color: var(--ink); }
 
-.konum .map {
+/* legacy inline-map class — kept for the unchanged HTML structure */
+.konum .map:not(.full-bleed) {
   position: relative; aspect-ratio: 4/3; overflow: hidden;
   background: var(--paper-3);
   border: 1px solid var(--ink-line);
 }
-.konum .map svg { width: 100%; height: 100%; display: block; }
+.konum .map:not(.full-bleed) svg { width: 100%; height: 100%; display: block; }
 
 /* lake water ripple */
 @keyframes ripple-out {
@@ -2302,7 +2280,8 @@ section { position: relative; isolation: isolate; }
   display: flex; gap: 18px;
 }
 .konum .map .legend .item { display: flex; align-items: center; gap: 8px; }
-.konum .map .legend .item .pin { width: 8px; height: 8px; border-radius: 50%; background: var(--brass); box-shadow: 0 0 0 2px rgba(184,153,104,.25); }
+/* main pin = bordo so it reads as the singular place-marker; alt stays rust */
+.konum .map .legend .item .pin { width: 9px; height: 9px; border-radius: 50%; background: var(--bordo); box-shadow: 0 0 0 2px rgba(92,31,34,.22); }
 .konum .map .legend .item .pin.alt { background: var(--rust); box-shadow: 0 0 0 2px rgba(107,58,32,.25); }
 
 /* ─── rezervasyon ──────────────────────────────────────────────────────── */
@@ -2335,7 +2314,7 @@ section { position: relative; isolation: isolate; }
 }
 .rez .left .price-anchor em {
   font-style: italic; font-family: var(--display); font-size: 22px; letter-spacing: -.005em;
-  color: var(--brass); text-transform: none;
+  color: var(--bordo-2); text-transform: none;
   font-variation-settings: 'opsz' 96, 'SOFT' 80, 'WONK' 1, 'wght' 360;
 }
 .rez .left .body p {
@@ -3567,8 +3546,21 @@ section { position: relative; isolation: isolate; }
   margin: 40px auto 24px;
   opacity: .85;
 }
-.foot .signature path { stroke-dasharray: 1000; stroke-dashoffset: 1000; }
-.foot .signature.in path { transition: stroke-dashoffset 2.6s cubic-bezier(.86,0,.07,1); stroke-dashoffset: 0; }
+/* footer signature size — width grew to accommodate "Nil Ailesi" two-word path */
+.foot .signature { max-width: 360px; width: 100%; height: auto; opacity: .9; }
+.foot .signature.in { opacity: 1; }
+.foot .sig-attr {
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .26em; text-transform: uppercase;
+  color: var(--brass-deep); margin-top: 8px;
+}
+.foot .sig-attr em {
+  font-family: var(--display); font-style: italic; font-weight: 320; text-transform: none;
+  font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1, 'wght' 360;
+  font-size: 14px; letter-spacing: 0; color: var(--brass);
+}
+.foot .sig-attr .line { flex: 0 0 28px; height: 1px; background: linear-gradient(90deg, transparent, var(--brass-deep)); }
+.foot .sig-attr .line + .line { background: linear-gradient(-90deg, transparent, var(--brass-deep)); }
 
 /* ─── mobile cinematic pass ─────────────────────────────────────────────── */
 @media (max-width: 720px) {
@@ -3835,49 +3827,7 @@ section { position: relative; isolation: isolate; }
 
     <div class="bg-vignette"></div>
 
-    <span class="bracket tl" aria-hidden="true"></span>
-    <span class="bracket tr" aria-hidden="true"></span>
-    <span class="bracket bl" aria-hidden="true"></span>
-    <span class="bracket br" aria-hidden="true"></span>
-
-    <!-- decorative ladin (spruce) branches -->
-    <!-- aile mührü / family crest -->
-    <svg class="hero-crest" viewBox="0 0 120 140" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <defs>
-        <linearGradient id="crest-grad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#E8C988"/>
-          <stop offset="100%" stop-color="#8E6B30"/>
-        </linearGradient>
-      </defs>
-      <!-- outer shield -->
-      <path d="M60 4 L 110 18 V 70 C 110 100, 90 124, 60 136 C 30 124, 10 100, 10 70 V 18 Z"
-            stroke="url(#crest-grad)" stroke-width="1.2" fill="rgba(200,164,92,0.04)"/>
-      <!-- inner shield -->
-      <path d="M60 14 L 100 25 V 70 C 100 95, 83 115, 60 124 C 37 115, 20 95, 20 70 V 25 Z"
-            stroke="url(#crest-grad)" stroke-width=".7" opacity=".55" fill="none"/>
-      <!-- centered tree (ladin) -->
-      <g stroke="url(#crest-grad)" stroke-width="1" fill="none">
-        <path d="M60 28 L60 100"/>
-        <path d="M60 38 L48 52 M60 38 L72 52"/>
-        <path d="M60 52 L42 70 M60 52 L78 70"/>
-        <path d="M60 68 L38 88 M60 68 L82 88"/>
-        <path d="M50 100 L70 100"/>
-      </g>
-      <!-- N monogram -->
-      <text x="60" y="115" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="320" font-size="14" fill="url(#crest-grad)" letter-spacing="2">EST · UZUNGÖL</text>
-    </svg>
-
-    <div class="needles" aria-hidden="true">
-      <span class="needle"></span>
-      <span class="needle"></span>
-      <span class="needle"></span>
-      <span class="needle"></span>
-      <span class="needle"></span>
-      <span class="needle"></span>
-      <span class="needle"></span>
-    </div>
-
-    <div class="frame">
+    <div class="frame hero-frame-quiet">
       <div class="hero-stack">
         <h1 class="title">
           <span class="word letters" data-letters="nil pansiyon" aria-label="Nil Pansiyon"></span>
@@ -3894,21 +3844,11 @@ section { position: relative; isolation: isolate; }
         </div>
       </div>
 
-      <div class="footer-row">
-        <div class="pansiyon-stamp reveal reveal-delay-3">
-          <span class="l" data-i18n="hero.location.l">Konum</span>
-          <span class="h">Uzungöl · Çaykara · Trabzon</span>
-        </div>
-        <a href="#odalar" class="scroll-cue reveal reveal-delay-4" data-magnet>
-          <span data-i18n="hero.scroll.a">aşağı</span>
-          <span class="ln"></span>
-          <span data-i18n="hero.scroll.b">akış</span>
-        </a>
-        <div class="coords reveal reveal-delay-3">
-          <span class="l" data-i18n="hero.altitude.l">İrtifa</span>
-          <span class="v">1090 m · 41° 03′ N</span>
-        </div>
-      </div>
+      <a href="#odalar" class="scroll-cue reveal reveal-delay-4" data-magnet>
+        <span data-i18n="hero.scroll.a">aşağı</span>
+        <span class="ln"></span>
+        <span data-i18n="hero.scroll.b">akış</span>
+      </a>
     </div>
   </section>
 
@@ -4451,44 +4391,9 @@ section { position: relative; isolation: isolate; }
 
   <!-- ─── KONUM ─────────────────────────────────────────────────────────── -->
   <section class="konum chapter cream paper-grain" id="konum" data-wash="from-paper">
-    <div class="wrap">
-      <header class="ch-head reveal">
-        <span class="roman">Ⅴ</span>
-        <div class="titleblock">
-          <span class="sub" data-i18n="ch.konum.sub">Konum</span>
-          <h2 data-i18n-html="ch.konum.h2">Sis hangi yöne <em>giderse</em>, biz oradayız.</h2>
-        </div>
-        <div class="right">
-          <span>Bölüm</span>
-          <span class="v">05 / 06</span>
-        </div>
-      </header>
-
-      <div class="grid">
-        <aside class="panel reveal">
-          <p class="lead" data-i18n-html="konum.panelLead">Pansiyonumuz, gölün <em>otuz metre</em> kuzeyinde, İnönü Caddesi üzerindeki ladinlerin arasında. Camdan başını uzatırsanız, suyun yüzeyini görürsünüz; pencereyi açarsanız, kuş seslerinden başkasını duymazsınız.</p>
-
-          <div class="address">
-            <span class="label">Adres</span>
-            İnönü Cd. No: 92/A · Uzungöl<br/>
-            61940 Çaykara / Trabzon
-          </div>
-
-          <ul class="dist">
-            <li><span class="label">Uzungöl merkez</span><span class="v">30 m</span></li>
-            <li><span class="label">Gölün kuzey kıyısı</span><span class="v">90 m</span></li>
-            <li><span class="label">Doğa yürüyüş patikası</span><span class="v">50 m</span></li>
-            <li><span class="label">Şelaleli ladin yolu girişi</span><span class="v">0.4 km</span></li>
-            <li><span class="label">Haldizen yaylası</span><span class="v">17 km</span></li>
-            <li><span class="label">Çaykara merkez</span><span class="v">19 km</span></li>
-            <li><span class="label">Trabzon Havalimanı</span><span class="v">100 km · 1 sa 30 dk</span></li>
-          </ul>
-
-          <a href="https://maps.google.com/?q=Nil+Pansiyon+Uzungöl" target="_blank" rel="noopener" class="btn btn--ink" data-magnet><span>Google Maps'te aç</span><span class="arrow"></span></a>
-        </aside>
-
-        <div class="map reveal reveal-delay-2">
-          <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" aria-label="Uzungöl bölge haritası">
+    <!-- map is now the full-bleed background; the panel rests on top as glass -->
+    <div class="map full-bleed reveal reveal-delay-1" aria-hidden="false">
+      <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" aria-label="Uzungöl bölge haritası">
             <!-- background grid -->
             <defs>
               <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
@@ -4591,12 +4496,12 @@ section { position: relative; isolation: isolate; }
               <text x="624" y="238" font-family="IBM Plex Mono" font-size="8" letter-spacing="1.4" fill="#1F2A22">HALDIZEN · 17 KM</text>
             </g>
 
-            <!-- Pansiyon pin -->
+            <!-- Pansiyon pin — bordo accent so the place reads as the singular focus -->
             <g transform="translate(340 220)">
-              <circle r="20" fill="#B89968" opacity=".15"/>
-              <circle r="12" fill="#B89968" opacity=".35"/>
-              <circle class="pin-pulse" fill="#B89968" cx="0" cy="0" r="5" opacity=".6"/>
-              <circle r="5" fill="#B89968" stroke="#0A0B09" stroke-width="1"/>
+              <circle r="20" fill="#5C1F22" opacity=".12"/>
+              <circle r="12" fill="#5C1F22" opacity=".28"/>
+              <circle class="pin-pulse" fill="#5C1F22" cx="0" cy="0" r="5" opacity=".7"/>
+              <circle r="5" fill="#5C1F22" stroke="#0A0B09" stroke-width="1"/>
               <text x="14" y="-6" font-family="IBM Plex Mono" font-size="9" letter-spacing="2" fill="#0A0B09">NIL PANSIYON</text>
               <text x="14" y="6" font-family="Spectral" font-style="italic" font-size="10" fill="#1F2A22">İnönü Cd. 92/A</text>
             </g>
@@ -4622,13 +4527,49 @@ section { position: relative; isolation: isolate; }
               <path d="M0 -18 L 4 -2 L 0 -6 L -4 -2 Z" fill="#1F2A22" opacity=".7"/>
               <text x="-3" y="-26" font-family="IBM Plex Mono" font-size="8" letter-spacing="1" fill="#1F2A22">K</text>
             </g>
-          </svg>
+      </svg>
 
-          <div class="legend">
-            <span class="item"><span class="pin"></span>Nil Pansiyon</span>
-            <span class="item"><span class="pin alt"></span>Trabzon Havalimanı</span>
-          </div>
+      <div class="legend">
+        <span class="item"><span class="pin"></span>Nil Pansiyon</span>
+        <span class="item"><span class="pin alt"></span>Trabzon Havalimanı</span>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <header class="ch-head reveal">
+        <span class="roman">Ⅴ</span>
+        <div class="titleblock">
+          <span class="sub" data-i18n="ch.konum.sub">Konum</span>
+          <h2 data-i18n-html="ch.konum.h2">Sis hangi yöne <em>giderse</em>, biz oradayız.</h2>
         </div>
+        <div class="right">
+          <span>Bölüm</span>
+          <span class="v">05 / 06</span>
+        </div>
+      </header>
+
+      <div class="grid">
+        <aside class="panel reveal">
+          <p class="lead" data-i18n-html="konum.panelLead">Pansiyonumuz, gölün <em>otuz metre</em> kuzeyinde, İnönü Caddesi üzerindeki ladinlerin arasında. Camdan başını uzatırsanız, suyun yüzeyini görürsünüz; pencereyi açarsanız, kuş seslerinden başkasını duymazsınız.</p>
+
+          <div class="address">
+            <span class="label">Adres</span>
+            İnönü Cd. No: 92/A · Uzungöl<br/>
+            61940 Çaykara / Trabzon
+          </div>
+
+          <ul class="dist">
+            <li><span class="label">Uzungöl merkez</span><span class="v">30 m</span></li>
+            <li><span class="label">Gölün kuzey kıyısı</span><span class="v">90 m</span></li>
+            <li><span class="label">Doğa yürüyüş patikası</span><span class="v">50 m</span></li>
+            <li><span class="label">Şelaleli ladin yolu girişi</span><span class="v">0.4 km</span></li>
+            <li><span class="label">Haldizen yaylası</span><span class="v">17 km</span></li>
+            <li><span class="label">Çaykara merkez</span><span class="v">19 km</span></li>
+            <li><span class="label">Trabzon Havalimanı</span><span class="v">100 km · 1 sa 30 dk</span></li>
+          </ul>
+
+          <a href="https://maps.google.com/?q=Nil+Pansiyon+Uzungöl" target="_blank" rel="noopener" class="btn btn--ink" data-magnet><span>Google Maps'te aç</span><span class="arrow"></span></a>
+        </aside>
       </div>
     </div>
   </section>
@@ -4969,19 +4910,55 @@ section { position: relative; isolation: isolate; }
         <span class="right">Site · 2026 · v2</span>
       </div>
 
-      <svg class="signature" viewBox="0 0 480 90" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      <!-- handwritten "Nil Ailesi" signature — stylized, drawn brass on dark
+           Replaces the prior anonymous squiggle. The flourish underline + dot
+           cluster reads as a real signing gesture, not a portfolio decoration. -->
+      <svg class="signature" viewBox="0 0 520 130" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
         <defs>
           <linearGradient id="sig-grad" x1="0" y1="0" x2="1" y2="0">
             <stop offset="0%"  stop-color="#8E6B30" stop-opacity="0"/>
-            <stop offset="15%" stop-color="#C8A45C" stop-opacity=".9"/>
-            <stop offset="85%" stop-color="#C8A45C" stop-opacity=".9"/>
+            <stop offset="12%" stop-color="#C8A45C" stop-opacity=".95"/>
+            <stop offset="88%" stop-color="#C8A45C" stop-opacity=".95"/>
             <stop offset="100%" stop-color="#8E6B30" stop-opacity="0"/>
           </linearGradient>
         </defs>
-        <path id="sig-path" d="M20 55 C 60 25, 100 75, 140 45 S 220 25, 260 50 S 340 70, 380 40 S 440 30, 460 50"
-              fill="none" stroke="url(#sig-grad)" stroke-width="1.4" stroke-linecap="round"/>
-        <path d="M180 70 Q 240 80, 300 70" fill="none" stroke="#8E6B30" stroke-width=".8" stroke-linecap="round" opacity=".4"/>
+        <!-- "Nil" — capital N loop into i-l flourish -->
+        <path id="sig-path" d="
+          M40 80
+          C 38 50, 46 26, 60 30
+          C 72 36, 70 78, 64 92
+          M64 92
+          C 70 70, 84 42, 100 36
+          C 116 32, 112 88, 110 96
+          M118 60 C 118 55, 124 50, 128 56 C 130 60, 130 70, 130 76
+          M140 56 C 144 52, 150 50, 154 56 C 156 70, 152 88, 144 96
+          C 156 86, 168 64, 184 56
+          C 200 50, 198 100, 192 108"
+              fill="none" stroke="url(#sig-grad)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- "Ailesi" — A loop, i dot, l, e, s, i flourish -->
+        <path d="
+          M218 96
+          C 230 60, 252 32, 262 36
+          C 276 42, 286 86, 286 100
+          M232 80 L 280 78
+          M298 60 C 304 56, 312 56, 314 64 C 316 78, 308 94, 296 100
+          M306 36 L 308 40
+          M334 54 C 334 50, 346 50, 348 60 C 348 78, 338 92, 324 100
+          M360 56 C 360 50, 372 46, 380 54 C 386 64, 378 78, 360 78
+          C 374 82, 388 92, 384 102 C 378 110, 362 110, 350 100
+          M404 60 C 410 56, 418 54, 422 62 C 426 80, 414 102, 404 108
+          M418 38 L 420 42"
+              fill="none" stroke="url(#sig-grad)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- underline flourish + period -->
+        <path d="M62 116 Q 220 130, 410 110" fill="none" stroke="#8E6B30" stroke-width=".9" stroke-linecap="round" opacity=".55"/>
+        <circle cx="446" cy="106" r="2.5" fill="#C8A45C" opacity=".85"/>
       </svg>
+
+      <p class="sig-attr" aria-hidden="false">
+        <span class="line"></span>
+        Nil Ailesi · <em>Uzungöl, est 1987</em>
+        <span class="line"></span>
+      </p>
 
       <div class="watermark" aria-hidden="true">nil</div>
     </div>
@@ -5216,8 +5193,8 @@ section { position: relative; isolation: isolate; }
     return;
   }
   window.addEventListener('load', () => {
-    setTimeout(() => boot.classList.add('gone'), 1800);
-    setTimeout(() => boot.remove(), 2900);
+    setTimeout(() => boot.classList.add('gone'), 1200);
+    setTimeout(() => boot.remove(), 2000);
     try { sessionStorage.setItem('nil-booted', '1'); } catch (e) {}
   });
 })();
@@ -6225,13 +6202,16 @@ Teşekkür ederim.`;
   document.querySelectorAll('[data-count]').forEach(el => io.observe(el));
 })();
 
-/* ─── cursor-lens reveal — radial mask follows mouse, lerped ─────────────── */
+/* ─── lens reveal — pointer-driven on desktop, device-tilt on mobile ──────── */
 (() => {
   const lerp = (a, b, n) => a + (b - a) * n;
-  document.querySelectorAll('[data-lens]').forEach(host => {
-    let tx = 50, ty = 50, cx = 50, cy = 50, active = false;
-    host.addEventListener('pointerenter', () => { active = true; host.classList.add('active'); });
-    host.addEventListener('pointerleave', () => { active = false; host.classList.remove('active'); });
+  const hosts = document.querySelectorAll('[data-lens]');
+  if (!hosts.length) return;
+  const isCoarse = matchMedia('(pointer: coarse)').matches;
+
+  hosts.forEach(host => {
+    let tx = 50, ty = 50, cx = 50, cy = 50;
+    host.classList.add('active');                 /* always show the mask, position drives reveal */
     host.addEventListener('pointermove', e => {
       const r = host.getBoundingClientRect();
       tx = ((e.clientX - r.left) / r.width) * 100;
@@ -6243,7 +6223,33 @@ Teşekkür ederim.`;
       host.style.setProperty('--ly', cy.toFixed(2) + '%');
       requestAnimationFrame(loop);
     })();
+    /* expose setter so the device-tilt handler can drive every host */
+    host._setLensTarget = (x, y) => { tx = x; ty = y; };
   });
+
+  if (isCoarse && typeof DeviceOrientationEvent !== 'undefined') {
+    /* iOS 13+ needs an explicit permission grant after a user gesture; we
+       silently feature-detect and only activate after the first touch */
+    const wireDeviceTilt = () => {
+      addEventListener('deviceorientation', e => {
+        /* gamma: left-right tilt -90..90, beta: front-back tilt -180..180 */
+        const gx = Math.max(-25, Math.min(25, e.gamma || 0));
+        const gy = Math.max(-25, Math.min(25, (e.beta || 0) - 30));  /* center around portrait neutral */
+        const lx = 50 + (gx / 25) * 35;
+        const ly = 50 + (gy / 25) * 35;
+        hosts.forEach(h => h._setLensTarget && h._setLensTarget(lx, ly));
+      }, { passive: true });
+    };
+    const start = () => {
+      if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+        DeviceOrientationEvent.requestPermission().then(s => { if (s === 'granted') wireDeviceTilt(); }).catch(() => {});
+      } else {
+        wireDeviceTilt();
+      }
+      document.removeEventListener('touchstart', start);
+    };
+    document.addEventListener('touchstart', start, { once: true, passive: true });
+  }
 })();
 
 /* ─── hikaye photo reveal + scroll parallax ─────────────────────────────── */
@@ -6280,17 +6286,18 @@ Teşekkür ederim.`;
 (() => {
   const sig = document.querySelector('.foot .signature');
   if (!sig) return;
-  const path = sig.querySelector('#sig-path');
-  if (path) {
-    const L = path.getTotalLength();
-    path.style.strokeDasharray = L;
-    path.style.strokeDashoffset = L;
-  }
+  const paths = [...sig.querySelectorAll('path')];
+  paths.forEach((p, i) => {
+    const L = p.getTotalLength();
+    p.style.strokeDasharray = L;
+    p.style.strokeDashoffset = L;
+    p.style.transition = `stroke-dashoffset 2.2s cubic-bezier(.86,0,.07,1) ${0.2 + i * 0.5}s`;
+  });
   const io = new IntersectionObserver(es => {
     es.forEach(e => {
       if (e.isIntersecting) {
         sig.classList.add('in');
-        if (path) path.style.strokeDashoffset = 0;
+        paths.forEach(p => p.style.strokeDashoffset = 0);
         io.unobserve(sig);
       }
     });
