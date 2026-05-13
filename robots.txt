@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /_reference/
+Disallow: /.git/
+Disallow: /.claude/
+
+Sitemap: https://nilpansiyon.info/sitemap.xml
