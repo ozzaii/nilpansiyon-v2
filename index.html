@@ -211,7 +211,8 @@
 
   --ease:    cubic-bezier(.2, .7, .2, 1);
   --ease-slow: cubic-bezier(.16, 1, .3, 1);
-  --ease-spring: cubic-bezier(.34, 1.56, .64, 1);
+  /* expo-out: dramatic without overshoot — replaces former bounce cubic */
+  --ease-spring: cubic-bezier(.19, 1, .22, 1);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -2335,7 +2336,8 @@ section { position: relative; isolation: isolate; }
   font-size: clamp(22px, 2.6vw, 32px); line-height: 1.25; letter-spacing: -.015em;
   color: var(--ink);
 }
-.konum .panel .lead em { color: var(--brass); }
+/* brass-on-paper text contrasted via --gold-deep for WCAG AA (4.5:1) */
+.konum .panel .lead em { color: var(--gold-deep); }
 .konum .panel .address {
   font-family: var(--body); font-size: 17px; line-height: 1.55; color: var(--moss);
   padding-top: 24px; border-top: 1px solid var(--ink-line);
@@ -2354,7 +2356,7 @@ section { position: relative; isolation: isolate; }
   font-family: var(--mono); font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: var(--moss);
 }
 .konum .panel .dist li:last-child { border-bottom: 1px solid var(--ink-line); }
-.konum .panel .dist li .v { color: var(--brass); letter-spacing: .14em; font-size: 13px; }
+.konum .panel .dist li .v { color: var(--gold-deep); letter-spacing: .14em; font-size: 13px; }
 .konum .panel .dist li .label { font-style: italic; text-transform: none; letter-spacing: 0; font-family: var(--body); font-size: 15px; color: var(--ink); }
 
 .konum .map {
@@ -2669,7 +2671,7 @@ section { position: relative; isolation: isolate; }
   .foot .mark .foot-lockup { width: 80%; }
 }
 
-.foot .col h4 {
+.foot .col h3 {
   font-family: var(--mono); font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--brass);
   margin-bottom: 22px;
 }
@@ -5003,7 +5005,7 @@ section { position: relative; isolation: isolate; }
         </div>
 
         <div class="col reveal reveal-delay-1">
-          <h4>İletişim</h4>
+          <h3>İletişim</h3>
           <ul>
             <li><a href="tel:+905453842829" data-magnet>+90 545 384 28 29</a></li>
             <li><a href="https://wa.me/905453842829?text=Merhaba%2C%20Nil%20Pansiyon%20i%C3%A7in%20rezervasyon%20yapmak%20istiyorum." target="_blank" rel="noopener" data-magnet>WhatsApp</a></li>
@@ -5013,7 +5015,7 @@ section { position: relative; isolation: isolate; }
         </div>
 
         <div class="col reveal reveal-delay-2">
-          <h4>Adres</h4>
+          <h3>Adres</h3>
           <ul>
             <li class="title">Nil Pansiyon</li>
             <li>İnönü Cd. No: 92/A</li>
@@ -5023,7 +5025,7 @@ section { position: relative; isolation: isolate; }
         </div>
 
         <div class="col reveal reveal-delay-3">
-          <h4>Sayfa</h4>
+          <h3>Sayfa</h3>
           <ul>
             <li><a href="#odalar" data-magnet>Odalar</a></li>
             <li><a href="#sofra" data-magnet>Sofra</a></li>
