@@ -109,16 +109,9 @@
         { "@type": "LocationFeatureSpecification", "name": "Dağ manzarası", "value": true },
         { "@type": "LocationFeatureSpecification", "name": "Göl manzarası", "value": true },
         { "@type": "LocationFeatureSpecification", "name": "Aile odaları", "value": true },
-        { "@type": "LocationFeatureSpecification", "name": "24 saat resepsiyon", "value": true }
+        { "@type": "LocationFeatureSpecification", "name": "Otopark", "value": true }
       ],
       "hasMap": "https://www.google.com/maps/place/Uzung%C3%B6l,+%C3%87aykara%2FTrabzon",
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.9",
-        "reviewCount": "287",
-        "bestRating": "5",
-        "worstRating": "1"
-      },
       "makesOffer": [
         { "@type": "Offer", "itemOffered": { "@type": "HotelRoom", "name": "Deluxe Oda", "occupancy": { "@type": "QuantitativeValue", "maxValue": 7 } } },
         { "@type": "Offer", "itemOffered": { "@type": "HotelRoom", "name": "2+1 Daire", "occupancy": { "@type": "QuantitativeValue", "maxValue": 6 } } },
@@ -150,10 +143,9 @@
       "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "Anasayfa", "item": "https://nilpansiyon.info/" },
         { "@type": "ListItem", "position": 2, "name": "Odalar", "item": "https://nilpansiyon.info/#odalar" },
-        { "@type": "ListItem", "position": 3, "name": "Sofra", "item": "https://nilpansiyon.info/#sofra" },
-        { "@type": "ListItem", "position": 4, "name": "Hikaye", "item": "https://nilpansiyon.info/#hikaye" },
-        { "@type": "ListItem", "position": 5, "name": "Konum", "item": "https://nilpansiyon.info/#konum" },
-        { "@type": "ListItem", "position": 6, "name": "Rezervasyon", "item": "https://nilpansiyon.info/#rezervasyon" }
+        { "@type": "ListItem", "position": 3, "name": "Hikaye", "item": "https://nilpansiyon.info/#hikaye" },
+        { "@type": "ListItem", "position": 4, "name": "Konum", "item": "https://nilpansiyon.info/#konum" },
+        { "@type": "ListItem", "position": 5, "name": "Rezervasyon", "item": "https://nilpansiyon.info/#rezervasyon" }
       ]
     }
   ]
@@ -858,14 +850,6 @@ body.modal-open .sticky-bar { opacity: 0; pointer-events: none; transition: opac
 /* roman numeral mark fades up bigger on reveal (subtle entrance) */
 .room .roman-mark { opacity: 0; }
 .room.in .roman-mark { transition-delay: calc(.5s + var(--rri) * 110ms); }
-
-/* ─── sofra: ingredient italics underline draw ──────────────────────────── */
-.sofra em.spec, .sofra .italic-spec { position: relative; }
-.sofra em.spec::after, .sofra .italic-spec::after {
-  content: ''; position: absolute; left: 0; right: 0; bottom: -2px; height: 1px; background: var(--brass);
-  transform: scaleX(0); transform-origin: left; transition: transform 1.4s var(--ease-slow);
-}
-.sofra .reveal.in em.spec::after, .sofra .reveal.in .italic-spec::after { transform: scaleX(1); transition-delay: .4s; }
 
 /* ─── hikaye: drop-cap brass flow (existing has-dropcap class) ──────────── */
 .has-dropcap { position: relative; }
@@ -2731,10 +2715,10 @@ section { position: relative; isolation: isolate; }
 }
 .stats-ribbon .row {
   max-width: var(--max); margin: 0 auto;
-  display: grid; grid-template-columns: repeat(4, 1fr); align-items: center;
+  display: grid; grid-template-columns: repeat(3, 1fr); align-items: center;
   gap: 0;
 }
-@media (max-width: 720px) { .stats-ribbon .row { grid-template-columns: 1fr 1fr; row-gap: 14px; } }
+@media (max-width: 720px) { .stats-ribbon .row { grid-template-columns: 1fr; row-gap: 14px; } }
 .stats-ribbon .cell {
   display: flex; align-items: baseline; gap: 14px; justify-content: center;
   border-right: 1px solid var(--ink-line); padding: 4px 18px;
@@ -2760,102 +2744,6 @@ section { position: relative; isolation: isolate; }
 .stats-ribbon .lbl::before {
   content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
   width: 6px; height: 1px; background: var(--brass);
-}
-
-/* ─── sofra (kitchen/cuisine) section ───────────────────────────────────── */
-.sofra {
-  background: var(--paper); color: var(--ink); position: relative; overflow: hidden;
-}
-.sofra::before {
-  content: ''; position: absolute; inset: 0; z-index: 0; opacity: .08;
-  background:
-    radial-gradient(ellipse at 30% 0%, var(--brass), transparent 60%),
-    radial-gradient(ellipse at 80% 100%, var(--brass-deep), transparent 60%);
-}
-.sofra > .wrap { position: relative; z-index: 2; }
-
-.sofra .grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 5vw, 80px); align-items: start;
-}
-@media (max-width: 900px) { .sofra .grid { grid-template-columns: 1fr; } }
-
-.sofra .menu {
-  display: flex; flex-direction: column; gap: 0;
-  border-top: 1px solid var(--ink-line);
-}
-.sofra .menu .item {
-  position: relative;
-  display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: baseline;
-  padding: 24px 0; border-bottom: 1px solid var(--ink-line);
-  transition: background .7s var(--ease-slow), transform .7s var(--ease-slow);
-}
-.sofra .menu .item::before {
-  content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%) scaleX(0);
-  transform-origin: left center; width: 16px; height: 1px;
-  background: linear-gradient(90deg, var(--brass-deep), transparent);
-  transition: transform .7s var(--ease-slow);
-}
-.sofra .menu .item::after {
-  content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px;
-  background: linear-gradient(90deg, var(--brass) 0%, var(--brass-hi) 30%, var(--brass-deep) 70%, transparent);
-  transform: scaleX(0); transform-origin: left center;
-  transition: transform .9s var(--ease-slow);
-}
-.sofra .menu .item:hover { transform: translateX(22px); background: linear-gradient(90deg, rgba(232,201,136,.05), transparent 40%); }
-.sofra .menu .item:hover::before { transform: translateY(-50%) scaleX(1); }
-.sofra .menu .item:hover::after { transform: scaleX(1); }
-.sofra .menu .item .name {
-  font-family: var(--display); font-style: italic; font-weight: 340;
-  font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1, 'wght' 340;
-  font-size: clamp(22px, 2.4vw, 32px); line-height: 1.1; letter-spacing: -.018em; color: var(--ink);
-  transition: color .7s var(--ease-slow), text-shadow .7s var(--ease-slow), letter-spacing .7s var(--ease-slow);
-  display: inline-block;
-}
-.sofra .menu .item:hover .name {
-  color: var(--brass-deep);
-  text-shadow: 0 0 24px rgba(200,164,92,.18);
-  letter-spacing: -.005em;
-}
-.sofra .menu .item .desc {
-  font-family: var(--body); font-style: italic; font-size: 14px; color: var(--moss); margin-top: 6px;
-  transition: color .7s var(--ease-slow);
-}
-.sofra .menu .item:hover .desc { color: var(--ink); }
-.sofra .menu .item .tag {
-  position: relative;
-  font-family: var(--mono); font-size: 10px; letter-spacing: .28em; text-transform: uppercase; color: var(--brass-deep);
-  white-space: nowrap;
-  padding-left: 18px;
-}
-.sofra .menu .item .tag::before {
-  content: ''; position: absolute; left: 0; top: 50%; width: 6px; height: 6px;
-  background: var(--brass); border-radius: 50%;
-  transform: translateY(-50%);
-  box-shadow: 0 0 0 0 rgba(200,164,92,.6);
-  transition: box-shadow .7s var(--ease-slow), background .4s;
-}
-.sofra .menu .item:hover .tag::before {
-  background: var(--brass-hi);
-  animation: tag-pulse 1.8s ease-out infinite;
-}
-@keyframes tag-pulse {
-  0%   { box-shadow: 0 0 0 0   rgba(200,164,92,.55); }
-  70%  { box-shadow: 0 0 0 10px rgba(200,164,92,0); }
-  100% { box-shadow: 0 0 0 0   rgba(200,164,92,0); }
-}
-
-.sofra .right {
-  position: sticky; top: 100px;
-}
-.sofra .right .lead {
-  font-family: var(--display); font-style: italic; font-weight: 300;
-  font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1, 'wght' 300;
-  font-size: clamp(28px, 3.4vw, 44px); line-height: 1.18; letter-spacing: -.02em;
-  color: var(--ink); margin-top: 28px;
-}
-.sofra .right .lead em { color: var(--brass-deep); }
-.sofra .right p {
-  font-family: var(--body); font-size: 15px; line-height: 1.7; color: var(--moss); margin-top: 24px; max-width: 36ch;
 }
 
 /* ─── mevsimler (seasons) section ───────────────────────────────────────── */
@@ -3546,8 +3434,7 @@ section { position: relative; isolation: isolate; }
   margin: 40px auto 24px;
   opacity: .85;
 }
-/* footer signature size — width grew to accommodate "Nil Ailesi" two-word path */
-.foot .signature { max-width: 360px; width: 100%; height: auto; opacity: .9; }
+.foot .signature { max-width: 320px; width: 100%; height: auto; opacity: .9; margin: 24px auto 0; display: block; }
 .foot .signature.in { opacity: 1; }
 .foot .sig-attr {
   display: flex; align-items: center; justify-content: center; gap: 14px;
@@ -3581,13 +3468,7 @@ section { position: relative; isolation: isolate; }
   .rooms { gap: 24px; margin-top: 40px; }
   .room.r2, .room.r3, .room.r4, .room.r5, .room.r6 { margin-top: 0; }
 
-  /* sofra menu tighter padding */
-  .sofra .menu .item { padding: 18px 0; }
-  .sofra .menu .item:hover { transform: translateX(12px); }
-  .sofra .menu .item .name { font-size: clamp(20px, 5vw, 26px); }
-  .sofra .right { position: static; }
-
-  /* hikaye photo */
+/* hikaye photo */
   .hikaye .photo { aspect-ratio: 4/5; }
 
   /* mevsim cards */
@@ -3739,7 +3620,6 @@ section { position: relative; isolation: isolate; }
     <button class="nd" data-target="#hero"        data-label="Açılış"></button>
     <button class="nd" data-target="#manifesto"   data-label="Manifesto"></button>
     <button class="nd" data-target="#odalar"      data-label="Odalar"></button>
-    <button class="nd" data-target="#sofra"       data-label="Sofra"></button>
     <button class="nd" data-target="#hikaye"      data-label="Hikâye"></button>
     <button class="nd" data-target="#mevsimler"   data-label="Mevsim"></button>
     <button class="nd" data-target="#konum"       data-label="Konum"></button>
@@ -3772,7 +3652,6 @@ section { position: relative; isolation: isolate; }
     </a>
     <div class="links">
       <a href="#odalar"      data-magnet data-i18n="nav.rooms">Odalar</a>
-      <a href="#sofra"       data-magnet data-i18n="nav.kitchen">Sofra</a>
       <a href="#hikaye"      data-magnet data-i18n="nav.story">Hikâye</a>
       <a href="#mevsimler"   data-magnet data-i18n="nav.seasons">Mevsim</a>
       <a href="#konum"       data-magnet data-i18n="nav.location">Konum</a>
@@ -3840,7 +3719,7 @@ section { position: relative; isolation: isolate; }
           <span class="pip"></span>
           <span data-i18n="hero.sub.b">12 ahşap oda</span>
           <span class="pip"></span>
-          <span data-i18n="hero.sub.c">bir tek sofra</span>
+          <span data-i18n="hero.sub.c">göl manzaralı</span>
         </div>
       </div>
 
@@ -3887,7 +3766,7 @@ section { position: relative; isolation: isolate; }
       </div>
 
       <blockquote class="pull-quote reveal reveal-delay-3" data-i18n-html="manifesto.pullquote">
-        Bir <em>otel</em> değil, bir <em>kapı</em>: arkasında vadi, içinde sofra.
+        Bir <em>otel</em> değil, bir <em>kapı</em>: arkasında vadi, içinde aile.
         <span class="attr">— Nil Ailesi, 1987</span>
       </blockquote>
     </div>
@@ -3896,10 +3775,9 @@ section { position: relative; isolation: isolate; }
   <!-- ─── stats ribbon (ince şerit) ──────────────────────────────────────── -->
   <section class="stats-ribbon reveal">
     <div class="row">
-      <div class="cell"><span class="num" data-count="12">12</span><span class="lbl">ahşap oda</span></div>
-      <div class="cell"><span class="num" data-count="30" data-suffix=" m">30<span class="suffix"> m</span></span><span class="lbl">gölün kıyısı</span></div>
-      <div class="cell"><span class="num" data-count="1090" data-suffix=" m">1090<span class="suffix"> m</span></span><span class="lbl">rakım</span></div>
-      <div class="cell"><span class="num" data-count="38">38</span><span class="lbl">yıl · 1987'den</span></div>
+      <div class="cell"><span class="num">12</span><span class="lbl">ahşap oda</span></div>
+      <div class="cell"><span class="num">1090<span class="suffix"> m</span></span><span class="lbl">rakım · Karadeniz</span></div>
+      <div class="cell"><span class="num">1987</span><span class="lbl">aileden bu yana</span></div>
     </div>
   </section>
 
@@ -4111,90 +3989,7 @@ section { position: relative; isolation: isolate; }
     </div>
   </section>
 
-  <!-- ─── SOFRA · mutfak / yemek listesi ─────────────────────────────────── -->
-  <section class="sofra chapter paper-grain" id="sofra" data-wash="from-dark">
-    <div class="wrap">
-      <header class="ch-head reveal">
-        <span class="roman" style="color: var(--brass-deep);">·</span>
-        <div class="titleblock">
-          <span class="sub" style="color: var(--brass-deep);" data-i18n="ch.sofra.sub">Sofra</span>
-          <h2 data-i18n-html="ch.sofra.h2">Karadeniz <em>sofrası</em>, vadinin kendisinden.</h2>
-        </div>
-        <div class="right" style="color: var(--paper-2);">
-          <span>Bölüm</span>
-          <span class="v" style="color: var(--brass-deep);">Ek · Sofra</span>
-        </div>
-      </header>
-
-      <div class="grid">
-        <div class="right reveal" style="display:flex;flex-direction:column;gap:24px;">
-          <span class="eyebrow" style="color: var(--brass-deep);">— Mutfak · ev usulü</span>
-          <p class="lead has-dropcap"><span class="dropcap" aria-hidden="true">T</span>ereyağı <em>Haldizen</em> yaylasından. Mısır unu <em>komşu</em> köyden. Bal, ladinin kendisinden.</p>
-          <p>Sabah açık büfemiz, on iki ayrı reçel, yedi peynir, üç çeşit börek, mıhlama, kuymak, kalkan ve hamsi (mevsiminde), taze köy ekmeği ile başlar — saat altıdan on bire kadar.</p>
-          <p>Öğle ve akşam servisi talep üzerine. Misafirlerimizin %94'ü, yemeklerimiz için tekrar gelir.</p>
-          <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:8px;">
-            <span class="eyebrow" style="color: var(--brass-hi); border: 1px solid var(--line); padding: 8px 12px;">Kahvaltı · dahil</span>
-            <span class="eyebrow" style="color: var(--brass-hi); border: 1px solid var(--line); padding: 8px 12px;">Talep üzerine yemek</span>
-            <span class="eyebrow" style="color: var(--brass-hi); border: 1px solid var(--line); padding: 8px 12px;">Vejetaryen seçenek</span>
-          </div>
-        </div>
-
-        <div class="menu reveal reveal-delay-2">
-          <div class="item">
-            <div>
-              <span class="name">Mıhlama</span>
-              <div class="desc">Karadeniz tereyağı, mısır unu, Trabzon kolot peyniri — ahşap tencerede.</div>
-            </div>
-            <span class="tag">ev usulü</span>
-          </div>
-          <div class="item">
-            <div>
-              <span class="name">Kuymak</span>
-              <div class="desc">Mıhlamanın yakın akrabası — daha yoğun, daha eski. Sabah kahvaltısının başkahramanı.</div>
-            </div>
-            <span class="tag">sabah · kalp</span>
-          </div>
-          <div class="item">
-            <div>
-              <span class="name">Karalâhana sarması</span>
-              <div class="desc">Köy iç harçlı, ladin odununda haşlanmış — Çaykara'nın imzası.</div>
-            </div>
-            <span class="tag">öğle</span>
-          </div>
-          <div class="item">
-            <div>
-              <span class="name">Taze hamsi tava</span>
-              <div class="desc">Mevsiminde, sabah ağdan alınmış — mısır ununda kızartılmış.</div>
-            </div>
-            <span class="tag">kış · sezon</span>
-          </div>
-          <div class="item">
-            <div>
-              <span class="name">Köy ekmeği · ev reçelleri</span>
-              <div class="desc">Sabah sıcak, on iki çeşit ev reçeli — çilek, vişne, ahududu, ladin reçeli dahil.</div>
-            </div>
-            <span class="tag">kahvaltı</span>
-          </div>
-          <div class="item">
-            <div>
-              <span class="name">Fındık tatlısı · pestil</span>
-              <div class="desc">Trabzon fındığı, vadi balı, ev sütü — ailenin kendi tarifi.</div>
-            </div>
-            <span class="tag">akşam</span>
-          </div>
-          <div class="item">
-            <div>
-              <span class="name">Çay · semaver</span>
-              <div class="desc">Açık-kapalı, açık-tavşan kanı — istediğiniz demlikte. Saat her saat.</div>
-            </div>
-            <span class="tag">her saat</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ─── HIKAYE ────────────────────────────────────────────────────────── -->
+<!-- ─── HIKAYE ────────────────────────────────────────────────────────── -->
   <section class="hikaye chapter paper-grain" id="hikaye">
     <div class="wrap">
       <header class="ch-head reveal">
@@ -4486,7 +4281,7 @@ section { position: relative; isolation: isolate; }
 
             <!-- distance lines drawn from pansiyon to landmarks (animated dashoffset) -->
             <g class="distance-lines" stroke="#B89968" stroke-width=".8" fill="none" stroke-linecap="round" opacity=".55">
-              <line class="dl" x1="340" y1="220" x2="370" y2="290" data-dist="30 m" />
+              <line class="dl" x1="340" y1="220" x2="370" y2="290" data-dist="göl manzaralı" />
               <line class="dl" x1="340" y1="220" x2="460" y2="460" data-dist="19 km" />
               <line class="dl" x1="340" y1="220" x2="720" y2="100" data-dist="100 km" />
               <line class="dl" x1="340" y1="220" x2="620" y2="240" data-dist="17 km" />
@@ -4550,7 +4345,7 @@ section { position: relative; isolation: isolate; }
 
       <div class="grid">
         <aside class="panel reveal">
-          <p class="lead" data-i18n-html="konum.panelLead">Pansiyonumuz, gölün <em>otuz metre</em> kuzeyinde, İnönü Caddesi üzerindeki ladinlerin arasında. Camdan başını uzatırsanız, suyun yüzeyini görürsünüz; pencereyi açarsanız, kuş seslerinden başkasını duymazsınız.</p>
+          <p class="lead" data-i18n-html="konum.panelLead">Pansiyonumuz <em>göl manzaralı</em>, İnönü Caddesi üzerindeki ladinlerin arasında. Camdan baktığınızda gölün yüzeyini görürsünüz; pencereyi açarsanız, kuş seslerinden başkasını duymazsınız.</p>
 
           <div class="address">
             <span class="label">Adres</span>
@@ -4559,9 +4354,10 @@ section { position: relative; isolation: isolate; }
           </div>
 
           <ul class="dist">
-            <li><span class="label">Uzungöl merkez</span><span class="v">30 m</span></li>
-            <li><span class="label">Gölün kuzey kıyısı</span><span class="v">90 m</span></li>
-            <li><span class="label">Doğa yürüyüş patikası</span><span class="v">50 m</span></li>
+            <li><span class="label">Manzara</span><span class="v">göl + ladin ormanı</span></li>
+            <li><span class="label">Uzungöl merkez</span><span class="v">yürüyüş mesafesi</span></li>
+            <li><span class="label">Doğa yürüyüş patikası</span><span class="v">hemen yanı başı</span></li>
+            <li><span class="label">Otopark</span><span class="v">misafire açık · ücretsiz</span></li>
             <li><span class="label">Şelaleli ladin yolu girişi</span><span class="v">0.4 km</span></li>
             <li><span class="label">Haldizen yaylası</span><span class="v">17 km</span></li>
             <li><span class="label">Çaykara merkez</span><span class="v">19 km</span></li>
@@ -4895,7 +4691,6 @@ section { position: relative; isolation: isolate; }
           <h3>Sayfa</h3>
           <ul>
             <li><a href="#odalar" data-magnet>Odalar</a></li>
-            <li><a href="#sofra" data-magnet>Sofra</a></li>
             <li><a href="#hikaye" data-magnet>Hikâye</a></li>
             <li><a href="#mevsimler" data-magnet>Mevsim</a></li>
             <li><a href="#konum" data-magnet>Konum</a></li>
@@ -4910,48 +4705,22 @@ section { position: relative; isolation: isolate; }
         <span class="right">Site · 2026 · v2</span>
       </div>
 
-      <!-- handwritten "Nil Ailesi" signature — stylized, drawn brass on dark
-           Replaces the prior anonymous squiggle. The flourish underline + dot
-           cluster reads as a real signing gesture, not a portfolio decoration. -->
-      <svg class="signature" viewBox="0 0 520 130" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      <!-- Restrained flourish line — the real attribution lives in the caption
+           below. Fake handwriting reads as slop; a single brass gesture +
+           honest type-set name + date is the more dignified move. -->
+      <svg class="signature" viewBox="0 0 480 60" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
         <defs>
           <linearGradient id="sig-grad" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%"  stop-color="#8E6B30" stop-opacity="0"/>
-            <stop offset="12%" stop-color="#C8A45C" stop-opacity=".95"/>
-            <stop offset="88%" stop-color="#C8A45C" stop-opacity=".95"/>
+            <stop offset="0%"   stop-color="#8E6B30" stop-opacity="0"/>
+            <stop offset="18%"  stop-color="#C8A45C" stop-opacity=".9"/>
+            <stop offset="82%"  stop-color="#C8A45C" stop-opacity=".9"/>
             <stop offset="100%" stop-color="#8E6B30" stop-opacity="0"/>
           </linearGradient>
         </defs>
-        <!-- "Nil" — capital N loop into i-l flourish -->
-        <path id="sig-path" d="
-          M40 80
-          C 38 50, 46 26, 60 30
-          C 72 36, 70 78, 64 92
-          M64 92
-          C 70 70, 84 42, 100 36
-          C 116 32, 112 88, 110 96
-          M118 60 C 118 55, 124 50, 128 56 C 130 60, 130 70, 130 76
-          M140 56 C 144 52, 150 50, 154 56 C 156 70, 152 88, 144 96
-          C 156 86, 168 64, 184 56
-          C 200 50, 198 100, 192 108"
-              fill="none" stroke="url(#sig-grad)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-        <!-- "Ailesi" — A loop, i dot, l, e, s, i flourish -->
-        <path d="
-          M218 96
-          C 230 60, 252 32, 262 36
-          C 276 42, 286 86, 286 100
-          M232 80 L 280 78
-          M298 60 C 304 56, 312 56, 314 64 C 316 78, 308 94, 296 100
-          M306 36 L 308 40
-          M334 54 C 334 50, 346 50, 348 60 C 348 78, 338 92, 324 100
-          M360 56 C 360 50, 372 46, 380 54 C 386 64, 378 78, 360 78
-          C 374 82, 388 92, 384 102 C 378 110, 362 110, 350 100
-          M404 60 C 410 56, 418 54, 422 62 C 426 80, 414 102, 404 108
-          M418 38 L 420 42"
-              fill="none" stroke="url(#sig-grad)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-        <!-- underline flourish + period -->
-        <path d="M62 116 Q 220 130, 410 110" fill="none" stroke="#8E6B30" stroke-width=".9" stroke-linecap="round" opacity=".55"/>
-        <circle cx="446" cy="106" r="2.5" fill="#C8A45C" opacity=".85"/>
+        <path id="sig-path" d="M20 36 C 70 8, 130 50, 200 28 S 320 14, 380 36 S 440 24, 460 32"
+              fill="none" stroke="url(#sig-grad)" stroke-width="1.4" stroke-linecap="round"/>
+        <path d="M170 48 Q 240 56, 320 46" fill="none" stroke="#8E6B30" stroke-width=".7" stroke-linecap="round" opacity=".5"/>
+        <circle cx="450" cy="38" r="2" fill="#C8A45C" opacity=".8"/>
       </svg>
 
       <p class="sig-attr" aria-hidden="false">
@@ -5528,12 +5297,12 @@ document.getElementById('year').textContent = new Date().getFullYear();
 
   const i18n = {
     tr: {
-      'nav.rooms': 'Odalar',  'nav.kitchen': 'Sofra', 'nav.story': 'Hikâye',
+      'nav.rooms': 'Odalar',  'nav.story': 'Hikâye',
       'nav.seasons': 'Mevsim','nav.location': 'Konum','nav.faq': 'Sorular','nav.book': 'Rezervasyon',
       'hero.tagline':   'Sis ile gölün buluştuğu yerde',
       'hero.sub.a':     'Ladin ormanı',
       'hero.sub.b':     '12 ahşap oda',
-      'hero.sub.c':     'bir tek sofra',
+      'hero.sub.c':     'göl manzaralı',
       'hero.altitude.l':'İrtifa',
       'hero.location.l':'Konum',
       'hero.scroll.a':  'aşağı',
@@ -5566,7 +5335,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
       'faq.foot.b':'.',
       /* prose blocks — TR original copy */
       'manifesto.lead':'Karadeniz\'in en derin sessizliği. Bir aile pansiyonu, bir misafir odası — yıllardır aynı <em>sofranın</em> etrafında.',
-      'manifesto.pullquote':'Bir <em>otel</em> değil, bir <em>kapı</em>: arkasında vadi, içinde sofra. <span class="attr">— Nil Ailesi, 1987</span>',
+      'manifesto.pullquote':'Bir <em>otel</em> değil, bir <em>kapı</em>: arkasında vadi, içinde aile. <span class="attr">— Nil Ailesi, 1987</span>',
       'hikaye.lead':'<span class="dropcap" aria-hidden="true">B</span>abalarımız bu vadiye geldiklerinde, Uzungöl bir köydü. Yol asfaltsızdı, akşam yedide karanlıktı. <em>Otel</em> kelimesi henüz buralarda telaffuz edilmemişti — bir <em>misafir odası</em> vardı sadece, ve o oda her zaman hazırdı.',
       'hikaye.body1':'Pansiyon, o misafir odasının büyümüş hâli. Ailemizin yıllar içinde kapısını yabancılara açtığı, ama yabancıyı misafir hâline getirdiği bir ev. Burada anahtarınızı resepsiyonda almazsınız — birisi size yukarı çıkarır, sobayı yakar, perdeyi açar.',
       'hikaye.body2':'Mobilyalarımızı kendi ustamız yapıyor. Ladin tahtası, vadiden. Yataklarımız Pamuk pazardan, çarşaflarımız Trabzon\'dan. Her şey burnumuzun dibinden.',
@@ -5576,7 +5345,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
       'rez.body1':'Bizden her ay onlarca rezervasyon talebi geliyor; her birine ailenin biri cevap veriyor. Bu yüzden cevap bazen on dakika, bazen iki saat — ama her zaman insan, hiçbir zaman bot.',
       'rez.body2':'Acil müsaitlik için doğrudan arayabilirsiniz. Mesai saati yoktur, vadide saat öylesine işler.',
       'rez.formNote':'WhatsApp\'a yönlendirileceksiniz; ailemizden biri size birkaç dakika içinde uygunluk + fiyat dönecek. Hiçbir ödeme alınmaz.',
-      'konum.panelLead':'Pansiyonumuz, gölün <em>otuz metre</em> kuzeyinde, İnönü Caddesi üzerindeki ladinlerin arasında. Camdan başını uzatırsanız, suyun yüzeyini görürsünüz; pencereyi açarsanız, kuş seslerinden başkasını duymazsınız.',
+      'konum.panelLead':'Pansiyonumuz <em>göl manzaralı</em>, İnönü Caddesi üzerindeki ladinlerin arasında. Camdan baktığınızda gölün yüzeyini görürsünüz; pencereyi açarsanız, kuş seslerinden başkasını duymazsınız.',
       'footer.mark':'Karadeniz\'in en derin sessizliği. Bir aile pansiyonu, bir misafir odası — yıllardır aynı sofranın etrafında.',
       'footer.bottom':'— el ile yapılmıştır, Uzungöl\'de —',
       'hikaye.sig.fam':'Nil Ailesi',
@@ -5590,7 +5359,6 @@ document.getElementById('year').textContent = new Date().getFullYear();
       'room.r6.num':'06 — Standard','room.r6.name':'Çift Kişilik Oda','room.r6.bed':'Çift kişilik yatak · ahşap mobilya · sade ferahlık',
       /* section sub-kickers */
       'ch.odalar.sub':'Konaklama',
-      'ch.sofra.sub': 'Sofra',
       'ch.hikaye.sub':'Hikâye',
       'ch.mevsim.sub':'Mevsim',
       'ch.konum.sub': 'Konum',
@@ -5598,7 +5366,6 @@ document.getElementById('year').textContent = new Date().getFullYear();
       'ch.rez.sub':   'Rezervasyon',
       'rez.price':    "Gece <em>~ 4.500 ₺</em>'den · iki kişi · kahvaltı dahil",
       'ch.odalar.h2':'On iki ahşap oda, <em>her biri ayrı bir hece</em>.',
-      'ch.sofra.h2': 'Karadeniz <em>sofrası</em>, vadinin kendisinden.',
       'ch.hikaye.h2':'Ladin tahtası <em>yıllanır</em>, sofra <em>genişler</em>.',
       'ch.mevsim.h2':'Dört mevsim, <em>dört ayrı</em> Uzungöl.',
       'ch.konum.h2': 'Sis hangi yöne <em>giderse</em>, biz oradayız.',
@@ -5606,7 +5373,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
       'ch.rez.h2':   'Bir <em>kapıyı</em> açın, bir <em>vadiyi</em> kapatın arkanızda.',
     },
     en: {
-      'nav.rooms': 'Rooms',   'nav.kitchen': 'Kitchen','nav.story': 'Story',
+      'nav.rooms': 'Rooms',   'nav.story': 'Story',
       'nav.seasons':'Seasons','nav.location':'Location','nav.faq': 'Questions','nav.book': 'Reservation',
       'hero.tagline':   'Where mist meets the lake',
       'hero.sub.a':     'Spruce forest',
@@ -5667,7 +5434,6 @@ document.getElementById('year').textContent = new Date().getFullYear();
       'room.r5.num':'05 · Family Bungalow','room.r5.name':'Family Bungalow','room.r5.bed':'Living room and kitchen, two bedrooms, private terrace',
       'room.r6.num':'06 · Standard','room.r6.name':'Standard Double Room','room.r6.bed':'Plain, warm, wooden, valley view',
       'ch.odalar.sub':'Rooms',
-      'ch.sofra.sub': 'The Table',
       'ch.hikaye.sub':'Story',
       'ch.mevsim.sub':'Seasons',
       'ch.konum.sub': 'Location',
@@ -5675,7 +5441,6 @@ document.getElementById('year').textContent = new Date().getFullYear();
       'ch.rez.sub':   'Reservation',
       'rez.price':    'From <em>~ 4,500 ₺</em>/night · two guests · breakfast included',
       'ch.odalar.h2':'Twelve wooden rooms, <em>each its own syllable</em>.',
-      'ch.sofra.h2': 'A Karadeniz <em>table</em>, drawn from the valley itself.',
       'ch.hikaye.h2':'Spruce <em>ages</em>, the table <em>widens</em>.',
       'ch.mevsim.h2':'Four seasons, <em>four different</em> Uzungöls.',
       'ch.konum.h2': 'Wherever the mist <em>drifts</em>, we are there.',
@@ -5686,7 +5451,6 @@ document.getElementById('year').textContent = new Date().getFullYear();
        warmth (not airport-formal). Direction handled via body.rtl. */
     ar: {
       'nav.rooms':       'الغرف',
-      'nav.kitchen':     'المطبخ',
       'nav.story':       'الحكاية',
       'nav.seasons':     'الفصول',
       'nav.location':    'الموقع',
@@ -5709,7 +5473,6 @@ document.getElementById('year').textContent = new Date().getFullYear();
     /* Russian — premium-hospitality tone with literary cadence. */
     ru: {
       'nav.rooms':       'Номера',
-      'nav.kitchen':     'Кухня',
       'nav.story':       'История',
       'nav.seasons':     'Сезоны',
       'nav.location':    'Где мы',
