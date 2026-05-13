@@ -448,7 +448,22 @@ html { scrollbar-color: var(--gold) var(--ink-2); scrollbar-width: thin; }
 .nav-dots .nd:hover { opacity: 1; }
 .nav-dots .nd:hover::after { opacity: 1; }
 .nav-dots .nd.active { opacity: 1; transform: scale(1.7); }
-@media (max-width: 880px) { .nav-dots { display: none; } }
+/* Mobile: keep nav-dots visible but enlarge tap targets + hide section labels.
+   Recognition-heuristic requires section nav to be discoverable on touch. */
+@media (max-width: 880px) {
+  .nav-dots { right: 12px; gap: 14px; }
+  .nav-dots .nd { width: 10px; height: 10px; opacity: .55; cursor: pointer; }
+  .nav-dots .nd::before {
+    /* invisible 44×44 tap area centered on the dot for WCAG 2.5.5 */
+    content: ""; position: absolute; inset: -17px; border-radius: 50%;
+  }
+  .nav-dots .nd::after { display: none; } /* hover labels never trigger on touch */
+  .nav-dots .nd.active { transform: scale(1.4); }
+}
+@media (max-width: 500px) {
+  .nav-dots { right: 8px; gap: 12px; }
+  .nav-dots .nd { width: 9px; height: 9px; }
+}
 
 /* ─── ambient sound toggle — Karadeniz dere/wind synth, bottom-left brass disc */
 .ambient-toggle {
@@ -1432,9 +1447,13 @@ body[data-weather="storm"] .weather-particles { opacity: 1; }
 }
 .hero .eyebrow-pill .line + .line { background: linear-gradient(90deg, var(--gold), transparent); }
 
+/* Hero side labels — demoted from mono+caps to italic display to break
+   "every label looks the same" pattern called out by the critique. */
 .hero .corner-left, .hero .corner-right {
   position: absolute; z-index: 4;
-  font-family: var(--mono); font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--mist);
+  font-family: var(--display); font-style: italic; font-weight: 320;
+  font-variation-settings: 'opsz' 60, 'SOFT' 60, 'WONK' 0, 'wght' 360;
+  font-size: 13px; letter-spacing: .01em; text-transform: none; color: var(--mist);
 }
 .hero .corner-left {
   top: 50%; left: 0; transform: translateY(-50%) rotate(-90deg); transform-origin: top left;
