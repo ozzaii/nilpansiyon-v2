@@ -275,8 +275,73 @@ html {
   font-size: 16px;
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  overflow-x: clip;            /* defense — pair with body's overflow-x: clip */
 }
 @media (max-width: 720px) { html { font-size: 15px; } }
+/* every chapter section is its own paint-stage; clip atmosphere overlays inside */
+section, footer, .awards { overflow-x: clip; }
+/* mists / grain / atmospheric overlays must never spill */
+.mists, .meander-bg, .ink-wash, .photo-stage { overflow: clip; }
+
+/* ─── RTL + AR/RU language hooks ──────────────────────────────────────────
+   When body.rtl, the page reads right-to-left. Latin italic display fonts
+   don't render Arabic well, so we substitute system Arabic fonts that
+   handle ligatures correctly. Layout flips via dir=rtl + targeted
+   adjustments for hero footer-row and chapter headers. */
+body.rtl { direction: rtl; }
+body.lang-ar {
+  font-family: 'Noto Naskh Arabic', 'Noto Kufi Arabic', 'Amiri', 'SF Arabic', 'Geeza Pro', var(--body);
+}
+body.lang-ar h1, body.lang-ar h2, body.lang-ar h3,
+body.lang-ar .display, body.lang-ar .letters,
+body.lang-ar [data-i18n] {
+  /* prefer naskh (more elegant body curves) for headings; fall back to system Arabic */
+  font-family: 'Amiri', 'Noto Naskh Arabic', 'SF Arabic', serif;
+  font-style: normal;     /* italic axes are Latin-only; turn off for AR */
+  font-variation-settings: normal;
+  letter-spacing: 0;
+  font-feature-settings: 'liga', 'calt', 'kern';
+}
+body.lang-ar .letters { font-style: normal; }
+body.lang-ar .letters .ch { transform: none; opacity: 1; filter: none; }   /* letter-split is Latin-tuned — skip on AR */
+body.lang-ar .h2-em.letters .ch { transform: none; opacity: 1; filter: none; }
+body.lang-ar .ch-head .titleblock h2 em {
+  /* keep brass color but turn off italic axes for Arabic */
+  font-style: normal; font-variation-settings: normal;
+}
+/* hero scroll-cue, eyebrow pip etc. — make sure spacing reads */
+body.lang-ar .hero .sub { font-family: 'Noto Naskh Arabic', sans-serif; letter-spacing: 0; font-size: 12px; }
+body.lang-ar .hero .eyebrow-pill { font-family: 'Noto Naskh Arabic', sans-serif; letter-spacing: .04em; }
+body.lang-ar .hero .pansiyon-stamp,
+body.lang-ar .hero .coords,
+body.lang-ar .hero .scroll-cue { letter-spacing: 0; }
+
+body.lang-ru {
+  font-family: var(--body); /* Spectral has full Cyrillic */
+}
+/* italic Fraunces axes work fine for Cyrillic too — leave the axes on */
+
+/* preserve numerals + map coords in latin scripts regardless of body lang */
+.coords .v, .hero .pansiyon-stamp .h, .konum .dist .v { unicode-bidi: isolate; }
+
+/* RTL: flip select layout primitives that were authored LTR-first */
+body.rtl .hero .footer-row { direction: rtl; }
+body.rtl .hero .scroll-cue { justify-self: center; }
+body.rtl .arrow,
+body.rtl .btn .arrow,
+body.rtl .reveal-link .arrow { transform: scaleX(-1); }
+body.rtl .top-nav .links a::after { transform-origin: right; }
+body.rtl .marquee { animation-direction: reverse; }
+body.rtl .ch-head { grid-template-columns: 1fr auto auto; direction: rtl; }
+body.rtl .room .reveal-link,
+body.rtl .room .floating-tag { right: auto; left: clamp(10px, 1.6vw, 16px); }
+body.rtl .video-trigger { right: auto !important; left: clamp(10px, 1.6vw, 16px); }
+body.rtl .has-dropcap .dropcap { float: right; margin: 0 0 0 16px; }
+body.rtl .lang-menu { left: auto; right: 0; }
+body.rtl .nav-dots { left: 0; right: auto; }
+body.rtl .ambient-toggle { left: auto; right: 24px; }
+body.rtl .wa-fab { right: auto; left: 24px; }
+body.rtl .sticky-bar .actions { flex-direction: row-reverse; }
 
 body {
   font-family: var(--body);
@@ -457,7 +522,171 @@ html { scrollbar-color: var(--gold) var(--ink-2); scrollbar-width: thin; }
   opacity: 0; transition: opacity .7s ease;
   pointer-events: none; z-index: 1;
 }
-.room:hover .ph .room-vid { opacity: 1; }
+@media (hover: hover) {
+  .room:hover .ph .room-vid { opacity: 1; }
+}
+
+/* ─── tap-to-open video lightbox trigger (visible always; primary entry on touch) ─ */
+.room .ph .video-trigger {
+  position: absolute;
+  bottom: clamp(10px, 1.6vw, 16px);
+  right: clamp(10px, 1.6vw, 16px);
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 14px 7px 9px;
+  background: rgba(7, 8, 10, 0.62);
+  -webkit-backdrop-filter: blur(10px) saturate(1.15);
+  backdrop-filter: blur(10px) saturate(1.15);
+  border: 1px solid rgba(200, 164, 92, 0.42);
+  border-radius: 100px;
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  cursor: pointer;
+  -webkit-appearance: none; appearance: none;
+  transition:
+    transform 0.5s var(--ease),
+    background 0.5s var(--ease),
+    border-color 0.5s var(--ease),
+    box-shadow 0.5s var(--ease);
+  will-change: transform;
+}
+.room .ph .video-trigger:hover,
+.room .ph .video-trigger:focus-visible {
+  background: rgba(7, 8, 10, 0.78);
+  border-color: var(--gold);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+}
+.room .ph .video-trigger .play-icon {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  display: inline-flex;
+  align-items: center; justify-content: center;
+  color: var(--gold);
+  transition: background 0.5s var(--ease), color 0.5s var(--ease);
+}
+.room .ph .video-trigger:hover .play-icon,
+.room .ph .video-trigger:focus-visible .play-icon {
+  background: var(--gold);
+  color: var(--ink);
+}
+.room .ph .video-trigger .play-icon svg {
+  width: 8px; height: 8px;
+  transform: translateX(0.5px);
+}
+.room .ph .video-trigger .vt-label { line-height: 1; }
+@media (max-width: 720px) {
+  .room .ph .video-trigger { padding: 6px 12px 6px 8px; gap: 7px; font-size: 8.5px; letter-spacing: 0.24em; }
+  .room .ph .video-trigger .play-icon { width: 18px; height: 18px; }
+}
+
+/* ─── video lightbox modal ──────────────────────────────────────────────── */
+.video-lightbox {
+  position: fixed; inset: 0;
+  z-index: 240;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(7, 8, 10, 0.94);
+  -webkit-backdrop-filter: blur(24px) saturate(1.1);
+  backdrop-filter: blur(24px) saturate(1.1);
+  padding: clamp(16px, 4vw, 56px);
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity 0.55s var(--ease), visibility 0s linear 0.55s;
+}
+.video-lightbox.open {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+  transition: opacity 0.55s var(--ease), visibility 0s linear 0s;
+}
+.video-lightbox .vl-frame {
+  position: relative;
+  width: 100%;
+  max-width: 1180px;
+  aspect-ratio: 16 / 9;
+  max-height: 86vh;
+  background: #000;
+  border: 1px solid rgba(200, 164, 92, 0.22);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.65);
+  transform: scale(0.96) translateY(8px);
+  transition: transform 0.6s var(--ease);
+  will-change: transform;
+  overflow: hidden;
+}
+.video-lightbox.open .vl-frame { transform: none; }
+.video-lightbox .vl-frame video {
+  width: 100%; height: 100%;
+  display: block;
+  background: #000;
+  object-fit: contain;
+}
+.video-lightbox .vl-close {
+  position: absolute;
+  top: -14px; right: -14px;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--ink-2);
+  border: 1px solid var(--gold);
+  color: var(--paper);
+  display: inline-flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  -webkit-appearance: none; appearance: none;
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 22px;
+  line-height: 1;
+  z-index: 3;
+  transition: transform 0.4s var(--ease), background 0.4s var(--ease);
+}
+.video-lightbox .vl-close:hover,
+.video-lightbox .vl-close:focus-visible {
+  background: var(--gold);
+  color: var(--ink);
+  transform: rotate(90deg);
+}
+.video-lightbox .vl-caption {
+  position: absolute;
+  left: 4px; bottom: -32px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--mist);
+}
+.video-lightbox .vl-caption em {
+  font-family: var(--display);
+  font-style: italic;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 13px;
+  color: var(--paper);
+  margin-left: 8px;
+}
+@media (max-width: 720px) {
+  .video-lightbox { padding: 0; }
+  .video-lightbox .vl-frame {
+    border: 0;
+    max-height: none;
+    width: 100vw;
+    aspect-ratio: 9 / 16;
+    box-shadow: none;
+  }
+  .video-lightbox .vl-close {
+    top: max(14px, env(safe-area-inset-top, 0px));
+    right: max(14px, env(safe-area-inset-right, 0px));
+  }
+  .video-lightbox .vl-caption {
+    left: 14px; bottom: max(14px, env(safe-area-inset-bottom, 0px));
+  }
+}
+body.modal-open { overflow: hidden; }
 
 /* ─── falling spruce needles (hero) ─────────────────────────────────────── */
 .hero .needles {
@@ -614,6 +843,105 @@ body[data-weather="storm"] .weather-particles { opacity: 1; }
 /* ─── reveal on scroll ──────────────────────────────────────────────────── */
 .reveal { opacity: 0; transform: translateY(36px); transition: opacity 1.2s var(--ease-slow), transform 1.2s var(--ease-slow); }
 .reveal.in { opacity: 1; transform: none; }
+
+/* ─── reveal variants (set via data-reveal) ─────────────────────────────── */
+.reveal[data-reveal="left"]   { transform: translateX(-44px); }
+.reveal[data-reveal="right"]  { transform: translateX(44px); }
+.reveal[data-reveal="drop"]   { transform: translateY(-28px); }
+.reveal[data-reveal="rise"]   { transform: translateY(56px) scale(.985); }
+.reveal[data-reveal="bloom"]  { transform: translateY(20px) scale(.96); filter: blur(6px); transition: opacity 1.5s var(--ease-slow), transform 1.5s var(--ease-slow), filter 1.5s var(--ease-slow); }
+.reveal[data-reveal="rotate"] { transform: translateY(24px) rotate(-1.2deg); transform-origin: 30% 100%; }
+.reveal[data-reveal="veil"]   { transform: translateY(28px); clip-path: inset(0 0 100% 0); transition: opacity 1.4s var(--ease-slow), transform 1.4s var(--ease-slow), clip-path 1.4s var(--ease-slow); }
+.reveal[data-reveal].in { transform: none; filter: none; clip-path: inset(0 0 0 0); }
+
+/* ─── stagger (cascading children) ──────────────────────────────────────── */
+.reveal-cascade > * { opacity: 0; transform: translateY(28px); transition: opacity 1s var(--ease-slow), transform 1s var(--ease-slow); transition-delay: calc(var(--ri, 0) * 90ms); }
+.reveal-cascade.in > * { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .reveal-cascade > *, .reveal-cascade.in > * { opacity: 1; transform: none; transition: none; } }
+
+/* ─── chapter heading: rule line draws + roman fades + sub slides ───────── */
+.ch-head { --hri: 0; }
+.ch-head.reveal { opacity: 1; transform: none; }                    /* parent isn't the animated thing */
+.ch-head .roman { display: inline-block; opacity: 0; transform: translateY(8px); transition: opacity 1.2s var(--ease-slow), transform 1.2s var(--ease-slow); transition-delay: .15s; }
+.ch-head .titleblock .sub { display: inline-block; opacity: 0; transform: translateX(-12px); transition: opacity 1s var(--ease-slow), transform 1s var(--ease-slow); transition-delay: .25s; }
+.ch-head .right { opacity: 0; transform: translateX(12px); transition: opacity 1s var(--ease-slow), transform 1s var(--ease-slow); transition-delay: .35s; }
+.ch-head.in .roman, .ch-head.in .titleblock .sub, .ch-head.in .right { opacity: 1; transform: none; }
+
+/* (h2 italic-em letter reveal lives in .letters / .h2-em system below) */
+
+/* ─── rooms: stagger upward, image-tilt parallax on first reveal ────────── */
+.room { --rri: 0; opacity: 0; transform: translateY(48px); transition: opacity 1.1s var(--ease-slow), transform 1.1s var(--ease-spring); transition-delay: calc(var(--rri) * 110ms); }
+.room.in { opacity: 1; transform: none; }
+.room .ph img { transition: transform 1.6s var(--ease-slow), filter 1s var(--ease); }
+.room.in .ph img { transform: scale(1.025); }
+.room.in:hover .ph img { transform: scale(1.1); }
+@media (prefers-reduced-motion: reduce) { .room, .room.in { opacity: 1; transform: none; transition: none; } }
+
+/* room floating tag slides down from top edge */
+.room .floating-tag { opacity: 0; transform: translateY(-8px); transition: opacity .9s var(--ease-slow), transform .9s var(--ease-spring); transition-delay: calc(.55s + var(--rri) * 110ms); }
+.room.in .floating-tag { opacity: 1; transform: none; }
+
+/* roman numeral mark fades up bigger on reveal (subtle entrance) */
+.room .roman-mark { opacity: 0; }
+.room.in .roman-mark { transition-delay: calc(.5s + var(--rri) * 110ms); }
+
+/* ─── sofra: ingredient italics underline draw ──────────────────────────── */
+.sofra em.spec, .sofra .italic-spec { position: relative; }
+.sofra em.spec::after, .sofra .italic-spec::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: -2px; height: 1px; background: var(--gold);
+  transform: scaleX(0); transform-origin: left; transition: transform 1.4s var(--ease-slow);
+}
+.sofra .reveal.in em.spec::after, .sofra .reveal.in .italic-spec::after { transform: scaleX(1); transition-delay: .4s; }
+
+/* ─── hikaye: drop-cap brass flow (existing has-dropcap class) ──────────── */
+.has-dropcap { position: relative; }
+.has-dropcap .dropcap { display: inline-block; opacity: 0; transform: translateY(8px) scale(.92); transition: opacity 1.4s var(--ease-slow), transform 1.4s var(--ease-spring); transition-delay: .25s; }
+.has-dropcap.in .dropcap, .reveal.in .has-dropcap .dropcap { opacity: 1; transform: none; }
+
+/* ─── mevsimler: 4-season cascade ───────────────────────────────────────── */
+/* season cards already get .reveal class individually, but we add a parent-level
+   cascade so each card's transform is unique (rise + slight rotate) */
+.season-grid .season { transform: translateY(48px) scale(.97); transition: opacity 1.2s var(--ease-slow), transform 1.2s var(--ease-spring); }
+.season-grid .season.in { transform: none; }
+.season-grid .season .ornament { opacity: 0; transform: scale(.6) rotate(-12deg); transition: opacity 1.4s var(--ease-slow), transform 1.4s var(--ease-spring); transition-delay: .25s; }
+.season-grid .season.in .ornament { opacity: .55; transform: none; }
+
+/* ─── konum: sequential landmark drop on map reveal ─────────────────────── */
+.konum [data-svg-stagger] { opacity: 0; transform: translateY(6px); transition: opacity .9s var(--ease-slow), transform .9s var(--ease-spring); }
+.konum .reveal.in [data-svg-stagger] { opacity: 1; transform: none; transition-delay: calc(.3s + var(--si, 0) * 120ms); }
+
+/* ─── defter: editorial rotate-in for testimonial cards ─────────────────── */
+.testimonials .card { opacity: 0; transform: translateY(28px) rotate(-1.4deg); transform-origin: 20% 90%; transition: opacity 1.2s var(--ease-slow), transform 1.2s var(--ease-spring); }
+.testimonials .card:nth-child(even) { transform: translateY(28px) rotate(1.6deg); }
+.testimonials.in .card { opacity: 1; transform: rotate(0); transition-delay: calc(var(--ci, 0) * 120ms); }
+@media (prefers-reduced-motion: reduce) { .testimonials .card, .testimonials.in .card { opacity: 1; transform: none; transition: none; } }
+
+/* ─── rezervasyon: form fields stagger fade-in ──────────────────────────── */
+.rez-form .field, .rez-form .row > * { opacity: 0; transform: translateY(16px); transition: opacity .9s var(--ease-slow), transform .9s var(--ease-spring); }
+.rez-form.in .field, .rez-form.in .row > * { opacity: 1; transform: none; transition-delay: calc(var(--fi, 0) * 70ms); }
+
+/* ─── footer: signature path draws ──────────────────────────────────────── */
+.foot .signature path { stroke-dasharray: 1400; stroke-dashoffset: 1400; transition: stroke-dashoffset 2.6s var(--ease-slow); }
+.foot.in .signature path { stroke-dashoffset: 0; transition-delay: .4s; }
+
+/* ─── chapter sub-roman number style boost ──────────────────────────────── */
+.ch-head .roman { transition: opacity 1.2s var(--ease-slow), transform 1.2s var(--ease-slow), font-variation-settings 2s var(--ease-slow); font-variation-settings: 'opsz' 144, 'SOFT' 0, 'WONK' 0, 'wght' 320; }
+.ch-head.in .roman { font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1, 'wght' 340; }
+
+/* ─── reveal hardening: respect reduced motion ──────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal.in,
+  .reveal[data-reveal], .reveal[data-reveal].in,
+  .room, .room.in,
+  .room .floating-tag, .room.in .floating-tag,
+  .season-grid .season, .season-grid .season.in,
+  .testimonials .card, .testimonials.in .card,
+  .rez-form .field, .rez-form .row > *, .rez-form.in .field, .rez-form.in .row > *,
+  .ch-head .roman, .ch-head .titleblock .sub, .ch-head .right,
+  .ch-head.in .roman, .ch-head.in .titleblock .sub, .ch-head.in .right {
+    opacity: 1 !important; transform: none !important; clip-path: none !important; filter: none !important; transition: none !important;
+  }
+}
 /* hero reveals are above-fold — fire immediately on load via animation, not IO */
 .hero .reveal { animation: hero-reveal-in 1.4s var(--ease-slow) forwards; opacity: 0; transform: translateY(36px); }
 .hero .reveal-delay-1 { animation-delay: .1s; }
@@ -656,6 +984,8 @@ body[data-weather="storm"] .weather-particles { opacity: 1; }
   font-variation-settings: 'opsz' 144, 'SOFT' 70, 'WONK' 1, 'wght' 320;
 }
 .letters .ch.space { width: .32em; }
+/* word group keeps every chunk's letters together so they never break mid-word */
+.letters .word-grp, .h2-em .word-grp { display: inline-block; white-space: nowrap; }
 .letters .ch.cap { font-feature-settings: "smcp"; }
 
 /* h2 italic em letter reveal — gentler than hero */
@@ -944,16 +1274,18 @@ body[data-weather="storm"] .weather-particles { opacity: 1; }
   transition: transform 18s ease-out, opacity 2.6s ease-out;
   will-change: transform;
 }
-.hero .bg-photo.active { opacity: .85; }
+.hero .bg-photo.active { opacity: .72; }
 .hero .bg-photo.p1 { background-image: url('assets/img/hero-uzungol-kusbakisi.jpg'); background-position: 50% 50%; }
 .hero .bg-photo.p2 { background-image: url('assets/img/otel-uzungol-genel-gorunum.jpg'); background-position: 50% 60%; }
 .hero .bg-photo.p3 { background-image: url('assets/img/hero-uzungol-kusbakisi.jpg'); background-position: 30% 40%; }
 .hero .bg-photo.p4 { background-image: url('assets/img/otel-dis-cephe-yesil.jpg'); background-position: 50% 50%; }
 .hero .bg-vignette {
   position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  /* deeper centred shadow so italic title always reads on any photo crossfade */
   background:
-    radial-gradient(ellipse at center, transparent 25%, rgba(7,8,10,.45) 75%, rgba(7,8,10,.9) 100%),
-    linear-gradient(180deg, rgba(7,8,10,.50) 0%, transparent 22%, transparent 60%, rgba(7,8,10,.82) 100%);
+    radial-gradient(ellipse 65% 55% at center, rgba(7,8,10,.42) 0%, rgba(7,8,10,.18) 35%, transparent 70%),
+    radial-gradient(ellipse at center, transparent 25%, rgba(7,8,10,.55) 75%, rgba(7,8,10,.92) 100%),
+    linear-gradient(180deg, rgba(7,8,10,.60) 0%, transparent 22%, transparent 56%, rgba(7,8,10,.88) 100%);
 }
 
 .hero .frame {
@@ -1002,7 +1334,24 @@ body[data-weather="storm"] .weather-particles { opacity: 1; }
   text-align: center; color: var(--paper);
   margin: 0; padding: 0;
   display: flex; flex-direction: column; align-items: center; gap: 22px;
-  filter: drop-shadow(0 6px 32px rgba(7,8,10,.55));
+  position: relative;
+  /* layered shadow: soft warm halo + crisp ink for legibility on any photo */
+  filter:
+    drop-shadow(0 1px 0  rgba(7,8,10,.55))
+    drop-shadow(0 4px 18px rgba(7,8,10,.65))
+    drop-shadow(0 0 56px rgba(7,8,10,.45));
+}
+.hero h1.title::before {
+  /* breath of dark behind the title — survives any photo crossfade */
+  content: ''; position: absolute; left: 50%; top: 50%;
+  width: 130%; height: 180%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse 55% 55% at 50% 50%, rgba(7,8,10,.55), rgba(7,8,10,.18) 55%, transparent 75%);
+  z-index: -1; pointer-events: none;
+  filter: blur(4px);
+}
+@media (max-width: 720px) {
+  .hero h1.title::before { width: 150%; height: 220%; }
 }
 .hero h1.title .word { display: block; }
 .hero h1.title .word.lower {
@@ -1325,8 +1674,13 @@ section { position: relative; isolation: isolate; }
   color: inherit;
 }
 .ch-head .titleblock h2 em {
-  font-style: italic; color: var(--brass);
+  font-style: italic; color: var(--gold-hi);
   font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1, 'wght' 360;
+}
+/* on cream/paper chapters: brass deepens for contrast; on dark/moss chapters: gold-hi already pops */
+.chapter.cream .ch-head .titleblock h2 em,
+.chapter.paper-grain .ch-head .titleblock h2 em {
+  color: var(--gold-deep);
 }
 .ch-head .titleblock .sub {
   font-family: var(--mono); font-size: 11px; letter-spacing: .3em; text-transform: uppercase;
@@ -3440,15 +3794,15 @@ section { position: relative; isolation: isolate; }
             <span class="meta">EN</span>
           </button>
           <div class="divider"></div>
-          <button class="opt soon" data-lang="ar" role="option" aria-disabled="true">
+          <button class="opt" data-lang="ar" role="option">
             <span class="flag">A</span>
             <span class="name">العربية</span>
-            <span class="meta">soon</span>
+            <span class="meta">AR</span>
           </button>
-          <button class="opt soon" data-lang="ru" role="option" aria-disabled="true">
+          <button class="opt" data-lang="ru" role="option">
             <span class="flag">P</span>
             <span class="name">Русский</span>
-            <span class="meta">soon</span>
+            <span class="meta">RU</span>
           </button>
         </div>
       </span>
@@ -3646,9 +4000,13 @@ section { position: relative; isolation: isolate; }
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="3" y="2" width="8" height="10" stroke="currentColor" stroke-width="1"/><path d="M3 6h8" stroke="currentColor" stroke-width="1"/></svg>
             </span>
           </div>
-          <div class="ph">
+          <div class="ph" data-video-src="assets/video/deluxe-room-tour.mp4" data-video-title="Deluxe Oda · Tur">
             <img src="assets/img/deluxe-cift-kisilik-oda.jpg" alt="Deluxe Oda · ahşap, ferah, dağ manzarası" loading="lazy" decoding="async" width="1200" height="800" />
             <video class="room-vid" muted loop playsinline preload="metadata" src="assets/video/deluxe-room-tour.mp4"></video>
+            <button class="video-trigger" type="button" aria-label="Deluxe Oda turu — videoyu izle" data-i18n-aria-label="Deluxe Room tour — watch video">
+              <span class="play-icon" aria-hidden="true"><svg viewBox="0 0 8 8"><path d="M1 0v8l7-4z" fill="currentColor"/></svg></span>
+              <span class="vt-label" data-i18n="room.tour">Oda turu</span>
+            </button>
           </div>
           <div class="meta">
             <div>
@@ -3673,9 +4031,13 @@ section { position: relative; isolation: isolate; }
             <span class="f" title="Mutfak"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 2v6H2v4h10V8h-1V2H9v4H5V2H3z" stroke="currentColor" stroke-width="1"/></svg></span>
             <span class="f" title="Salon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 10v-3a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v3M1 10h12v2H1z" stroke="currentColor" stroke-width="1"/></svg></span>
           </div>
-          <div class="ph">
+          <div class="ph" data-video-src="assets/video/2plus1-apartment-tour.mp4" data-video-title="2+1 Daire · Tur">
             <img src="assets/img/family-bungalov-mutfak-salon.jpg" alt="2+1 Daire · Mutfak ve salon" loading="lazy" decoding="async" width="1200" height="800" />
             <video class="room-vid" muted loop playsinline preload="metadata" src="assets/video/2plus1-apartment-tour.mp4"></video>
+            <button class="video-trigger" type="button" aria-label="2+1 Daire turu — videoyu izle" data-i18n-aria-label="2+1 Apartment tour — watch video">
+              <span class="play-icon" aria-hidden="true"><svg viewBox="0 0 8 8"><path d="M1 0v8l7-4z" fill="currentColor"/></svg></span>
+              <span class="vt-label" data-i18n="room.tour">Oda turu</span>
+            </button>
           </div>
           <div class="meta">
             <div>
@@ -3700,9 +4062,13 @@ section { position: relative; isolation: isolate; }
             <span class="f" title="Mutfak"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 2v6H2v4h10V8h-1V2H9v4H5V2H3z" stroke="currentColor" stroke-width="1"/></svg></span>
             <span class="f" title="Otopark"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="10" height="10" stroke="currentColor" stroke-width="1"/><path d="M5 10V4h3a2 2 0 0 1 0 4H5" stroke="currentColor" stroke-width="1"/></svg></span>
           </div>
-          <div class="ph">
+          <div class="ph" data-video-src="assets/video/1plus1-mountain-view.mp4" data-video-title="1+1 Daire · Tur">
             <img src="assets/img/family-bungalov-oturma-alani.jpg" alt="1+1 Daire · Oturma alanı" loading="lazy" decoding="async" width="1200" height="800" />
             <video class="room-vid" muted loop playsinline preload="metadata" src="assets/video/1plus1-mountain-view.mp4"></video>
+            <button class="video-trigger" type="button" aria-label="1+1 Daire turu — videoyu izle" data-i18n-aria-label="1+1 Apartment tour — watch video">
+              <span class="play-icon" aria-hidden="true"><svg viewBox="0 0 8 8"><path d="M1 0v8l7-4z" fill="currentColor"/></svg></span>
+              <span class="vt-label" data-i18n="room.tour">Oda turu</span>
+            </button>
           </div>
           <div class="meta">
             <div>
@@ -4527,6 +4893,15 @@ section { position: relative; isolation: isolate; }
     </div>
   </footer>
 
+  <!-- Video tour lightbox — opened from .video-trigger taps on room cards. -->
+  <div class="video-lightbox" id="video-lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Oda turu">
+    <div class="vl-frame">
+      <video playsinline controls loop preload="none" crossorigin="anonymous"></video>
+      <button class="vl-close" type="button" aria-label="Kapat" data-i18n-aria-label="Close">×</button>
+    </div>
+    <div class="vl-caption"><span data-i18n="room.tour.caption">Oda turu</span><em></em></div>
+  </div>
+
 <script>
 /* ──────────────────────────────────────────────────────────────────────────
    davranış — el ile yazılmış, sınırsız özen
@@ -4883,27 +5258,67 @@ document.getElementById('year').textContent = new Date().getFullYear();
 
 /* ─── reveal-on-scroll observer ──────────────────────────────────────────── */
 (() => {
+  /* index cascade children with --ri (used by .reveal-cascade) */
+  document.querySelectorAll('.reveal-cascade').forEach(parent => {
+    [...parent.children].forEach((c, i) => c.style.setProperty('--ri', i));
+  });
+  /* index room cards so stagger holds even if reveal class is shared */
+  document.querySelectorAll('.rooms .room').forEach((room, i) => room.style.setProperty('--rri', i % 3));
+  /* index testimonials, mevsim cards, form fields */
+  document.querySelectorAll('.testimonials .card').forEach((c, i) => c.style.setProperty('--ci', i));
+  document.querySelectorAll('.season-grid .season').forEach((m, i) => m.style.setProperty('--mi', i));
+  document.querySelectorAll('.rez-form .field, .rez-form .row > *').forEach((f, i) => f.style.setProperty('--fi', i));
+  document.querySelectorAll('.konum [data-svg-stagger]').forEach((s, i) => s.style.setProperty('--si', i));
+
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
   }, { threshold: 0, rootMargin: '0px 0px 120px 0px' });
+
+  /* every .reveal element observes (existing contract) */
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  /* additional reveal triggers for compound sections — apply .in to a
+     designated container when it enters the viewport. Lets us cascade rooms,
+     mevsim cards, testimonials, form fields, footer signature, etc. */
+  const compounds = [
+    '.rooms', '.rooms-section',
+    '.testimonials', '.testimonials-wrap',
+    '.season-grid',
+    '.rez-form',
+    '.foot',
+    '.ch-head',
+  ];
+  document.querySelectorAll(compounds.join(',')).forEach(el => io.observe(el));
 })();
 
 /* ─── letter-split for cinematic per-char reveal ─────────────────────────── */
 (() => {
+  /* Split text into per-character spans, but keep each word atomic — words go
+     inside a .word wrapper with `white-space: nowrap` so reveal staggers per-
+     character while wrap-points only occur between words, never mid-syllable. */
   const splitInto = (el, text) => {
     el.innerHTML = '';
-    [...text].forEach((c, i) => {
-      const span = document.createElement('span');
-      if (c === ' ') {
-        span.className = 'ch space';
-        span.innerHTML = '&nbsp;';
-      } else {
+    let i = 0;
+    text.split(/(\s+)/).forEach(token => {
+      if (!token) return;
+      if (/^\s+$/.test(token)) {
+        const sp = document.createElement('span');
+        sp.className = 'ch space';
+        sp.innerHTML = '&nbsp;';
+        sp.style.setProperty('--i', i++);
+        el.appendChild(sp);
+        return;
+      }
+      const word = document.createElement('span');
+      word.className = 'word-grp';
+      [...token].forEach(c => {
+        const span = document.createElement('span');
         span.className = 'ch';
         span.textContent = c;
-      }
-      span.style.setProperty('--i', i);
-      el.appendChild(span);
+        span.style.setProperty('--i', i++);
+        word.appendChild(span);
+      });
+      el.appendChild(word);
     });
   };
 
@@ -4923,7 +5338,10 @@ document.getElementById('year').textContent = new Date().getFullYear();
   const heroLetters = document.querySelectorAll('.hero [data-letters]');
   setTimeout(() => heroLetters.forEach(el => el.classList.add('in')), 320);
 
-  /* for h2 em — observe the parent header so they fire together */
+  /* for h2 em — observe the parent header so they fire together. We use
+     rootMargin to start the reveal slightly before the header enters the
+     viewport, so the italic-bloom feels paced and never gets stuck if the
+     user instant-scrolls past a section. */
   const headerObs = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -4931,7 +5349,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
         headerObs.unobserve(e.target);
       }
     });
-  }, { threshold: 0.25 });
+  }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
   document.querySelectorAll('.ch-head').forEach(h => headerObs.observe(h));
 
   /* generic letters fade-in via IO for any other [data-letters] */
@@ -4942,7 +5360,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
         io.unobserve(e.target);
       }
     });
-  }, { threshold: 0.35 });
+  }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
   document.querySelectorAll('[data-letters]:not(.hero [data-letters]):not(.h2-em)').forEach(el => io.observe(el));
 })();
 
@@ -5278,6 +5696,8 @@ document.getElementById('year').textContent = new Date().getFullYear();
       'meta.open':      'Açık · Misafir kabul ediyoruz',
       'sticky.book':    'Rezervasyon İste',
       'sticky.wa':      'WhatsApp',
+      'room.tour':         'Oda turu',
+      'room.tour.caption': 'Oda turu',
     },
     en: {
       'nav.rooms': 'Rooms',   'nav.kitchen': 'Kitchen','nav.story': 'Story',
@@ -5294,6 +5714,55 @@ document.getElementById('year').textContent = new Date().getFullYear();
       'meta.open':      'Open · accepting guests',
       'sticky.book':    'Reserve a room',
       'sticky.wa':      'WhatsApp',
+      'room.tour':         'Room tour',
+      'room.tour.caption': 'Room tour',
+    },
+    /* Arabic — Modern Standard, hospitality-register, written to read with
+       warmth (not airport-formal). Direction handled via body.rtl. */
+    ar: {
+      'nav.rooms':       'الغرف',
+      'nav.kitchen':     'المطبخ',
+      'nav.story':       'الحكاية',
+      'nav.seasons':     'الفصول',
+      'nav.location':    'الموقع',
+      'nav.book':        'الحجز',
+      'hero.eyebrow':    'تأسّست · ١٩٨٧ · أوزونغُل',
+      'hero.tagline':    'حيث يلتقي الضباب بالبحيرة',
+      'hero.sub.a':      'غابة التَّنوب',
+      'hero.sub.b':      '١٢ غرفة خشبيّة',
+      'hero.sub.c':      'مائدة واحدة مشتركة',
+      'hero.altitude.l': 'الارتفاع',
+      'hero.location.l': 'الموقع',
+      'hero.scroll.a':   'انزلْ',
+      'hero.scroll.b':   'مع المجرى',
+      'meta.open':       'مفتوح · نرحّب بضيوفنا',
+      'sticky.book':     'احجز إقامتك',
+      'sticky.wa':       'واتساب',
+      'room.tour':        'جولة في الغرفة',
+      'room.tour.caption':'جولة في الغرفة',
+    },
+    /* Russian — premium-hospitality tone with literary cadence. */
+    ru: {
+      'nav.rooms':       'Номера',
+      'nav.kitchen':     'Кухня',
+      'nav.story':       'История',
+      'nav.seasons':     'Сезоны',
+      'nav.location':    'Где мы',
+      'nav.book':        'Бронирование',
+      'hero.eyebrow':    'осн · 1987 · узунгёль',
+      'hero.tagline':    'Там, где туман касается озера',
+      'hero.sub.a':      'Еловый лес',
+      'hero.sub.b':      '12 деревянных номеров',
+      'hero.sub.c':      'один общий стол',
+      'hero.altitude.l': 'Высота',
+      'hero.location.l': 'Локация',
+      'hero.scroll.a':   'вниз',
+      'hero.scroll.b':   'по течению',
+      'meta.open':       'Открыто · принимаем гостей',
+      'sticky.book':     'Забронировать',
+      'sticky.wa':       'WhatsApp',
+      'room.tour':        'Тур по номеру',
+      'room.tour.caption':'Тур по номеру',
     },
   };
 
@@ -5306,6 +5775,10 @@ document.getElementById('year').textContent = new Date().getFullYear();
       if (dict[key] !== undefined) el.textContent = dict[key];
     });
     document.documentElement.setAttribute('lang', code);
+    document.documentElement.setAttribute('dir', code === 'ar' ? 'rtl' : 'ltr');
+    document.body.classList.toggle('rtl', code === 'ar');
+    document.body.classList.toggle('lang-ar', code === 'ar');
+    document.body.classList.toggle('lang-ru', code === 'ru');
     codeEl.textContent = code.toUpperCase();
     glyphEl.textContent = tag(code);
     opts.forEach(o => o.classList.toggle('current', o.dataset.lang === code));
@@ -5322,6 +5795,11 @@ document.getElementById('year').textContent = new Date().getFullYear();
   document.addEventListener('keydown', e => { if (e.key === 'Escape') setOpen(false); });
 
   opts.forEach(o => {
+    /* AR + RU are no longer "soon" — clear the flag if it was wired in DOM */
+    if (o.dataset.lang === 'ar' || o.dataset.lang === 'ru') {
+      o.classList.remove('soon');
+      o.removeAttribute('aria-disabled');
+    }
     o.addEventListener('click', e => {
       e.stopPropagation();
       if (o.classList.contains('soon')) return;
@@ -5924,6 +6402,83 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 
   // remember preference across refreshes — but require a user gesture to start audio
   // (autoplay policy), so we just leave the toggle in idle state on load
+})();
+
+/* ─── video lightbox controller ─────────────────────────────────────────────
+   Mobile-first entry into the room-tour videos. Hover-preview still runs on
+   desktop (pointer:fine via the @media (hover:hover) gate on .room-vid), but
+   the visible brass trigger is the primary affordance and the only one on
+   touch devices. Tap → fullscreen modal with native controls, autoplay
+   (gesture-driven so iOS allows it), loop, ESC + backdrop + close button.
+   No frameworks, no third-party — pure DOM. */
+(function () {
+  const lightbox = document.getElementById('video-lightbox');
+  if (!lightbox) return;
+  const videoEl = lightbox.querySelector('video');
+  const captionEl = lightbox.querySelector('.vl-caption em');
+  const closeBtn = lightbox.querySelector('.vl-close');
+
+  let lastTrigger = null;
+  let scrollY = 0;
+
+  function open(src, title, triggerEl) {
+    if (!src) return;
+    lastTrigger = triggerEl || null;
+    if (captionEl) captionEl.textContent = title || '';
+    try {
+      videoEl.src = src;
+      videoEl.currentTime = 0;
+    } catch (_) {}
+    scrollY = window.scrollY || window.pageYOffset || 0;
+    document.body.classList.add('modal-open');
+    lightbox.classList.add('open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    // Defer focus + play to after the transition starts so iOS treats it as
+    // user-gesture continuation. Best-effort play; if browser blocks, controls
+    // still let the user tap.
+    requestAnimationFrame(() => {
+      try { videoEl.play().catch(() => {}); } catch (_) {}
+      try { closeBtn.focus({ preventScroll: true }); } catch (_) {}
+    });
+  }
+
+  function close() {
+    if (!lightbox.classList.contains('open')) return;
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+    try { videoEl.pause(); } catch (_) {}
+    // Hard release: clear src after the fade so the next open is a fresh load
+    // (saves bandwidth on multiple opens of different rooms).
+    setTimeout(() => {
+      try {
+        videoEl.removeAttribute('src');
+        videoEl.load();
+      } catch (_) {}
+    }, 600);
+    if (lastTrigger && typeof lastTrigger.focus === 'function') {
+      try { lastTrigger.focus({ preventScroll: true }); } catch (_) {}
+    }
+  }
+
+  // Delegate clicks on every .video-trigger inside .ph[data-video-src].
+  document.addEventListener('click', (e) => {
+    const trigger = e.target.closest && e.target.closest('.video-trigger');
+    if (!trigger) return;
+    const ph = trigger.closest('.ph[data-video-src]');
+    if (!ph) return;
+    e.preventDefault();
+    e.stopPropagation();
+    open(ph.dataset.videoSrc, ph.dataset.videoTitle || '', trigger);
+  });
+
+  closeBtn.addEventListener('click', close);
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) close();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox.classList.contains('open')) close();
+  });
 })();
 
 </script>
